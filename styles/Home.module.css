@@ -15,15 +15,18 @@
   width: 100%;
 }
 
-.title {
+.title,
+.address {
   font-family: BrandonWeb;
+}
+
+.title {
   font-size: var(--font-size-5);
   color: var(--text);
   text-align: center;
 }
 
 .address {
-  font-family: BrandonWeb;
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-4);
   text-align: center;
 }
