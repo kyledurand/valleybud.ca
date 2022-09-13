@@ -21,3 +21,9 @@
   color: var(--text);
   text-align: center;
 }
+
+.address {
+  font-family: BrandonWeb;
+  font-size: var(--font-size-3);
+  text-align: center;
+}

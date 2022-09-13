@@ -43,6 +43,10 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           opening after carp fair, but probably before deer season
         </h1>
+        <p className={styles.address}>
+          433B Donald B. Munro Drive, Carp ON. |{" "}
+          <a href="mailto:gday@valleybud.ca">gday@valleybud.ca</a>
+        </p>
       </main>
     </>
   );
