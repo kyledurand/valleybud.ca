@@ -5,6 +5,7 @@ interface Props {
 }
 
 export default function Launches({launches}: Props) {
+  console.log(launches.length);
   return (
     <>
       <h1 style={{marginTop: "5rem"}}>Launches</h1>
@@ -53,11 +54,13 @@ export async function getServerSideProps() {
     uri: "https://api.spacex.land/graphql/",
     cache: new InMemoryCache(),
   });
-  console.log("fetching data");
+
+  const randomNumber = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+
   const {data} = await client.query({
     query: gql`
       query GetLaunches {
-        launchesPast(limit: 5) {
+        launchesPast(limit: ${randomNumber}) {
           id
           mission_name
           launch_date_local
@@ -71,7 +74,7 @@ export async function getServerSideProps() {
       }
     `,
   });
-  console.log({data});
+
   return {
     props: {
       launches: data.launchesPast,
