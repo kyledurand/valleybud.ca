@@ -38,6 +38,7 @@ export default function Launches({launches}: Props) {
                   <li>Launch site: {site_name_long}</li>
                   <li>Rocket: {rocket_name}</li>
                 </ul>
+                <hr />
               </li>
             );
           }
@@ -47,16 +48,16 @@ export default function Launches({launches}: Props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const client = new ApolloClient({
     uri: "https://api.spacex.land/graphql/",
     cache: new InMemoryCache(),
   });
-
+  console.log("fetching data");
   const {data} = await client.query({
     query: gql`
       query GetLaunches {
-        launchesPast(limit: 10) {
+        launchesPast(limit: 5) {
           id
           mission_name
           launch_date_local
