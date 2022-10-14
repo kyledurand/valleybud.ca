@@ -5,7 +5,14 @@ import {Logo} from "../components/logo";
 
 const Home: NextPage = () => {
   return (
-    <>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Head>
         <title>Welcome to Valleybud.ca</title>
         <meta
@@ -48,7 +55,7 @@ const Home: NextPage = () => {
           <a href="mailto:gday@valleybud.ca">gday@valleybud.ca</a>
         </p>
       </main>
-    </>
+    </div>
   );
 };
 
