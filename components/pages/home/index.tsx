@@ -4,6 +4,7 @@ import styles from "../../../styles/Home.module.css";
 import {Logo} from "components/shared/svg/logo";
 
 const Home: NextPage = () => {
+  console.log("yo");
   return (
     <div
       style={{
