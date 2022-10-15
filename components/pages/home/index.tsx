@@ -7,6 +7,7 @@ const Home: NextPage = () => {
   return (
     <div
       style={{
+        position: "relative",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
@@ -55,6 +56,18 @@ const Home: NextPage = () => {
           433B Donald B. Munro Drive, Carp ON. |{" "}
           <a href="mailto:gday@valleybud.ca">gday@valleybud.ca</a>
         </p>
+        <a
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: "42px",
+            height: "42px",
+            background: "none",
+            border: "none",
+          }}
+          href="/home"
+        />
       </main>
     </div>
   );

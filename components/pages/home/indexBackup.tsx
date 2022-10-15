@@ -29,8 +29,9 @@ function Home(): React.ReactNode {
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
         <Nav darkBackground />
-        <HeroSection />
-        <ShopSection />
+        {/* <HeroSection />
+        <ShopSection /> */}
+        home content
         <Footer />
       </Container>
     </CheckoutContext.Provider>

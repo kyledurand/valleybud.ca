@@ -1,22 +1,22 @@
-import { useState } from "react";
+// import {useState} from "react";
 import styled from "styled-components";
-import { mediaQueries } from "styles/media-queries";
+import {mediaQueries} from "styles/media-queries";
 
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
+// import InputAdornment from "@material-ui/core/InputAdornment";
 
 export function Footer(): JSX.Element {
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
 
   return (
     <Container>
-      <Header>Join our secret society</Header>
+      {/* <Header>Join our secret society</Header>
       <Subheader>
         Join our mailing list to learn about specials and new products arriving
         at North Cannabis.
-      </Subheader>
+      </Subheader> */}
 
-      {/* TODO */}
+      {/* TODO
       <EmailContainer>
         <EmailInput
           placeholder="Enter your email address"
@@ -28,7 +28,7 @@ export function Footer(): JSX.Element {
             </InputAdornment>
           }
         />
-      </EmailContainer>
+      </EmailContainer> */}
 
       <LinkListsContainer>
         <LinkList>
