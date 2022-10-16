@@ -1,27 +1,27 @@
-import {AppProps} from "next/app";
+import { AppProps } from "next/app";
 import Head from "next/head";
-import {ApolloProvider} from "@apollo/client";
-import {normalize} from "styled-normalize";
+import { ApolloProvider } from "@apollo/client";
+import { normalize } from "styled-normalize";
 import "../styles/globals.css";
 import {
   createGlobalStyle,
   ThemeProvider as StyledComponentsProvider,
 } from "styled-components";
-import {useApollo} from "api/apollo";
-import {QueryParamProvider} from "components/shared/query-param-provider";
+import { useApollo } from "api/apollo";
+import { QueryParamProvider } from "components/shared/query-param-provider";
 import {
   ThemeProvider as MuiProvider,
   StylesProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import {mediaSizes, mediaQueries} from "styles/media-queries";
+import { mediaSizes, mediaQueries } from "styles/media-queries";
 
 // exports for use in storybook TODO: move/reorganize this stuff
 export {
   ThemeProvider as MuiProvider,
   StylesProvider,
 } from "@material-ui/core/styles";
-export {ThemeProvider as StyledComponentsProvider} from "styled-components";
+export { ThemeProvider as StyledComponentsProvider } from "styled-components";
 export const styledComponentsTheme = {
   breakpoints: Object.values(mediaSizes)
     .reverse()
@@ -53,13 +53,13 @@ const PagesStyle = createGlobalStyle`
   }
 `;
 
-export default function App({Component, pageProps}: AppProps): JSX.Element {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
     <>
       <Head>
-        <title>North Cannabis</title>
+        <title>Valley Bud</title>
         <meta name="robots" content="noindex" />
       </Head>
       <QueryParamProvider>

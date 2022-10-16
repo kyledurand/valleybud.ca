@@ -1,22 +1,22 @@
-import {useState, useContext} from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 import Drawer from "@material-ui/core/Drawer";
 
-import {useApollo} from "api/apollo";
-import {Category} from "api/queries/checkout.graphql";
-import {Chevron, ChevronDirection} from "components/shared/svg/chevron";
-import {Logo} from "components/shared/svg/logo";
-import {CartIcon} from "components/shared/svg/cart-icon";
-import {UserIcon} from "components/shared/svg/user-icon";
-import {HeartIcon} from "components/shared/svg/heart-icon";
-import {CheckoutContext} from "components/shared/checkout-context";
-import {LoadingSpinner} from "components/shared/loading-spinner";
-import {displayNameForCategory} from "utils/enum-to-display-name/category";
+import { useApollo } from "api/apollo";
+import { Category } from "api/queries/checkout.graphql";
+import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
+import { Logo } from "components/shared/svg/logo";
+import { CartIcon } from "components/shared/svg/cart-icon";
+import { UserIcon } from "components/shared/svg/user-icon";
+import { HeartIcon } from "components/shared/svg/heart-icon";
+import { CheckoutContext } from "components/shared/checkout-context";
+import { LoadingSpinner } from "components/shared/loading-spinner";
+import { displayNameForCategory } from "utils/enum-to-display-name/category";
 
-import {NavProps} from "./index";
-import {Cart} from "./cart/index";
+import { NavProps } from "./index";
+import { Cart } from "./cart/index";
 
 const SUBMENU_CATEGORIES = [
   Category.Flower,
@@ -30,13 +30,17 @@ const SUBMENU_CATEGORIES = [
 ];
 
 export function DesktopNav(props: NavProps): JSX.Element {
-  const {darkBackground, page, selectSingleCategory = () => undefined} = props;
+  const {
+    darkBackground,
+    page,
+    selectSingleCategory = () => undefined,
+  } = props;
 
   const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const router = useRouter();
   const apolloClient = useApollo();
-  const {checkout, loading} = useContext(CheckoutContext);
+  const { checkout, loading } = useContext(CheckoutContext);
 
   const checkoutItemsCount = checkout?.items.length || 0;
 
@@ -140,7 +144,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
             </SubmenuSection>
             <Divider />
             <SubmenuSection>
-              <SubmenuItemBold>Shop North Cannabis</SubmenuItemBold>
+              <SubmenuItemBold>Shop Valley Bud</SubmenuItemBold>
               {SUBMENU_CATEGORIES.map((category) => (
                 <SubmenuItem
                   key={category}
@@ -239,7 +243,7 @@ const SubmenuItem = styled.div`
   }
 `;
 
-const NavContainer = styled.nav<{darkBackground?: boolean}>`
+const NavContainer = styled.nav<{ darkBackground?: boolean }>`
   z-index: 3;
   position: relative;
   display: flex;

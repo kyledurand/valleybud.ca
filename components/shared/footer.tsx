@@ -1,6 +1,6 @@
 // import {useState} from "react";
 import styled from "styled-components";
-import {mediaQueries} from "styles/media-queries";
+import { mediaQueries } from "styles/media-queries";
 
 // import OutlinedInput from "@material-ui/core/OutlinedInput";
 // import InputAdornment from "@material-ui/core/InputAdornment";
@@ -13,7 +13,7 @@ export function Footer(): JSX.Element {
       {/* <Header>Join our secret society</Header>
       <Subheader>
         Join our mailing list to learn about specials and new products arriving
-        at North Cannabis.
+        at Valley Bud.
       </Subheader> */}
 
       {/* TODO
@@ -62,7 +62,7 @@ export function Footer(): JSX.Element {
         </SocialLinksListItem>
       </SocialLinksList>
 
-      <Copyright>2020 North Cannabis | All Rights Reserved.</Copyright>
+      <Copyright>Valley Bud | All Rights Reserved.</Copyright>
     </Container>
   );
 }
