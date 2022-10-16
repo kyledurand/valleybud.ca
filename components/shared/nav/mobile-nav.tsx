@@ -107,7 +107,7 @@ export function MobileNav(props: NavProps): JSX.Element {
         <StyledMenuItem>Find a Location</StyledMenuItem>
         <StyledMenuItem>Cannabis Corner</StyledMenuItem>
         <StyledMenuItem>Specials</StyledMenuItem>
-        <StyledMenuItem>North Rewards</StyledMenuItem>
+        <StyledMenuItem>Rewards</StyledMenuItem>
         <StyledMenuItem>Refer a Friend</StyledMenuItem>
       </StyledMenu>
       {/* CART  */}
