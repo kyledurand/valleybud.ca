@@ -62,7 +62,9 @@ export function Footer(): JSX.Element {
         </SocialLinksListItem>
       </SocialLinksList>
 
-      <Copyright>Valley Bud | All Rights Reserved.</Copyright>
+      <Copyright>
+        {new Date().getFullYear()} Valley Bud | All Rights Reserved.
+      </Copyright>
     </Container>
   );
 }
