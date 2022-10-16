@@ -32,7 +32,9 @@ export function Footer(): JSX.Element {
 
       <LinkListsContainer>
         <LinkList>
-          <LinkListItem>Shop</LinkListItem>
+          <LinkListItem>
+            <a href="menu">Shop</a>
+          </LinkListItem>
           <LinkListItem>Rewards</LinkListItem>
           <LinkListItem>Refer a Friend</LinkListItem>
           <LinkListItem>Cannabis Corner</LinkListItem>
