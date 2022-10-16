@@ -78,12 +78,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
     <>
       {isSubmenuVisible && <Backdrop onClick={closeShopMenu} />}
       <NavContainer darkBackground={darkBackground}>
-        <Logo
-          onClick={handleLogoClick}
-          height={70}
-          width={140}
-          isDark={!darkBackground}
-        />
+        <Logo onClick={handleLogoClick} width={200} isDark={!darkBackground} />
         <NavLinksContainer>
           <NavLinkList>
             <NavLinkListItem onClick={toggleShopMenu}>
