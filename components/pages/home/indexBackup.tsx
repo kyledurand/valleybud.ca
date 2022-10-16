@@ -9,8 +9,8 @@ import {CheckoutContext} from "components/shared/checkout-context";
 import {useCheckout} from "hooks/use-checkout";
 import {mediaQueries} from "styles/media-queries";
 
-import {ShopSection, SHOP_SECTION_CATEGORIES} from "./components/shop-section";
-import {HeroSection} from "./components/hero-section";
+import {SHOP_SECTION_CATEGORIES} from "./components/shop-section";
+// import {HeroSection} from "./components/hero-section";
 
 const Container = styled.div`
   max-width: 1440px;

@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import {mediaQueries} from "styles/media-queries";
 
-import OutlinedInput from "@material-ui/core/OutlinedInput";
+// import OutlinedInput from "@material-ui/core/OutlinedInput";
 // import InputAdornment from "@material-ui/core/InputAdornment";
 
 export function Footer(): JSX.Element {
@@ -75,41 +75,41 @@ const Container = styled.footer`
   }
 `;
 
-const Header = styled.h2`
-  font-size: 35px;
-  font-weight: 700px;
-  text-align: center;
-  margin-botton: 20px;
-  font-family: "Playfair Display";
+// const Header = styled.h2`
+//   font-size: 35px;
+//   font-weight: 700px;
+//   text-align: center;
+//   margin-botton: 20px;
+//   font-family: "Playfair Display";
 
-  @media ${mediaQueries.phone} {
-    font-size: 30px;
-    margin-bottom: 17px;
-  }
-`;
+//   @media ${mediaQueries.phone} {
+//     font-size: 30px;
+//     margin-bottom: 17px;
+//   }
+// `;
 
-const Subheader = styled.p`
-  text-align: center;
-  font-size: 14px;
-  width: 430px;
-  margin: 0 auto 43px;
-  line-height: 25px;
-  font-weight: 300;
+// const Subheader = styled.p`
+//   text-align: center;
+//   font-size: 14px;
+//   width: 430px;
+//   margin: 0 auto 43px;
+//   line-height: 25px;
+//   font-weight: 300;
 
-  @media ${mediaQueries.phone} {
-    width: 100%;
-    margin-bottom: 35px;
-  }
-`;
+//   @media ${mediaQueries.phone} {
+//     width: 100%;
+//     margin-bottom: 35px;
+//   }
+// `;
 
-const EmailContainer = styled.div`
-  text-align: center;
-  margin-bottom: 70px;
+// const EmailContainer = styled.div`
+//   text-align: center;
+//   margin-bottom: 70px;
 
-  @media ${mediaQueries.phone} {
-    margin-bottom: 50px;
-  }
-`;
+//   @media ${mediaQueries.phone} {
+//     margin-bottom: 50px;
+//   }
+// `;
 
 const LinkListsContainer = styled.div`
   margin-bottom: 90px;
@@ -168,23 +168,23 @@ const Copyright = styled.p`
   font-size: 11px;
 `;
 
-const EmailInput = styled(OutlinedInput)`
-  &.MuiInputBase-root {
-    width: 600px;
-    padding: 6px 10px;
-    border-radius: 0;
-    background-color: #ffffff;
-    box-shadow: 0px 3px 4px #e1ddd7;
-  }
+// const EmailInput = styled(OutlinedInput)`
+//   &.MuiInputBase-root {
+//     width: 600px;
+//     padding: 6px 10px;
+//     border-radius: 0;
+//     background-color: #ffffff;
+//     box-shadow: 0px 3px 4px #e1ddd7;
+//   }
 
-  & .MuiOutlinedInput-notchedOutline {
-    border: none;
-  }
+//   & .MuiOutlinedInput-notchedOutline {
+//     border: none;
+//   }
 
-  @media ${mediaQueries.phone} {
-    &.MuiInputBase-root {
-      width: 100%;
-      font-size: 13px;
-    }
-  }
-`;
+//   @media ${mediaQueries.phone} {
+//     &.MuiInputBase-root {
+//       width: 100%;
+//       font-size: 13px;
+//     }
+//   }
+// `;
