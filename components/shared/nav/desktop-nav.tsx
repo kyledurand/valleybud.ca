@@ -251,7 +251,7 @@ const NavContainer = styled.nav<{ darkBackground?: boolean }>`
 
   color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
   background-color: ${(props) =>
-    props.darkBackground ? "#322F46" : "#ffffff"};
+    props.darkBackground ? "var(--background)" : "#ffffff"};
 `;
 
 const NavLinksContainer = styled.div`
