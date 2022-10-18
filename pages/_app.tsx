@@ -54,7 +54,7 @@ const PagesStyle = createGlobalStyle`
 `;
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  const apolloClient = useApollo();
 
   return (
     <>

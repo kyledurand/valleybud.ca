@@ -6,6 +6,7 @@
   "scripts": {
     "build": "yarn generate-types && next build",
     "dev": "yarn generate-types && node server.js",
+    "export": "yarn generate-types && next build && next export",
     "generate-types": "DOTENV_CONFIG_PATH=.env.local node --require dotenv/config node_modules/.bin/graphql-let",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "yarn generate-types && jest"

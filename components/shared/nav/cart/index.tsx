@@ -1,25 +1,25 @@
-import {Fragment, useContext} from "react";
+import { Fragment, useContext } from "react";
 import styled from "styled-components";
-import {ApolloClient, NormalizedCacheObject} from "@apollo/client";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 
 import Button from "@material-ui/core/Button";
 
-import {OrderType, PricingType} from "api/queries/checkout.graphql";
-import {CheckoutItemFragment} from "api/fragments/checkout-item.graphql";
-import {useRemoveItemFromCheckoutMutation} from "api/mutations/remove-item-from-checkout.graphql";
-import {useUpdateCheckoutItemQuantityMutation} from "api/mutations/update-checkout-item-quantity.graphql";
-import {useUpdateCheckoutMutation} from "api/mutations/update-checkout.graphql";
-import {Logo} from "components/shared/svg/logo";
-import {DesktopOnly} from "components/shared/responsive/desktop-only";
-import {MobileOnly} from "components/shared/responsive/mobile-only";
-import {CheckoutContext} from "components/shared/checkout-context";
-import {mediaQueries} from "styles/media-queries";
-import {formatPrice} from "utils/number-format";
-import {displayNameForCheckoutOrderType} from "utils/enum-to-display-name/checkout-order-type";
+import { OrderType, PricingType } from "api/queries/checkout.graphql";
+import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
+import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
+import { useUpdateCheckoutItemQuantityMutation } from "api/mutations/update-checkout-item-quantity.graphql";
+import { useUpdateCheckoutMutation } from "api/mutations/update-checkout.graphql";
+import { Logo } from "components/shared/svg/logo";
+import { DesktopOnly } from "components/shared/responsive/desktop-only";
+import { MobileOnly } from "components/shared/responsive/mobile-only";
+import { CheckoutContext } from "components/shared/checkout-context";
+import { mediaQueries } from "styles/media-queries";
+import { formatPrice } from "utils/number-format";
+import { displayNameForCheckoutOrderType } from "utils/enum-to-display-name/checkout-order-type";
 
-import {DesktopCartItem} from "./desktop-cart-item";
-import {MobileCartItem} from "./mobile-cart-item";
-import {LoadingSpinner} from "components/shared/loading-spinner";
+import { DesktopCartItem } from "./desktop-cart-item";
+import { MobileCartItem } from "./mobile-cart-item";
+import { LoadingSpinner } from "components/shared/loading-spinner";
 
 interface CartProps {
   onClose: () => void;
@@ -27,8 +27,8 @@ interface CartProps {
 }
 
 export function Cart(props: CartProps): JSX.Element {
-  const {onClose} = props;
-  const {checkout, loading: isCheckoutLoading} = useContext(CheckoutContext);
+  const { onClose } = props;
+  const { checkout, loading: isCheckoutLoading } = useContext(CheckoutContext);
 
   const checkoutId = checkout?.id || "";
   const checkoutItems = checkout?.items;
@@ -42,7 +42,7 @@ export function Cart(props: CartProps): JSX.Element {
   // MUTATIONS
   const [
     removeItemFromCheckout,
-    {loading: isRemoveItemLoading},
+    { loading: isRemoveItemLoading },
   ] = useRemoveItemFromCheckoutMutation();
   async function handleRemoveItemFromCheckout(item: CheckoutItemFragment) {
     await removeItemFromCheckout({
@@ -55,7 +55,7 @@ export function Cart(props: CartProps): JSX.Element {
 
   const [
     updateCheckoutItemQuantity,
-    {loading: isUpdateQuantityLoading},
+    { loading: isUpdateQuantityLoading },
   ] = useUpdateCheckoutItemQuantityMutation();
   async function handleCheckoutQuantityUpdate(
     item: CheckoutItemFragment,
@@ -72,7 +72,7 @@ export function Cart(props: CartProps): JSX.Element {
 
   const [
     updateCheckout,
-    {loading: isUpdateCheckoutLoading},
+    { loading: isUpdateCheckoutLoading },
   ] = useUpdateCheckoutMutation();
   async function handleCheckoutOrderTypeToggle() {
     await updateCheckout({
@@ -111,7 +111,6 @@ export function Cart(props: CartProps): JSX.Element {
         <DeliveryPickupInfo>
           <Logo height={49} width={98} isDark />
           <OrderTypeSection>
-            <CompanyName>North Cannabis Co</CompanyName>
             <OrderTypeName>
               {displayNameForCheckoutOrderType(checkoutOrderType)}
               <MobileOnly>{deliveryPickupToggle}</MobileOnly>
@@ -236,12 +235,6 @@ const DeliveryPickupSection = styled.div`
 
 const OrderTypeSection = styled.div`
   margin-left: 23px;
-`;
-
-const CompanyName = styled.div`
-  color: #fff;
-  font-weight: 500;
-  font-size: 13px;
 `;
 
 const OrderTypeName = styled.div`
