@@ -51,16 +51,13 @@ export function Footer(): JSX.Element {
 
       <SocialLinksList>
         <SocialLinksListItem>
-          <img src="icons/social/facebook.svg" />
+          <img src="icons/social/facebook.svg" alt="facebook" />
         </SocialLinksListItem>
         <SocialLinksListItem>
-          <img src="icons/social/instagram.svg" />
+          <img src="icons/social/instagram.svg" alt="instagram" />
         </SocialLinksListItem>
         <SocialLinksListItem>
-          <img src="icons/social/pinterest.svg" />
-        </SocialLinksListItem>
-        <SocialLinksListItem>
-          <img src="icons/social/twitter.svg" />
+          <img src="icons/social/twitter.svg" alt="twitter" />
         </SocialLinksListItem>
       </SocialLinksList>
 

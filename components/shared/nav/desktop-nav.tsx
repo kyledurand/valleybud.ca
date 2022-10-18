@@ -9,8 +9,6 @@ import { Category } from "api/queries/checkout.graphql";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 import { Logo } from "components/shared/svg/logo";
 import { CartIcon } from "components/shared/svg/cart-icon";
-import { UserIcon } from "components/shared/svg/user-icon";
-import { HeartIcon } from "components/shared/svg/heart-icon";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
@@ -105,12 +103,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
             </NavLinkListItem>
           </NavLinkList>
           <NavIcons>
-            <NavIconContainer>
-              <HeartIcon isDark={!darkBackground} />
-            </NavIconContainer>
-            <NavIconContainer>
-              <UserIcon isDark={!darkBackground} />
-            </NavIconContainer>
             <NavIconContainer>
               <CartIconContainer>
                 <CartCount>

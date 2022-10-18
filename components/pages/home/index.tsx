@@ -1,7 +1,7 @@
 import Head from "next/head";
-import type {NextPage} from "next";
+import type { NextPage } from "next";
 import styles from "../../../styles/Home.module.css";
-import {Logo} from "components/shared/svg/logo";
+import { Logo } from "components/shared/svg/logo";
 
 const Home: NextPage = () => {
   console.log("yo");
@@ -58,6 +58,7 @@ const Home: NextPage = () => {
           <a href="mailto:gday@valleybud.ca">gday@valleybud.ca</a>
         </p>
         <a
+          aria-label="secret"
           style={{
             position: "absolute",
             top: 0,
