@@ -1,10 +1,8 @@
 import Head from "next/head";
-import type { NextPage } from "next";
 import styles from "../../../styles/Home.module.css";
 import { Logo } from "components/shared/svg/logo";
 
-const Home: NextPage = () => {
-  console.log("yo");
+const Home = () => {
   return (
     <div
       style={{
@@ -57,7 +55,7 @@ const Home: NextPage = () => {
           433B Donald B. Munro Drive, Carp ON. |{" "}
           <a href="mailto:gday@valleybud.ca">gday@valleybud.ca</a>
         </p>
-        <a
+        {/* <a
           aria-label="secret"
           style={{
             position: "absolute",
@@ -69,7 +67,7 @@ const Home: NextPage = () => {
             border: "none",
           }}
           href="/home"
-        />
+        /> */}
       </main>
     </div>
   );

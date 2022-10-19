@@ -12,20 +12,17 @@ export interface MediaQueryProps {
 }
 
 export function MediaQuery(props: MediaQueryProps): JSX.Element | null {
-  const theme = useTheme();
-  const { breakpoint, direction, children, className = "" } = props;
-
-  const mediaQuery = String(theme.breakpoints[direction](breakpoint));
-
-  const doesMatch = useMediaQuery(mediaQuery);
+  const { breakpoints } = useTheme();
   const [shouldUseMediaQuery, setShouldUseMediaQuery] = useState(false);
+  const { breakpoint, direction, children, className = "" } = props;
+  const mediaQuery = String(breakpoints[direction](breakpoint));
+  const doesMatch = useMediaQuery(mediaQuery);
+
   useEffect(() => {
     setShouldUseMediaQuery(true);
   }, []);
 
-  if (shouldUseMediaQuery && !doesMatch) {
-    return null;
-  }
+  if (shouldUseMediaQuery && !doesMatch) return null;
 
   return (
     <Content mediaQuery={mediaQuery} className={className}>

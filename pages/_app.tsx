@@ -40,11 +40,6 @@ export const GlobalStyle = createGlobalStyle`
   ${normalize}
   * {
     box-sizing: border-box;
-
-    // have this here now for convenience
-    // this will likely change as we make more shared components
-    font-family: 'Poppins';
-    color: #1F2B49;
   }
 `;
 const PagesStyle = createGlobalStyle`
