@@ -19,7 +19,7 @@ import { Cart } from "./cart/index";
 const NAV_HEIGHT = "76px";
 
 export function MobileNav(props: NavProps): JSX.Element {
-  const { darkBackground, page } = props;
+  const { page } = props;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -60,17 +60,12 @@ export function MobileNav(props: NavProps): JSX.Element {
 
   return (
     <>
-      <Container darkBackground={darkBackground} ref={baseNavBarRef}>
-        <Logo
-          isDark={!darkBackground}
-          height={58}
-          width={116}
-          onClick={handleLogoClick}
-        />
+      <Container ref={baseNavBarRef}>
+        <Logo height={58} width={116} onClick={handleLogoClick} />
         {isMenuOpen ? (
-          <CloseButton isDark={!darkBackground} onClick={closeMenu} />
+          <CloseButton isDark onClick={closeMenu} />
         ) : (
-          <MobileMenuIcon isDark={!darkBackground} onClick={openMenu} />
+          <MobileMenuIcon isDark onClick={openMenu} />
         )}
       </Container>
       {/* SHOP MENU */}
