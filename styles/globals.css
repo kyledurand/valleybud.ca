@@ -31,7 +31,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--background);
+  background-color: var(--brand-background);
   color: var(--text);
 }
 
@@ -52,7 +52,7 @@ button {
   }
   body {
     color: var(--text);
-    background: var(--background);
+    background: var(--brand-background);
   }
 }
 

@@ -28,5 +28,5 @@ const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: var(--space-2);
-  background-color: var(--background);
+  background-color: var(--brand-background);
 `;

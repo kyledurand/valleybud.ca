@@ -10,12 +10,12 @@ const Home = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "var(--background)",
+        backgroundColor: "var(--brand-background)",
       }}
     >
       <main className={styles.main}>
         <div className={styles.logo}>
-          <Logo width={600} height={188} />
+          <Logo width={600} height={188} color="white" />
         </div>
         <h1 className={styles.title}>
           opening after carp fair, but probably before deer season

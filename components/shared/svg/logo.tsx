@@ -3,17 +3,19 @@ import styled from "styled-components";
 interface LogoProps {
   height?: number;
   width?: number;
+  color?: string;
   onClick?: () => void;
 }
 
 export function Logo(props: LogoProps): JSX.Element {
-  const { height = 70, width = 140, onClick } = props;
+  const { height = 70, width = 140, color = "var(--brand)", onClick } = props;
 
   return (
     <StyledSvg
       viewBox="0 0 858 270"
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
+      color={color}
       style={{ maxWidth: width, maxHeight: height, width: "100%" }}
     >
       <defs>
@@ -187,5 +189,5 @@ export function Logo(props: LogoProps): JSX.Element {
 const StyledSvg = styled.svg`
   cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
   max-width: 100%;
-  color: var(--brand);
+  color: ${({ color }) => color};
 `;

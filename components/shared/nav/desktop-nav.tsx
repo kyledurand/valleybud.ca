@@ -241,7 +241,7 @@ const NavContainer = styled.nav<{ darkBackground?: boolean }>`
   height: 122px;
 
   color: var(--text);
-  background-color: var(--background);
+  background-color: #ffffff;
 `;
 
 const NavLinksContainer = styled.div`
