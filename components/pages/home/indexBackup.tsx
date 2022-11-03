@@ -1,15 +1,15 @@
-import {GetStaticProps} from "next";
+import { GetStaticProps } from "next";
 import styled from "styled-components";
 
-import {initializeApollo} from "api/apollo";
-import {HomePageMenuDocument} from "api/queries/home-page-menu.graphql";
-import {Nav} from "components/shared/nav";
-import {Footer} from "components/shared/footer";
-import {CheckoutContext} from "components/shared/checkout-context";
-import {useCheckout} from "hooks/use-checkout";
-import {mediaQueries} from "styles/media-queries";
+import { initializeApollo } from "api/apollo";
+import { HomePageMenuDocument } from "api/queries/home-page-menu.graphql";
+import { Nav } from "components/shared/nav";
+import { Footer } from "components/shared/footer";
+import { CheckoutContext } from "components/shared/checkout-context";
+import { useCheckout } from "hooks/use-checkout";
+import { mediaQueries } from "styles/media-queries";
 
-import {SHOP_SECTION_CATEGORIES} from "./components/shop-section";
+import { SHOP_SECTION_CATEGORIES } from "./components/shop-section";
 // import {HeroSection} from "./components/hero-section";
 
 const Container = styled.div`
@@ -28,7 +28,7 @@ function Home(): React.ReactNode {
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
-        <Nav darkBackground />
+        <Nav search="" setSearch={() => {}} />
         {/* <HeroSection />
         <ShopSection /> */}
         home content
