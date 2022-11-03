@@ -1,9 +1,7 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-
 import Drawer from "@material-ui/core/Drawer";
-
 import { useApollo } from "api/apollo";
 import { Category } from "api/queries/checkout.graphql";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
@@ -15,6 +13,7 @@ import { displayNameForCategory } from "utils/enum-to-display-name/category";
 
 import { NavProps } from "./index";
 import { Cart } from "./cart/index";
+import { VisuallyHidden } from "components/utilities";
 
 const SUBMENU_CATEGORIES = [
   Category.Flower,
@@ -30,7 +29,8 @@ const SUBMENU_CATEGORIES = [
 export function DesktopNav(props: NavProps): JSX.Element {
   const { page, selectSingleCategory = () => undefined } = props;
 
-  const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
+  const [isBrandMenuVisible, setBrandMenuVisible] = useState(false);
+  const [isCategoryMenuVisible, setIsCategoryMenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const router = useRouter();
   const apolloClient = useApollo();
@@ -51,12 +51,9 @@ export function DesktopNav(props: NavProps): JSX.Element {
     }
   }
 
-  function toggleShopMenu() {
-    setIsSubmenuVisible(!isSubmenuVisible);
-  }
-
   function closeShopMenu() {
-    setIsSubmenuVisible(false);
+    setBrandMenuVisible(false);
+    setIsCategoryMenuVisible(false);
   }
 
   function openCart() {
@@ -70,34 +67,54 @@ export function DesktopNav(props: NavProps): JSX.Element {
 
   return (
     <>
-      {isSubmenuVisible && <Backdrop onClick={closeShopMenu} />}
+      {(isBrandMenuVisible || isCategoryMenuVisible) && (
+        <Backdrop onClick={closeShopMenu} />
+      )}
       <NavContainer>
         <Logo onClick={handleLogoClick} width={200} />
         <NavLinksContainer>
+          <NavLinkListItem
+            onClick={() => {
+              setBrandMenuVisible(false);
+              setIsCategoryMenuVisible(
+                (isCategoryMenuVisible) => !isCategoryMenuVisible
+              );
+            }}
+          >
+            <NavLink>
+              shop by category
+              <Chevron direction={ChevronDirection.Down} color="#000" />
+            </NavLink>
+          </NavLinkListItem>
+          <NavLinkListItem
+            onClick={() => {
+              setIsCategoryMenuVisible(false);
+              setBrandMenuVisible((isBrandMenuVisible) => !isBrandMenuVisible);
+            }}
+          >
+            <NavLink isUnderlined={page === "menu"}>
+              shop by brand
+              <Chevron
+                direction={
+                  isBrandMenuVisible
+                    ? ChevronDirection.Up
+                    : ChevronDirection.Down
+                }
+                color="#000"
+              />
+            </NavLink>
+          </NavLinkListItem>
           <NavLinkList>
             <NavLinkListItem>
               <NavLink>
                 <label>
-                  <VisuallyHidden>Search: </VisuallyHidden>
+                  <VisuallyHidden>search: </VisuallyHidden>
                   <input
                     value={props.search}
                     onChange={({ target }) => props.setSearch(target.value)}
                     placeholder="search"
                   />
                 </label>
-              </NavLink>
-            </NavLinkListItem>
-            <NavLinkListItem onClick={toggleShopMenu}>
-              <NavLink isUnderlined={page === "menu"}>
-                Shop
-                <Chevron
-                  direction={
-                    isSubmenuVisible
-                      ? ChevronDirection.Up
-                      : ChevronDirection.Down
-                  }
-                  color="#ffffff"
-                />
               </NavLink>
             </NavLinkListItem>
           </NavLinkList>
@@ -117,20 +134,18 @@ export function DesktopNav(props: NavProps): JSX.Element {
           </NavIcons>
         </NavLinksContainer>
 
-        {/* SHOP MENU */}
-        {isSubmenuVisible && (
+        {/* SHOP BRANDS */}
+        {isBrandMenuVisible && (
           <StyledMenu>
             <SubmenuSection>
-              <SubmenuItemBold>New Products</SubmenuItemBold>
-              <SubmenuItemBold>Best Sellers</SubmenuItemBold>
-              <SubmenuItemBold>Dispensary Specials</SubmenuItemBold>
-              <SubmenuItemBold onClick={() => handleCategoryClick(undefined)}>
-                Shop All ➡
-              </SubmenuItemBold>
+              <SubmenuItem>brand1</SubmenuItem>
             </SubmenuSection>
-            <Divider />
+          </StyledMenu>
+        )}
+        {/* SHOP BRANDS */}
+        {isCategoryMenuVisible && (
+          <StyledMenu>
             <SubmenuSection>
-              <SubmenuItemBold>Shop Valley Bud</SubmenuItemBold>
               {SUBMENU_CATEGORIES.map((category) => (
                 <SubmenuItem
                   key={category}
@@ -140,21 +155,8 @@ export function DesktopNav(props: NavProps): JSX.Element {
                 </SubmenuItem>
               ))}
             </SubmenuSection>
-            <SubmenuSection>
-              <SubmenuItemBold>Shop by Effect</SubmenuItemBold>
-              <SubmenuItem>Sleep</SubmenuItem>
-              <SubmenuItem>Pain</SubmenuItem>
-              <SubmenuItem>Anxiety</SubmenuItem>
-              <SubmenuItem>Energy</SubmenuItem>
-            </SubmenuSection>
-            <SubmenuSection>
-              <SubmenuItemBold>North Gear</SubmenuItemBold>
-              <SubmenuItem>Cannabis Accessories</SubmenuItem>
-              <SubmenuItem>Clothing</SubmenuItem>
-            </SubmenuSection>
           </StyledMenu>
         )}
-
         {/* CART */}
         <Drawer anchor="right" open={isCartVisible} onBackdropClick={closeCart}>
           <Cart onClose={closeCart} apolloClient={apolloClient} />
@@ -163,12 +165,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
     </>
   );
 }
-
-const Divider = styled.div`
-  width: 1px;
-  height: 100%;
-  background-color: #d9d6d2;
-`;
 
 const Backdrop = styled.div`
   position: absolute;
@@ -196,17 +192,6 @@ const StyledMenu = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 25px 200px;
-`;
-
-const SubmenuItemBold = styled.div`
-  font-weight: 500;
-  margin-bottom: 24px;
-  font-size: 14px;
-
-  cursor: ${(props) => (props.onClick ? "pointer" : "auto")};
-  &:hover {
-    text-decoration: ${(props) => (props.onClick ? "underline" : "none")};
-  }
 `;
 
 const SubmenuItem = styled.div`
@@ -325,14 +310,4 @@ const CartCount = styled.div`
   top: -11px;
   right: -22px;
   color: #ffffff;
-`;
-
-const VisuallyHidden = styled.span`
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
 `;

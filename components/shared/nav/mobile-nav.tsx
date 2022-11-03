@@ -131,7 +131,7 @@ const Container = styled.div<{ darkBackground?: boolean }>`
 
   color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
   background-color: ${(props) =>
-    props.darkBackground ? "var(--brand-background)" : "#ffffff"};
+    props.darkBackground ? "var(--brand-accent-orange)" : "#ffffff"};
 `;
 
 const StyledMenu = styled(Menu)`

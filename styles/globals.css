@@ -6,8 +6,13 @@
 :root {
   /* Color */
   --text: #1a1a1a;
+  --text-inverse: #fff;
   --brand: #e1ad01;
-  --brand-background: #b86047;
+
+  --brand-accent-mud: #5d5c24;
+  --brand-accent-blue: #376586;
+  --brand-accent-gold: #706e30;
+  --brand-accent-orange: #b86047;
   /* TODO: PX TO REM POST CSS */
   /* Space */
   --space-1: 4px;
@@ -31,7 +36,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--brand-background);
+  background-color: var(--brand-accent-orange);
   color: var(--text);
 }
 
@@ -52,7 +57,7 @@ button {
   }
   body {
     color: var(--text);
-    background: var(--brand-background);
+    background: var(--brand-accent-orange);
   }
 }
 

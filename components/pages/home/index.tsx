@@ -10,7 +10,7 @@ const Home = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "var(--brand-background)",
+        backgroundColor: "var(--brand-accent-orange)",
       }}
     >
       <main className={styles.main}>
