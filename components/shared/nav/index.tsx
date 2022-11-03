@@ -6,9 +6,10 @@ import { DesktopNav } from "./desktop-nav";
 import { MobileNav } from "./mobile-nav";
 
 export interface NavProps {
-  darkBackground?: boolean;
-  page?: "menu"; // as more pages are added, add | page | page2 | etc;
-  selectSingleCategory?: (category?: Category) => void;
+  page?: "menu";
+  search: string;
+  setSearch(search: string): void;
+  selectSingleCategory?(category?: Category): void;
 }
 
 export function Nav(props: NavProps): JSX.Element {

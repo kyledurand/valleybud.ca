@@ -3,17 +3,15 @@ import styled from "styled-components";
 interface LogoProps {
   height?: number;
   width?: number;
-  isDark?: boolean;
   onClick?: () => void;
 }
 
 export function Logo(props: LogoProps): JSX.Element {
-  const { height = 70, width = 140, isDark, onClick } = props;
-  const color = isDark ? "#1f2b49" : "#ffffff";
+  const { height = 70, width = 140, onClick } = props;
+
   return (
     <StyledSvg
       viewBox="0 0 858 270"
-      fill={color}
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
       style={{ maxWidth: width, maxHeight: height, width: "100%" }}
@@ -101,85 +99,85 @@ export function Logo(props: LogoProps): JSX.Element {
       </defs>
       <g clipPath="url(#a)" transform="translate(-531 -311)">
         <g clipPath="url(#b)" transform="translate(531 348.504)">
-          <path fill="#FFF" d="M0 0h88.751v112.922H0V0z" />
+          <path fill="currentColor" d="M0 0h88.751v112.922H0V0z" />
         </g>
         <g clipPath="url(#c)" transform="translate(721.106 311.555)">
-          <path fill="#FFF" d="M0 0h59.018v149.03H0V0z" />
+          <path fill="currentColor" d="M0 0h59.018v149.03H0V0z" />
         </g>
         <g clipPath="url(#d)" transform="translate(766.002 311.555)">
-          <path fill="#FFF" d="M0 0h59.018v149.03H0V0z" />
+          <path fill="currentColor" d="M0 0h59.018v149.03H0V0z" />
         </g>
         <g clipPath="url(#e)" transform="translate(618.732 348.51)">
-          <path fill="#FFF" d="M0 0h105.587v112.071H0V0z" />
+          <path fill="currentColor" d="M0 0h105.587v112.071H0V0z" />
         </g>
         <g clipPath="url(#f)" transform="translate(812.438 349.269)">
-          <path fill="#FFF" d="M0 0h91.737v111.364H0V0z" />
+          <path fill="currentColor" d="M0 0h91.737v111.364H0V0z" />
         </g>
         <g clipPath="url(#g)" transform="translate(874.13 348.511)">
-          <path fill="#FFF" d="M0 0h146.245v232.192H0V0z" />
+          <path fill="currentColor" d="M0 0h146.245v232.192H0V0z" />
         </g>
         <g clipPath="url(#h)" transform="translate(1160.329 385.17)">
-          <path fill="#FFF" d="M0 0h105.785v112.221H0V0z" />
+          <path fill="currentColor" d="M0 0h105.785v112.221H0V0z" />
         </g>
         <g clipPath="url(#i)" transform="translate(1262.996 348.517)">
-          <path fill="#FFF" d="M0 0h117.024v149.377H0V0z" />
+          <path fill="currentColor" d="M0 0h117.024v149.377H0V0z" />
         </g>
         <g clipPath="url(#j)" transform="translate(1035.31 348.517)">
-          <path fill="#FFF" d="M0 0h114.373v149.097H0V0z" />
+          <path fill="currentColor" d="M0 0h114.373v149.097H0V0z" />
         </g>
         <g clipPath="url(#k)" transform="translate(1265.488 388.164)">
-          <path fill="#FFF" d="M.401.177H.6v.646H.401V.177z" />
+          <path fill="currentColor" d="M.401.177H.6v.646H.401V.177z" />
         </g>
         <g clipPath="url(#l)" transform="translate(1365.618 471.868)">
-          <path fill="#FFF" d="M0 0h23.382v26.185H0V0z" />
+          <path fill="currentColor" d="M0 0h23.382v26.185H0V0z" />
         </g>
         <g clipPath="url(#m)" transform="translate(992.772 525.401)">
-          <path fill="#FFF" d="M0 0h21.431v25.301H0V0z" />
+          <path fill="currentColor" d="M0 0h21.431v25.301H0V0z" />
         </g>
         <g clipPath="url(#n)" transform="translate(1018.496 525.401)">
-          <path fill="#FFF" d="M0 0h23.685v24.951H0V0z" />
+          <path fill="currentColor" d="M0 0h23.685v24.951H0V0z" />
         </g>
         <g clipPath="url(#o)" transform="translate(1048.474 525.402)">
-          <path fill="#FFF" d="M0 0h21.154v25.3H0V0z" />
+          <path fill="currentColor" d="M0 0h21.154v25.3H0V0z" />
         </g>
         <g clipPath="url(#p)" transform="translate(1079.153 525.402)">
-          <path fill="#FFF" d="M0 0h21.155v25.3H0V0z" />
+          <path fill="currentColor" d="M0 0h21.155v25.3H0V0z" />
         </g>
         <g clipPath="url(#q)" transform="translate(1106.634 525.401)">
-          <path fill="#FFF" d="M0 0h23.685v24.951H0V0z" />
+          <path fill="currentColor" d="M0 0h23.685v24.951H0V0z" />
         </g>
         <g clipPath="url(#r)" transform="translate(1136.645 525.753)">
-          <path fill="#FFF" d="M0 0h17.044v24.598H0V0z" />
+          <path fill="currentColor" d="M0 0h17.044v24.598H0V0z" />
         </g>
         <g clipPath="url(#s)" transform="translate(1161.667 525.753)">
-          <path fill="#FFF" d="M0 0h5.554v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h5.554v24.599H0V0z" />
         </g>
         <g clipPath="url(#t)" transform="translate(1175.198 525.402)">
-          <path fill="#FFF" d="M0 0h16.552v25.3H0V0z" />
+          <path fill="currentColor" d="M0 0h16.552v25.3H0V0z" />
         </g>
         <g clipPath="url(#u)" transform="translate(1210.832 525.753)">
-          <path fill="#FFF" d="M0 0h18.836v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h18.836v24.599H0V0z" />
         </g>
         <g clipPath="url(#v)" transform="translate(1237.892 525.753)">
-          <path fill="#FFF" d="M0 0h15.884v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h15.884v24.599H0V0z" />
         </g>
         <g clipPath="url(#w)" transform="translate(1259.472 525.753)">
-          <path fill="#FFF" d="M0 0h16.938v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h16.938v24.599H0V0z" />
         </g>
         <g clipPath="url(#q)" transform="translate(1278.94 525.401)">
-          <path fill="#FFF" d="M0 0h23.685v24.951H0V0z" />
+          <path fill="currentColor" d="M0 0h23.685v24.951H0V0z" />
         </g>
         <g clipPath="url(#x)" transform="translate(1308.951 525.753)">
-          <path fill="#FFF" d="M0 0h5.554v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h5.554v24.599H0V0z" />
         </g>
         <g clipPath="url(#y)" transform="translate(1324.063 525.753)">
-          <path fill="#FFF" d="M0 0h14.55v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h14.55v24.599H0V0z" />
         </g>
         <g clipPath="url(#z)" transform="translate(1345.534 525.753)">
-          <path fill="#FFF" d="M0 0h15.885v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h15.885v24.599H0V0z" />
         </g>
         <g clipPath="url(#A)" transform="translate(1369.642 525.753)">
-          <path fill="#FFF" d="M0 0h18.836v24.599H0V0z" />
+          <path fill="currentColor" d="M0 0h18.836v24.599H0V0z" />
         </g>
       </g>
     </StyledSvg>
@@ -189,4 +187,5 @@ export function Logo(props: LogoProps): JSX.Element {
 const StyledSvg = styled.svg`
   cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
   max-width: 100%;
+  color: var(--brand);
 `;

@@ -28,11 +28,7 @@ const SUBMENU_CATEGORIES = [
 ];
 
 export function DesktopNav(props: NavProps): JSX.Element {
-  const {
-    darkBackground,
-    page,
-    selectSingleCategory = () => undefined,
-  } = props;
+  const { page, selectSingleCategory = () => undefined } = props;
 
   const [isSubmenuVisible, setIsSubmenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
@@ -75,31 +71,34 @@ export function DesktopNav(props: NavProps): JSX.Element {
   return (
     <>
       {isSubmenuVisible && <Backdrop onClick={closeShopMenu} />}
-      <NavContainer darkBackground={darkBackground}>
-        <Logo onClick={handleLogoClick} width={200} isDark={!darkBackground} />
+      <NavContainer>
+        <Logo onClick={handleLogoClick} width={200} />
         <NavLinksContainer>
           <NavLinkList>
+            <NavLinkListItem>
+              <NavLink>
+                <label>
+                  <VisuallyHidden>Search: </VisuallyHidden>
+                  <input
+                    value={props.search}
+                    onChange={({ target }) => props.setSearch(target.value)}
+                    placeholder="search"
+                  />
+                </label>
+              </NavLink>
+            </NavLinkListItem>
             <NavLinkListItem onClick={toggleShopMenu}>
-              <NavLink
-                darkBackground={darkBackground}
-                isUnderlined={page === "menu"}
-              >
-                shop
+              <NavLink isUnderlined={page === "menu"}>
+                Shop
                 <Chevron
                   direction={
                     isSubmenuVisible
                       ? ChevronDirection.Up
                       : ChevronDirection.Down
                   }
-                  color={darkBackground ? "#ffffff" : "#1F2B49"}
+                  color="#ffffff"
                 />
               </NavLink>
-            </NavLinkListItem>
-            <NavLinkListItem>
-              <NavLink darkBackground={darkBackground}>find a location</NavLink>
-            </NavLinkListItem>
-            <NavLinkListItem>
-              <NavLink darkBackground={darkBackground}>cannabis corner</NavLink>
             </NavLinkListItem>
           </NavLinkList>
           <NavIcons>
@@ -112,7 +111,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                     checkoutItemsCount
                   )}
                 </CartCount>
-                <CartIcon onClick={openCart} isDark={!darkBackground} />
+                <CartIcon onClick={openCart} isDark />
               </CartIconContainer>
             </NavIconContainer>
           </NavIcons>
@@ -241,9 +240,8 @@ const NavContainer = styled.nav<{ darkBackground?: boolean }>`
   padding: 0px 29px;
   height: 122px;
 
-  color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  background-color: ${(props) =>
-    props.darkBackground ? "var(--background)" : "#ffffff"};
+  color: var(--text);
+  background-color: var(--background);
 `;
 
 const NavLinksContainer = styled.div`
@@ -327,4 +325,14 @@ const CartCount = styled.div`
   top: -11px;
   right: -22px;
   color: #ffffff;
+`;
+
+const VisuallyHidden = styled.span`
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 `;

@@ -11,17 +11,21 @@ export function MenuFilterHeader(props: MenuFilterHeaderProps): JSX.Element {
   return (
     <Header onClick={onClick}>
       <span>{name}</span>
-      <img src={isExpanded ? "icons/minus.svg" : "icons/plus.svg"} />
+      <img
+        src={isExpanded ? "icons/minus.svg" : "icons/plus.svg"}
+        alt={isExpanded ? "close icon" : "open icon"}
+      />
     </Header>
   );
 }
 
-const Header = styled.div`
+const Header = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   height: 67px;
-  user-select: none;
-  cursor: pointer;
+  width: 100%;
+  color: var(--text);
+  border: none;
+  background: none;
 `;

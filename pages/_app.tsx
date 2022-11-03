@@ -1,5 +1,4 @@
 import { AppProps } from "next/app";
-import Head from "next/head";
 import { ApolloProvider } from "@apollo/client";
 import { normalize } from "styled-normalize";
 import "../styles/globals.css";
@@ -15,6 +14,7 @@ import {
   createMuiTheme,
 } from "@material-ui/core/styles";
 import { mediaSizes, mediaQueries } from "styles/media-queries";
+import { Meta } from "components/Meta";
 
 // exports for use in storybook TODO: move/reorganize this stuff
 export {
@@ -53,10 +53,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 
   return (
     <>
-      <Head>
-        <title>Valley Bud</title>
-        <meta name="robots" content="noindex" />
-      </Head>
+      <Meta />
       <QueryParamProvider>
         <ApolloProvider client={apolloClient}>
           <StyledComponentsProvider theme={styledComponentsTheme}>

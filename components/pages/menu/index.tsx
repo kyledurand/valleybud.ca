@@ -1,21 +1,23 @@
-import {GetStaticProps} from "next";
+import { GetStaticProps } from "next";
+import { useDebounce } from "use-debounce";
 import styled from "styled-components";
-import {useQueryParam} from "use-query-params";
+import { useQueryParam } from "use-query-params";
 
-import {initializeApollo} from "api/apollo";
-import {MenuDocument, Category} from "api/queries/menu.graphql";
-import {Nav} from "components/shared/nav";
-import {Footer} from "components/shared/footer";
-import {DesktopOnly} from "components/shared/responsive/desktop-only";
-import {MobileOnly} from "components/shared/responsive/mobile-only";
-import {CheckoutContext} from "components/shared/checkout-context";
-import {useCheckout} from "hooks/use-checkout";
-import {mediaQueries} from "styles/media-queries";
-import {CategoriesParam} from "utils/query-param";
+import { initializeApollo } from "api/apollo";
+import { MenuDocument, Category } from "api/queries/menu.graphql";
+import { Nav } from "components/shared/nav";
+import { Footer } from "components/shared/footer";
+import { DesktopOnly } from "components/shared/responsive/desktop-only";
+import { MobileOnly } from "components/shared/responsive/mobile-only";
+import { CheckoutContext } from "components/shared/checkout-context";
+import { useCheckout } from "hooks/use-checkout";
+import { mediaQueries } from "styles/media-queries";
+import { CategoriesParam } from "utils/query-param";
 
-import {CategoryFilter} from "./components/filters/category-filter";
-import {MobileFilters} from "./components/filters/mobile-filters";
-import {ProductSection} from "./components/product-section";
+import { CategoryFilter } from "./components/filters/category-filter";
+import { MobileFilters } from "./components/filters/mobile-filters";
+import { ProductSection } from "./components/product-section";
+import { useState } from "react";
 
 const ProductSectionCategories = [
   Category.Flower,
@@ -29,6 +31,9 @@ const ProductSectionCategories = [
 ];
 
 function Menu(): JSX.Element {
+  const [query, setQuery] = useState("");
+  const [debouncedQuery] = useDebounce(query, 100);
+
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
     CategoriesParam
@@ -63,9 +68,10 @@ function Menu(): JSX.Element {
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
         <Nav
-          darkBackground
           page="menu"
           selectSingleCategory={selectSingleCategory}
+          search={query}
+          setSearch={setQuery}
         />
         <Content>
           <DesktopOnly>
@@ -84,7 +90,11 @@ function Menu(): JSX.Element {
           </MobileOnly>
           <div>
             {categoriesToShow.map((category) => (
-              <ProductSection key={category} category={category} />
+              <ProductSection
+                key={category}
+                category={category}
+                searchQuery={debouncedQuery}
+              />
             ))}
           </div>
         </Content>

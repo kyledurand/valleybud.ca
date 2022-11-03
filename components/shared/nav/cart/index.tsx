@@ -9,7 +9,6 @@ import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
 import { useUpdateCheckoutItemQuantityMutation } from "api/mutations/update-checkout-item-quantity.graphql";
 import { useUpdateCheckoutMutation } from "api/mutations/update-checkout.graphql";
-import { Logo } from "components/shared/svg/logo";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
@@ -108,15 +107,6 @@ export function Cart(props: CartProps): JSX.Element {
         <HeaderCloseButton onClick={onClose}>Close</HeaderCloseButton>
       </Header>
       <DeliveryPickupSection>
-        <DeliveryPickupInfo>
-          <Logo height={49} width={98} isDark />
-          <OrderTypeSection>
-            <OrderTypeName>
-              {displayNameForCheckoutOrderType(checkoutOrderType)}
-              <MobileOnly>{deliveryPickupToggle}</MobileOnly>
-            </OrderTypeName>
-          </OrderTypeSection>
-        </DeliveryPickupInfo>
         <DesktopOnly>{deliveryPickupToggle}</DesktopOnly>
       </DeliveryPickupSection>
     </>
@@ -231,22 +221,6 @@ const DeliveryPickupSection = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: #000;
-`;
-
-const OrderTypeSection = styled.div`
-  margin-left: 23px;
-`;
-
-const OrderTypeName = styled.div`
-  font-size: 12px;
-  font-weight: 400;
-  color: rgba(31, 43, 73, 0.6);
-  display: inline;
-`;
-
-const DeliveryPickupInfo = styled.div`
-  display: flex;
-  align-items: end;
 `;
 
 const DeliveryPickupToggle = styled.button`

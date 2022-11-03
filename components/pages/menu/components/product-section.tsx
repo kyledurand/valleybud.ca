@@ -6,21 +6,26 @@ import { mediaQueries } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
 
 interface ProductSectionProps {
+  searchQuery: string;
   category: Category;
 }
 
-export function ProductSection(props: ProductSectionProps): JSX.Element {
-  const { category } = props;
-
-  const { data } = useMenuQuery({
+export function ProductSection({
+  category,
+  searchQuery,
+}: ProductSectionProps): JSX.Element {
+  const { data, loading } = useMenuQuery({
     variables: {
       category: category,
+      search: searchQuery,
     },
   });
 
   return (
     <Section>
+      {loading && <div>Loading...</div>}
       <SectionHeader>{displayNameForCategory(category)}</SectionHeader>
+
       <Grid>
         {(data?.menu?.products || []).map((product) => (
           <ProductCard key={product.id} product={product} />
