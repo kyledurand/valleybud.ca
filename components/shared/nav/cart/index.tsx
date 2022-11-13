@@ -177,11 +177,7 @@ const CheckoutItems = styled.div`
 `;
 
 const Container = styled.div`
-  width: 550px;
-
-  @media ${mediaQueries.phone} {
-    width: 100%;
-  }
+  width: 100%;
 `;
 
 const Header = styled.div`

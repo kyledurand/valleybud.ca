@@ -106,6 +106,7 @@ function Menu(): JSX.Element {
 
 const Container = styled.div`
   max-width: 1440px;
+  width: 100%;
   margin: 0 auto;
   background-color: #ffffff;
 
@@ -117,6 +118,7 @@ const Container = styled.div`
 const Content = styled.div`
   padding: 45px;
   display: flex;
+  background: #ffffff;
 
   @media ${mediaQueries.largeTablet} {
     flex-direction: column;

@@ -4,7 +4,7 @@ import { QueryParamProvider as ContextProvider } from "use-query-params";
 
 export const QueryParamProviderComponent = (props: {
   children?: React.ReactNode;
-}): JSX.Element => {
+}) => {
   const { children, ...restProps } = props;
   const router = useRouter();
   const match = router.asPath.match(/[^?]+/);
@@ -12,7 +12,7 @@ export const QueryParamProviderComponent = (props: {
 
   const location = useMemo(
     () =>
-      process.browser
+      typeof window !== "undefined"
         ? window.location
         : ({
             search: router.asPath.replace(/[^?]+/u, ""),

@@ -15,6 +15,8 @@ import {
 } from "@material-ui/core/styles";
 import { mediaSizes, mediaQueries } from "styles/media-queries";
 import { Meta } from "components/Meta";
+import { useSessionStorage } from "hooks/use-session-storage";
+import { AgeGate } from "components/age-gate";
 
 // exports for use in storybook TODO: move/reorganize this stuff
 export {
@@ -38,18 +40,14 @@ export const muiTheme = createMuiTheme({
 });
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
-  * {
-    box-sizing: border-box;
-  }
-`;
-const PagesStyle = createGlobalStyle`
-  html, body {
-    background-color: rgb(248,245,240);
-  }
+  * {box-sizing: border-box;}
 `;
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo();
+  const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
+
+  console.log("sessionVerified", { sessionVerified });
 
   return (
     <>
@@ -60,8 +58,14 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
             <MuiProvider theme={muiTheme}>
               <StylesProvider injectFirst>
                 <GlobalStyle />
-                <PagesStyle />
-                <Component {...pageProps} />
+                {sessionVerified === "true" ? (
+                  <Component {...pageProps} />
+                ) : (
+                  <AgeGate
+                    handleVerify={setSessionVerified}
+                    sessionVerified={sessionVerified}
+                  />
+                )}
               </StylesProvider>
             </MuiProvider>
           </StyledComponentsProvider>
