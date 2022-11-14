@@ -3,17 +3,8 @@ import { Logo } from "components/shared/svg/logo";
 
 const Home = () => {
   return (
-    <div
-      style={{
-        position: "relative",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "var(--brand-accent-orange)",
-      }}
-    >
-      <main className={styles.main}>
+    <main className={styles.main}>
+      <div className={styles.container}>
         <div className={styles.logo}>
           <Logo width={600} height={188} color="white" />
         </div>
@@ -24,21 +15,8 @@ const Home = () => {
           433B Donald B. Munro Drive, Carp ON. |{" "}
           <a href="mailto:gday@valleybud.ca">gday@valleybud.ca</a>
         </p>
-        {/* <a
-          aria-label="secret"
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            width: "42px",
-            height: "42px",
-            background: "none",
-            border: "none",
-          }}
-          href="/home"
-        /> */}
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 
