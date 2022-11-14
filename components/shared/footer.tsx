@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mediaQueriesDown } from "styles/media-queries";
+import { mediaQueriesUp } from "styles/media-queries";
 
 export function Footer(): JSX.Element {
   return (
@@ -58,33 +58,37 @@ export function Footer(): JSX.Element {
 
 const Container = styled.footer`
   background-color: rgba(248, 245, 240, 0.56);
-  padding: 120px 0 150px;
-  @media ${mediaQueriesDown.phone} {
-    padding: 0px 10px;
+  padding: 0px 10px;
+  @media ${mediaQueriesUp.sm} {
+    padding: 120px 0 150px;
   }
 `;
 
 const LinkListsContainer = styled.div`
-  margin-bottom: 90px;
-  @media ${mediaQueriesDown.phone} {
-    padding: 14px;
+  padding: 14px;
+
+  @media ${mediaQueriesUp.sm} {
+    margin-bottom: 90px;
   }
 `;
 
 const LinkList = styled.ul`
   display: grid;
-  gap: 25px;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: var(--space-2);
+  grid-template-columns: 1fr;
   text-align: left;
-  padding: 0;
-  margin-bottom: 28px;
+  padding: var(--space-4);
 
-  @media ${mediaQueriesDown.phone} {
-    gap: 10px;
+  @media ${mediaQueriesUp.xs} {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  @media ${mediaQueriesUp.md} {
+    gap: var(--space-3);
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
   }
 `;
 

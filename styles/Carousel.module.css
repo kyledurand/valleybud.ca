@@ -1,7 +1,12 @@
 .Carousel {
   position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-4);
   overflow: hidden;
-  background-color: var(--carousel-image-background, var(--brand-accent-blue));
+  height: var(--carousel-height);
+  background-color: var(--carousel-background, var(--brand-accent-blue));
 }
 
 .Images {
@@ -10,10 +15,18 @@
 
 .Image {
   position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   padding: var(--space-6);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-origin: content-box;
+
   transform: translateX(0);
   transition: transform 150ms ease-in-out;
-  background-color: var(--carousel-image-background, var(--brand-accent-blue));
 }
 
 .prev {
@@ -25,23 +38,27 @@
 }
 
 .Pips {
-  position: absolute;
-  bottom: var(--space-2);
-  left: 50%;
+  position: relative;
   display: flex;
-  gap: var(--space-3);
-  transform: translateX(-50%);
+}
+
+.PipButton {
+  padding: var(--space-4);
+  border: none;
+  background: transparent;
 }
 
 .Pip {
   --pip-size: 12px;
+  --pip-fuzz: 0 0 10px 0 var(--brand-accent-blue);
   width: var(--pip-size);
   height: var(--pip-size);
   background-color: white;
-  border: none;
   border-radius: 50%;
+  box-shadow: var(--pip-fuzz);
 }
 
-.selected {
-  box-shadow: 0 0 0 2px var(--brand-accent-blue), 0 0 0 3px white;
+.selected .Pip {
+  box-shadow: 0 0 0 2px var(--brand-accent-blue), 0 0 0 3px white,
+    var(--pip-fuzz);
 }
