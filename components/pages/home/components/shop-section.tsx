@@ -12,7 +12,7 @@ import {
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { ProductCard } from "components/shared/product/product-card";
-import { mediaQueries } from "styles/media-queries";
+import { mediaQueriesDown } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
 
 export const SHOP_SECTION_CATEGORIES = [
@@ -106,7 +106,7 @@ export function ShopSection(): JSX.Element {
 const Section = styled.section`
   padding: 80px 0 100px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     padding: 70px 27px 80px;
   }
 `;
@@ -121,7 +121,7 @@ const Header = styled.h2`
   width: 340px;
   margin: 0 auto 70px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     font-size: 30px;
     margin-bottom: 36px;
   }
@@ -153,11 +153,11 @@ const Grid = styled.div`
   justify-content: center;
   margin-bottom: 100px;
 
-  @media ${mediaQueries.largeTablet} {
+  @media ${mediaQueriesDown.largeTablet} {
     grid-template-columns: 340px 340px;
   }
 
-  @media ${mediaQueries.largePhone} {
+  @media ${mediaQueriesDown.largePhone} {
     grid-template-columns: 100%;
     margin-bottom: 60px;
   }

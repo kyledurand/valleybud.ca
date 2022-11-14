@@ -11,7 +11,7 @@ import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
-import { mediaQueries } from "styles/media-queries";
+import { mediaQueriesDown } from "styles/media-queries";
 import { CategoriesParam } from "utils/query-param";
 
 import { CategoryFilter } from "./components/filters/category-filter";
@@ -110,7 +110,7 @@ const Container = styled.div`
   margin: 0 auto;
   background-color: #ffffff;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     width: 100%;
   }
 `;
@@ -120,7 +120,7 @@ const Content = styled.div`
   display: flex;
   background: #ffffff;
 
-  @media ${mediaQueries.largeTablet} {
+  @media ${mediaQueriesDown.largeTablet} {
     flex-direction: column;
     padding: 18px 25px;
   }

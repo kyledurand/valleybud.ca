@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mediaQueries } from "styles/media-queries";
+import { mediaQueriesDown } from "styles/media-queries";
 
 export function Footer(): JSX.Element {
   return (
@@ -59,14 +59,14 @@ export function Footer(): JSX.Element {
 const Container = styled.footer`
   background-color: rgba(248, 245, 240, 0.56);
   padding: 120px 0 150px;
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     padding: 0px 10px;
   }
 `;
 
 const LinkListsContainer = styled.div`
   margin-bottom: 90px;
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     padding: 14px;
   }
 `;
@@ -81,7 +81,7 @@ const LinkList = styled.ul`
   padding: 0;
   margin-bottom: 28px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     gap: 10px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;

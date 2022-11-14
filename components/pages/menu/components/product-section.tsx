@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Category, useMenuQuery } from "api/queries/menu.graphql";
 import { ProductCard } from "components/shared/product/product-card";
-import { mediaQueries } from "styles/media-queries";
+import { mediaQueriesDown } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
 
 interface ProductSectionProps {
@@ -38,7 +38,7 @@ export function ProductSection({
 const Section = styled.section`
   margin-bottom: 64px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     margin-bottom: 50px;
   }
 `;
@@ -48,7 +48,7 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 22px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     grid-template-columns: 1fr;
     gap: 14px;
   }

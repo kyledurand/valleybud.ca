@@ -16,7 +16,7 @@ import { CloseButton } from "components/shared/svg/close-button";
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
-import { mediaQueries } from "styles/media-queries";
+import { mediaQueriesDown } from "styles/media-queries";
 import { deriveDisplayPrices } from "utils/product";
 import { formatPrice } from "utils/number-format";
 
@@ -162,7 +162,7 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
 const StyledStrainTypeLabel = styled(StrainTypeLabel)`
   margin-bottom: 13px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     margin-bottom: 11px;
   }
 `;
@@ -178,7 +178,7 @@ const StyledButton = styled(Button)`
     color: #ffffff !important;
   }
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     width: 100%;
     flex-shrink: 0;
   }
@@ -194,7 +194,7 @@ const FormContainer = styled.div`
   justify-content: stretch;
   margin-bottom: 61px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     height: 116px;
     display: block;
     margin-bottom: 0;
@@ -212,7 +212,7 @@ const StyledSelect = styled(Select)`
     padding: 14px 18px;
   }
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     margin-bottom: 13px;
   }
 `;
@@ -224,7 +224,7 @@ const VariantSelect = styled(StyledSelect)`
 const QuantitySelect = styled(StyledSelect)`
   width: 106px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     margin-right: 0;
   }
 `;
@@ -233,7 +233,7 @@ const DialogContent = styled.div`
   display: flex;
   max-height: 700px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     flex-direction: column;
     max-height: auto;
   }
@@ -246,7 +246,7 @@ const ImageContainer = styled.div`
   background-color: rgba(248, 245, 240, 0.4);
   border-right: 1px solid rgba(160, 154, 142, 0.4);
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     padding: 0;
     width: 100%;
     border-right: none;
@@ -260,7 +260,7 @@ const Image = styled.img`
   object-fit: contain;
   mix-blend-mode: darken;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     height: 288px;
   }
 `;
@@ -272,7 +272,7 @@ const ContentContainer = styled.div`
   position: relative;
   overflow-y: auto;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     width: 100%;
     padding: 27px 30px;
   }
@@ -288,7 +288,7 @@ const Brand = styled.div`
   color: #1f2b49;
   font-size: 16px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     font-size: 14px;
   }
 `;
@@ -299,7 +299,7 @@ const Name = styled.div`
   font-size: 30px;
   margin-bottom: 20px;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     font-size: 23px;
   }
 `;
@@ -315,7 +315,7 @@ const Description = styled.p`
   line-height: 27px;
   font-weight: 300;
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     font-size: 13px;
     line-height: 23px;
   }
@@ -329,7 +329,7 @@ const CanabanoidDetail = styled.div`
     margin-bottom: 50px;
   }
 
-  @media ${mediaQueries.phone} {
+  @media ${mediaQueriesDown.phone} {
     display: inline-block;
     margin-right: 24px;
     margin-bottom: 23px;

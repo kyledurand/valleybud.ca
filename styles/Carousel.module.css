@@ -1,0 +1,47 @@
+.Carousel {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--carousel-image-background, var(--brand-accent-blue));
+}
+
+.Images {
+  position: relative;
+}
+
+.Image {
+  position: absolute;
+  padding: var(--space-6);
+  transform: translateX(0);
+  transition: transform 150ms ease-in-out;
+  background-color: var(--carousel-image-background, var(--brand-accent-blue));
+}
+
+.prev {
+  transform: translateX(-100%);
+}
+
+.next {
+  transform: translateX(100%);
+}
+
+.Pips {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  display: flex;
+  gap: var(--space-3);
+  transform: translateX(-50%);
+}
+
+.Pip {
+  --pip-size: 12px;
+  width: var(--pip-size);
+  height: var(--pip-size);
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+}
+
+.selected {
+  box-shadow: 0 0 0 2px var(--brand-accent-blue), 0 0 0 3px white;
+}

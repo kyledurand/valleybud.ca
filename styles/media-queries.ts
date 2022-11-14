@@ -8,7 +8,15 @@ export const mediaSizes = {
   smallPhone: 376,
 };
 
-export const mediaQueries = {
+export const mediaQueriesUp = {
+  largeDesktop: `only screen and (min-width: ${mediaSizes.largeDesktop + 1}px)`,
+  largeTablet: `only screen and (min-width: ${mediaSizes.largeTablet - 1}px)`, // to match our MobileOnly component
+  largePhone: `only screen and (min-width: ${mediaSizes.largePhone + 1}px)`,
+  smallPhone: `only screen and (min-width: ${mediaSizes.smallPhone + 1}px)`,
+  custom: (px: number): string => `only screen and (min-width: ${px}px)`,
+};
+
+export const mediaQueriesDown = {
   largeDesktop: `only screen and (max-width: ${mediaSizes.largeDesktop + 1}px)`,
   desktop: `only screen and (max-width: ${mediaSizes.desktop + 1}px)`,
   largeTablet: `only screen and (max-width: ${mediaSizes.largeTablet - 1}px)`, // to match our MobileOnly component
