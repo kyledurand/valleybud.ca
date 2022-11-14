@@ -1,4 +1,5 @@
 import { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { ApolloProvider } from "@apollo/client";
 import { normalize } from "styled-normalize";
 import "../styles/globals.css";
@@ -32,7 +33,7 @@ export const styledComponentsTheme = {
 export const muiTheme = createMuiTheme({
   props: {
     MuiButtonBase: {
-      disableRipple: true, // No more ripple, on the whole application
+      disableRipple: true,
     },
   },
 });
@@ -43,6 +44,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo();
+  const router = useRouter();
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
 
   return (
@@ -54,7 +56,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
             <MuiProvider theme={muiTheme}>
               <StylesProvider injectFirst>
                 <GlobalStyle />
-                {sessionVerified === "true" ? (
+                {router.pathname === "/" || sessionVerified === "true" ? (
                   <Component {...pageProps} />
                 ) : (
                   <AgeGate

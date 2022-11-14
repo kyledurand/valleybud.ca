@@ -4,13 +4,12 @@ export function useSessionStorage(
   key: string,
   defaultValue = ""
 ): [string, (value: string) => void] {
-  if (typeof window === "undefined") return [defaultValue, () => {}];
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
     const value = sessionStorage.getItem(key);
     setValue(value || defaultValue);
-  }, [key]);
+  }, [key, defaultValue]);
 
   useEffect(() => {
     sessionStorage.setItem(key, value);
