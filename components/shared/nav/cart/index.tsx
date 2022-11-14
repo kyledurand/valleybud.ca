@@ -12,6 +12,7 @@ import { useUpdateCheckoutMutation } from "api/mutations/update-checkout.graphql
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
+
 import { formatPrice } from "utils/number-format";
 import { displayNameForCheckoutOrderType } from "utils/enum-to-display-name/checkout-order-type";
 

@@ -12,7 +12,7 @@ export default function Shop() {
   return (
     <>
       <LogoContainer>
-        <Logo width={matches ? 300 : undefined} />
+        <Logo width={matches ? 300 : undefined} color="white" />
       </LogoContainer>
       <Script
         async={false}
