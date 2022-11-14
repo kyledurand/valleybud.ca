@@ -83,7 +83,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
           >
             <NavLink>
               shop by category
-              <Chevron direction={ChevronDirection.Down} color="#000" />
+              <Chevron direction={ChevronDirection.Down} />
             </NavLink>
           </NavLinkListItem>
           <NavLinkListItem
@@ -100,7 +100,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
                     ? ChevronDirection.Up
                     : ChevronDirection.Down
                 }
-                color="#000"
               />
             </NavLink>
           </NavLinkListItem>
@@ -226,7 +225,7 @@ const NavContainer = styled.nav<{ darkBackground?: boolean }>`
   height: 122px;
 
   color: var(--text);
-  background-color: #ffffff;
+  background-color: var(--background);
 `;
 
 const NavLinksContainer = styled.div`
@@ -254,7 +253,7 @@ const NavLink = styled.div<{
   darkBackground?: boolean;
   isUnderlined?: boolean;
 }>`
-  color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
+  color: var(--link);
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -264,7 +263,6 @@ const NavLink = styled.div<{
   border-bottom: ${(props) =>
     props.isUnderlined ? "3px solid #F4BD33" : "none"};
 
-  // hacky. will revisit this
   & > svg {
     margin-left: 4px;
   }

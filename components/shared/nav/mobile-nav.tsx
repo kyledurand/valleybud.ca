@@ -78,11 +78,10 @@ export function MobileNav(props: NavProps): JSX.Element {
         style={{ marginTop: NAV_HEIGHT }}
       >
         <LoginAndCartSection>
-          Customer Login
           <CartIconContainer>
             <CartCount>
               {loading ? (
-                <LoadingSpinner size={8} color="#ffffff" />
+                <LoadingSpinner size={8} color="var(--text)" />
               ) : (
                 checkoutItemsCount
               )}
@@ -92,12 +91,7 @@ export function MobileNav(props: NavProps): JSX.Element {
         </LoginAndCartSection>
         <StyledMenuItem onClick={handleShopClick}>
           Shop
-          <Chevron
-            direction={ChevronDirection.Right}
-            color="#1F2B49"
-            height={16}
-            width={16}
-          />
+          <Chevron direction={ChevronDirection.Right} height={16} width={16} />
         </StyledMenuItem>
         <StyledMenuItem>Find a Location</StyledMenuItem>
         <StyledMenuItem>Cannabis Corner</StyledMenuItem>
@@ -129,9 +123,8 @@ const Container = styled.div<{ darkBackground?: boolean }>`
   align-items: center;
   justify-content: space-between;
 
-  color: ${(props) => (props.darkBackground ? "#ffffff" : "#1F2B49")};
-  background-color: ${(props) =>
-    props.darkBackground ? "var(--brand-accent-orange)" : "#ffffff"};
+  color: var(--text);
+  background-color: var(--background);
 `;
 
 const StyledMenu = styled(Menu)`
@@ -143,7 +136,7 @@ const StyledMenu = styled(Menu)`
     left: 0 !important;
     top: 0 !important;
     max-width: 1440px;
-    background-color: #ffffff;
+    background-color: var(--background);
   }
 
   & .MuiList-root {
@@ -152,11 +145,10 @@ const StyledMenu = styled(Menu)`
 `;
 
 const LoginAndCartSection = styled.div`
-  background-color: #232133;
-  color: #ffffff;
+  color: var(--text);
   height: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   font-size: 13px;
@@ -171,6 +163,7 @@ const StyledMenuItem = styled(MenuItem)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--text);
 
   &:last-of-type {
     border-bottom: none;

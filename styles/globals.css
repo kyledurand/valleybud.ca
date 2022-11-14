@@ -6,7 +6,9 @@
 :root {
   /* Color */
   --text: #1a1a1a;
+  --link: #1a1a1a;
   --text-inverse: #fff;
+  --background: #fff;
   --brand: #e1ad01;
 
   --brand-accent-mud: #5d5c24;
@@ -27,6 +29,23 @@
   --font-size-3: 18px;
   --font-size-4: 24px;
   --font-size-5: 32px;
+  /* Placeholder */
+  --placeholder-1: aliceblue;
+  --placeholder-2: blanchedalmond;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #fff;
+    --text-inverse: #1a1a1a;
+    --link: #a0eaff;
+    --background: #1a1a1a;
+    --placeholder-1: #3a4854;
+    --placeholder-2: #3b2e1c;
+  }
+  html {
+    color-scheme: dark;
+  }
 }
 
 html,
@@ -36,7 +55,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--brand-accent-orange);
+  background-color: "#fff";
   color: var(--text);
 }
 
@@ -49,16 +68,6 @@ button {
 
 * {
   box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: var(--text);
-    background: var(--brand-accent-orange);
-  }
 }
 
 h1,

@@ -55,6 +55,7 @@ const MobileCategorySelect = styled(Select)`
   width: 100%;
   height: 58px;
   border-radius: 0px !important;
+  color: var(--text);
 
   & .MuiSelect-select {
     font-size: 13px;

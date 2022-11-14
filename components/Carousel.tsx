@@ -35,7 +35,6 @@ export function Carousel({
     ? height.desktop
     : height.mobile;
 
-  console.log(idealHeight);
   useEffect(() => {
     const interval = setInterval(
       () => onSelect(selected + 1 < images.length ? selected + 1 : 0),

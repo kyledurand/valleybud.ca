@@ -31,7 +31,7 @@ function handleDirectionType(direction: ChevronDirection) {
 export function Chevron(props: ChevronProps): JSX.Element {
   const {
     direction = ChevronDirection.Down,
-    color = "#ffffff",
+    color = "var(--text)",
     height = 9,
     width = 9,
   } = props;

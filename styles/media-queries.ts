@@ -8,6 +8,8 @@ export const mediaSizes = {
   smallPhone: 376,
 };
 
+export const prefersDark = "(prefers-color-scheme: dark)";
+
 export const mediaQueriesUp = {
   lg: `only screen and (min-width: ${mediaSizes.largeDesktop + 1}px)`,
   md: `only screen and (min-width: ${mediaSizes.largeTablet - 1}px)`, // to match our MobileOnly component

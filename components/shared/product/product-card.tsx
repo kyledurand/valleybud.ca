@@ -38,7 +38,6 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 }
 
 const Container = styled.div`
-  background-color: rgba(248, 245, 240, 0.4);
   border: 1px solid rgba(160, 153, 142, 0.4);
   cursor: pointer;
   width: 100%;
@@ -52,7 +51,6 @@ const ProductImage = styled.img`
   height: auto;
   object-fit: contain;
   margin-bottom: 24px;
-  mix-blend-mode: darken;
 `;
 
 const DisplayPrice = styled.div`
@@ -62,7 +60,7 @@ const DisplayPrice = styled.div`
 
 const BrandName = styled.div`
   font-size: 13px;
-  color: #1f2b49;
+  color: var(--text);
   opacity: 0.8;
   margin-bottom: 4px;
 `;
@@ -70,7 +68,7 @@ const BrandName = styled.div`
 const ProductName = styled.div`
   font-size: 17px;
   font-weight: 600;
-  color: #1f2b49;
+  color: var(--text);
   margin-bottom: 13px;
   max-width: 225px;
 `;

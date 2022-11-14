@@ -9,8 +9,8 @@ interface UserIconProps {
 }
 
 export function UserIcon(props: UserIconProps): JSX.Element {
-  const { isDark, height = 23, width = 22, className = "", onClick } = props;
-  const color = isDark ? "#1F2B49" : "#ffffff";
+  const { height = 23, width = 22, className = "", onClick } = props;
+  const color = "var(--text)";
   return (
     <StyledSvg
       width={width}

@@ -8,8 +8,8 @@ interface MobileMenuIconProps {
 }
 
 export function MobileMenuIcon(props: MobileMenuIconProps): JSX.Element {
-  const { height = 14, width = 36, isDark, onClick } = props;
-  const color = isDark ? "#1f2b49" : "#ffffff";
+  const { height = 14, width = 36, onClick } = props;
+  const color = "var(--text)";
 
   return (
     <StyledSvg

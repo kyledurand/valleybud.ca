@@ -8,8 +8,8 @@ interface CloseButtonProps {
 }
 
 export function CloseButton(props: CloseButtonProps): JSX.Element {
-  const { height = 36, width = 36, isDark, onClick } = props;
-  const color = isDark ? "#1f2b49" : "#ffffff";
+  const { height = 36, width = 36, onClick } = props;
+  const color = "var(--text)";
 
   return (
     <StyledSvg

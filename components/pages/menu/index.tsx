@@ -30,7 +30,7 @@ const ProductSectionCategories = [
   Category.PreRolls,
 ];
 
-function Menu(): JSX.Element {
+function Menu() {
   const [query, setQuery] = useState("");
   const [debouncedQuery] = useDebounce(query, 100);
 
@@ -108,7 +108,7 @@ const Container = styled.div`
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: var(--background);
 
   @media ${mediaQueriesDown.phone} {
     width: 100%;
@@ -118,7 +118,7 @@ const Container = styled.div`
 const Content = styled.div`
   padding: 45px;
   display: flex;
-  background: #ffffff;
+  background: var(--background);
 
   @media ${mediaQueriesDown.largeTablet} {
     flex-direction: column;

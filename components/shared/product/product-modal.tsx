@@ -71,7 +71,7 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
     >
       <DialogContent>
         <ImageContainer>
-          <Image src={product.image} />
+          <Image src={product.image} alt={product.name} />
           <MobileOnly>
             <CloseButtonContainer>
               <CloseButton onClick={handleCloseClick} isDark />

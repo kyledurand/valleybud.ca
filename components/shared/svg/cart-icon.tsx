@@ -9,8 +9,8 @@ interface CartIconProps {
 }
 
 export function CartIcon(props: CartIconProps): JSX.Element {
-  const { isDark, height = 23, width = 23, className = "", onClick } = props;
-  const color = isDark ? "#1F2B49" : "#ffffff";
+  const { height = 23, width = 23, className = "", onClick } = props;
+  const color = "var(--text)";
   return (
     <StyledSvg
       width={width}

@@ -35,12 +35,12 @@ function Home(): React.ReactNode {
           </CarouselContainer>
           <ScrollableContainer>
             {Array.from({ length: 12 }).map((_, index) => (
-              <div>{`0${index}`}</div>
+              <div key={index}>{`0${index}`}</div>
             ))}
           </ScrollableContainer>
           <PromosContainer>
             {Array.from({ length: 12 }).map((_, index) => (
-              <div>{`0${index}`}</div>
+              <div key={index}>{`0${index}`}</div>
             ))}
           </PromosContainer>
         </HomeGrid>
@@ -76,9 +76,9 @@ export default Home;
 
 const Container = styled.div`
   width: 100%;
-  max-width: 1280px;
+  max-width: 1080px;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: var(--background);
 `;
 
 const HomeGrid = styled.div`
@@ -120,7 +120,7 @@ const ScrollableContainer = styled.div`
   > * {
     min-width: 100px;
     height: 50px;
-    background: blanchedalmond;
+    background: var(--placeholder-2);
   }
 
   @media ${mediaQueriesUp.sm} {
@@ -135,7 +135,7 @@ const PromosContainer = styled.div`
   grid-template-columns: minmax(0, 1fr);
 
   > * {
-    background: aliceblue;
+    background: var(--placeholder-1);
   }
 
   @media ${mediaQueriesUp.sm} {
