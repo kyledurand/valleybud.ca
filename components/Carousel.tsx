@@ -47,7 +47,10 @@ export function Carousel({
             position = styles.next;
 
           return (
-            <div className={[styles.Image, position].join(" ")}>
+            <div
+              key={`Image-${index}`}
+              className={[styles.Image, position].join(" ")}
+            >
               <Image src={image.source} width={1480} height={492} />
             </div>
           );
@@ -57,6 +60,7 @@ export function Carousel({
       <div className={styles.Pips}>
         {Array.from({ length: images.length }).map((_, index) => (
           <button
+            key={`button-${index}`}
             className={[
               styles.Pip,
               selected === index ? styles.selected : undefined,

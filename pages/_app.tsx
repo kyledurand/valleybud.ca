@@ -14,7 +14,7 @@ import {
   StylesProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import { mediaSizes, mediaQueries } from "styles/media-queries";
+import { mediaSizes, mediaQueriesDown } from "styles/media-queries";
 import { Meta } from "components/Meta";
 import { useSessionStorage } from "hooks/use-session-storage";
 import { AgeGate } from "components/age-gate";
@@ -28,7 +28,7 @@ export const styledComponentsTheme = {
   breakpoints: Object.values(mediaSizes)
     .reverse()
     .map((size) => `${size + 1}px`),
-  mediaQueries,
+  mediaQueriesDown,
 };
 export const muiTheme = createMuiTheme({
   props: {
