@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 
-export function useSessionStorage(key: string, defaultValue = "") {
-  if (typeof window === "undefined") return [];
+export function useSessionStorage(
+  key: string,
+  defaultValue = ""
+): [string, (value: string) => void] {
+  if (typeof window === "undefined") return [defaultValue, () => {}];
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {

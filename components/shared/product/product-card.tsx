@@ -49,9 +49,9 @@ const Container = styled.div`
 
 const ProductImage = styled.img`
   width: 100%;
-  height: 186px;
+  height: auto;
   object-fit: contain;
-  margin-bottom: 44px;
+  margin-bottom: 24px;
   mix-blend-mode: darken;
 `;
 

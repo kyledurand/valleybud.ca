@@ -18,7 +18,6 @@ import { Meta } from "components/Meta";
 import { useSessionStorage } from "hooks/use-session-storage";
 import { AgeGate } from "components/age-gate";
 
-// exports for use in storybook TODO: move/reorganize this stuff
 export {
   ThemeProvider as MuiProvider,
   StylesProvider,
@@ -27,9 +26,8 @@ export { ThemeProvider as StyledComponentsProvider } from "styled-components";
 export const styledComponentsTheme = {
   breakpoints: Object.values(mediaSizes)
     .reverse()
-    .map((size) => `${size + 1}px`), // +1 required to avoid conflicts on exact pixels. - Alex 9/17/18
+    .map((size) => `${size + 1}px`),
   mediaQueries,
-  // TODO: colors/spacing/other shtuff
 };
 export const muiTheme = createMuiTheme({
   props: {
@@ -47,8 +45,6 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo();
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
 
-  console.log("sessionVerified", { sessionVerified });
-
   return (
     <>
       <Meta />
@@ -62,7 +58,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
                   <Component {...pageProps} />
                 ) : (
                   <AgeGate
-                    handleVerify={setSessionVerified}
+                    onVerify={setSessionVerified}
                     sessionVerified={sessionVerified}
                   />
                 )}

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 interface AgeGateProps {
-  handleVerify(verified: string): void;
+  onVerify(verified: string): void;
   sessionVerified: string;
 }
 
-export function AgeGate({ handleVerify, sessionVerified }: AgeGateProps) {
+export function AgeGate({ onVerify, sessionVerified }: AgeGateProps) {
   return (
     <Container>
       {sessionVerified === "false" && (
@@ -16,8 +16,8 @@ export function AgeGate({ handleVerify, sessionVerified }: AgeGateProps) {
       )}
       <p>Are you over the age of 19?</p>
       <div>
-        <button onClick={() => handleVerify("false")}>0-18</button>
-        <button onClick={() => handleVerify("true")}>19+</button>
+        <button onClick={() => onVerify("false")}>0-18</button>
+        <button onClick={() => onVerify("true")}>19+</button>
       </div>
     </Container>
   );
