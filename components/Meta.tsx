@@ -1,4 +1,17 @@
 import Head from "next/head";
+import { MetaHTMLAttributes } from "react";
+
+const LIGHT_THEME_COLOR_PROPS = {
+  name: "theme-color",
+  content: "#ffffff",
+  media: "(prefers-color-scheme: light)",
+} as MetaHTMLAttributes<HTMLMetaElement>;
+
+const DARK_THEME_COLOR_PROPS = {
+  name: "theme-color",
+  content: "#1a1a1a",
+  media: "(prefers-color-scheme: dark)",
+} as MetaHTMLAttributes<HTMLMetaElement>;
 
 export function Meta() {
   return (
@@ -29,7 +42,9 @@ export function Meta() {
       <link rel="manifest" href="/site.webmanifest" />
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff" />
       <meta name="msapplication-TileColor" content="#da532c" />
-      <meta name="theme-color" content="#ffffff" />
+      <meta name="theme-color" content="#b86047" />
+      <meta {...LIGHT_THEME_COLOR_PROPS} />
+      <meta {...DARK_THEME_COLOR_PROPS} />
     </Head>
   );
 }
