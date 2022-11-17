@@ -9,7 +9,7 @@ interface AgeGateProps {
 export function AgeGate({ onVerify, sessionVerified }: AgeGateProps) {
   return (
     <Container>
-      <Logo width={400} height={188} color="white" />
+      <Logo width={400} height={188} color="var(--text)" />
       {sessionVerified === "false" && (
         <p>
           Unfortunately, you need to be over the age of 19 to access this
