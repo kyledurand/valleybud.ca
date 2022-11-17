@@ -9,6 +9,7 @@
   --link: #1a1a1a;
   --text-inverse: #fff;
   --background: #fff;
+  --background-error: #ff8787;
   --brand: #e1ad01;
 
   --brand-accent-mud: #5d5c24;
@@ -32,6 +33,8 @@
   /* Placeholder */
   --placeholder-1: aliceblue;
   --placeholder-2: blanchedalmond;
+  /* Borders */
+  --border-radius-1: 4px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,6 +43,8 @@
     --text-inverse: #1a1a1a;
     --link: #a0eaff;
     --background: #1a1a1a;
+    --background-error: #611616;
+
     --placeholder-1: #3a4854;
     --placeholder-2: #3b2e1c;
   }
