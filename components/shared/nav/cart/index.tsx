@@ -2,8 +2,6 @@ import { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 
-import Button from "@material-ui/core/Button";
-
 import { OrderType, PricingType } from "api/queries/checkout.graphql";
 import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
@@ -237,23 +235,6 @@ const EmptyCart = styled.div`
 
 const ButtonContainer = styled.div`
   margin: 0 25px;
-`;
-
-const StyledButton = styled(Button)`
-  border-radius: 0px !important;
-  text-transform: none !important;
-  background-color: #5ea4ba !important;
-  width: 100%;
-  height: 58px;
-  box-sizing: border-box;
-
-  & .MuiButton-label {
-    color: #ffffff !important;
-  }
-
-  &:hover {
-    background-color: #246e84 !important;
-  }
 `;
 
 const DesktopCartItemContainer = styled(DesktopOnly)`
