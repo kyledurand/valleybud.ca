@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
             <MuiProvider theme={muiTheme}>
               <StylesProvider injectFirst>
                 <GlobalStyle />
-                {router.pathname === "/" || sessionVerified === "true" ? (
+                {sessionVerified === "true" ? (
                   <Component {...pageProps} />
                 ) : (
                   <AgeGate
