@@ -136,6 +136,8 @@ export function Cart(props: CartProps): JSX.Element {
     return formatPrice(totalPrice);
   }
 
+  console.log(checkout?.redirectUrl);
+
   return (
     <Container>
       {headerAndDeliveryInfo}
@@ -164,9 +166,9 @@ export function Cart(props: CartProps): JSX.Element {
       </CheckoutItems>
 
       <ButtonContainer>
-        <StyledButton href={checkout?.redirectUrl}>
+        <a href={checkout?.redirectUrl}>
           Proceed to checkout - {totalCostDisplayValue(checkoutItems)}
-        </StyledButton>
+        </a>
       </ButtonContainer>
     </Container>
   );
