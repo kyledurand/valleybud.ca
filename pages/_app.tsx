@@ -1,5 +1,4 @@
 import { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { ApolloProvider } from "@apollo/client";
 import { normalize } from "styled-normalize";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -32,7 +31,6 @@ export { ThemeProvider as StyledComponentsProvider } from "styled-components";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo();
-  const router = useRouter();
   const isDarkMode = useMediaQuery(prefersDark);
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
   console.log({ isDarkMode });
