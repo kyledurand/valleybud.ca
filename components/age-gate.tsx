@@ -32,6 +32,7 @@ const Container = styled.div`
   align-items: center;
   gap: var(--space-3);
   height: 100vh;
+  padding: 0 var(--space-4);
 `;
 
 const ErrorText = styled.p`
