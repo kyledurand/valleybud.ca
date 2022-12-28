@@ -2,7 +2,6 @@ import { GetStaticProps } from "next";
 import { useDebounce } from "use-debounce";
 import styled from "styled-components";
 import { useQueryParam } from "use-query-params";
-
 import { initializeApollo } from "api/apollo";
 import { MenuDocument, Category } from "api/queries/menu.graphql";
 import { Nav } from "components/shared/nav";
@@ -13,11 +12,11 @@ import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 import { mediaQueriesDown } from "styles/media-queries";
 import { CategoriesParam } from "utils/query-param";
-
 import { CategoryFilter } from "./components/filters/category-filter";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 import { useState } from "react";
+import { createClient } from "next-sanity";
 
 const ProductSectionCategories = [
   Category.Flower,
@@ -30,16 +29,27 @@ const ProductSectionCategories = [
   Category.PreRolls,
 ];
 
-function Menu() {
+interface Props {
+  carousel: [
+    {
+      _id: string;
+      title: string;
+      titleColor: string;
+      imageUrl: string;
+      imageAlt: string;
+      bgColor: string;
+    }
+  ];
+}
+
+function Menu({ carousel }: Props) {
   const [query, setQuery] = useState("");
   const [debouncedQuery] = useDebounce(query, 100);
-
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
     CategoriesParam
   );
   const checkoutContext = useCheckout();
-
   function onCategorySelect(category: Category) {
     if (selectedCategories.has(category)) {
       selectedCategories.delete(category);
@@ -64,6 +74,13 @@ function Menu() {
           selectedCategories.has(category)
         );
 
+  const carouselMarkup = carousel.map((slide) => (
+    <div style={{ background: slide.bgColor }} key={slide["_id"]}>
+      <p style={{ color: slide.titleColor }}>{slide.title}</p>
+      <img src={`${slide.imageUrl}?h=200`} alt={slide.imageAlt || ""} />
+    </div>
+  ));
+
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
@@ -73,6 +90,7 @@ function Menu() {
           search={query}
           setSearch={setQuery}
         />
+        {carouselMarkup}
         <Content>
           <DesktopOnly>
             <Sidebar>
@@ -132,8 +150,23 @@ const Sidebar = styled.aside`
   flex-shrink: 0;
 `;
 
+const client = createClient({
+  projectId: "oldv6j45",
+  dataset: "production",
+  apiVersion: new Date().toISOString().split("T")[0],
+  useCdn: false,
+});
+
 export const getStaticProps: GetStaticProps = async function () {
   const apolloClient = initializeApollo();
+  const carousel = await client.fetch(`*[_type == "carousel"]{
+    _id,
+    title,
+    titleColor,
+    bgColor,
+    "imageUrl": image.asset->url,
+    imageAlt,
+  }`);
 
   const queries = ProductSectionCategories.map((category) =>
     apolloClient.query({
@@ -148,6 +181,7 @@ export const getStaticProps: GetStaticProps = async function () {
 
   return {
     props: {
+      carousel,
       initialApolloState: apolloClient.cache.extract(),
     },
     revalidate: 10,

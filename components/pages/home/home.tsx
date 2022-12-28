@@ -1,4 +1,5 @@
 import { GetStaticProps } from "next";
+import { createClient } from "next-sanity";
 import styled from "styled-components";
 
 import { initializeApollo } from "api/apollo";
@@ -13,9 +14,13 @@ import { SHOP_SECTION_CATEGORIES } from "./components/shop-section";
 import { Carousel } from "components/Carousel";
 import { useState } from "react";
 
-function Home(): React.ReactNode {
+function Home({ carousel }: any): React.ReactNode {
   const [selected, setSelected] = useState(0);
   const checkoutContext = useCheckout();
+
+  carousel.forEach((item: any) => {
+    console.log(item);
+  });
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -50,8 +55,16 @@ function Home(): React.ReactNode {
   );
 }
 
+const client = createClient({
+  projectId: "oldv6j45",
+  dataset: "production",
+  apiVersion: new Date().toISOString().split("T")[0],
+  useCdn: false,
+});
+
 export const getStaticProps: GetStaticProps = async function () {
   const apolloClient = initializeApollo();
+  const carousel = await client.fetch(`*[_type == "carousel"]`);
 
   const queries = [undefined, ...SHOP_SECTION_CATEGORIES].map((category) =>
     apolloClient.query({
@@ -67,6 +80,7 @@ export const getStaticProps: GetStaticProps = async function () {
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
+      carousel,
     },
     revalidate: 10,
   };
