@@ -1,21 +1,33 @@
 import { GetStaticProps } from "next";
 import styled from "styled-components";
+import { createClient } from "next-sanity";
 
-import { initializeApollo } from "api/apollo";
-import { HomePageMenuDocument } from "api/queries/home-page-menu.graphql";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 import { mediaQueriesUp } from "styles/media-queries";
 
-import { SHOP_SECTION_CATEGORIES } from "./components/shop-section";
 import { Carousel } from "components/Carousel";
 import { useState } from "react";
 
-function Home(): React.ReactNode {
+interface Carousel {
+  _id: string;
+  title: string;
+  titleColor: string;
+  imageUrl: string;
+  imageAlt: string;
+  bgColor: string;
+}
+
+function Home({ carousel }: { carousel: Carousel[] }): React.ReactNode {
   const [selected, setSelected] = useState(0);
   const checkoutContext = useCheckout();
+
+  console.log(carousel);
+  carousel?.forEach((item: any) => {
+    console.log(item);
+  });
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -49,30 +61,6 @@ function Home(): React.ReactNode {
     </CheckoutContext.Provider>
   );
 }
-
-export const getStaticProps: GetStaticProps = async function () {
-  const apolloClient = initializeApollo();
-
-  const queries = [undefined, ...SHOP_SECTION_CATEGORIES].map((category) =>
-    apolloClient.query({
-      query: HomePageMenuDocument,
-      variables: {
-        category,
-      },
-    })
-  );
-
-  await Promise.all(queries);
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-    revalidate: 10,
-  };
-};
-
-export default Home;
 
 const Container = styled.div`
   width: 100%;
@@ -142,3 +130,29 @@ const PromosContainer = styled.div`
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 `;
+
+const client = createClient({
+  projectId: "oldv6j45",
+  dataset: "production",
+  apiVersion: new Date().toISOString().split("T")[0],
+  useCdn: false,
+});
+
+export const getStaticProps: GetStaticProps = async function () {
+  const carousel = await client.fetch(`*[_type == "carousel"]{
+    _id,
+    title,
+    titleColor,
+    bgColor,
+    "imageUrl": image.asset->url,
+    imageAlt,
+  }`);
+
+  return {
+    props: {
+      carousel,
+    },
+  };
+};
+
+export default Home;
