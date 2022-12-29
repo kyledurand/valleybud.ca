@@ -28,6 +28,6 @@
     "target": "esnext",
     "incremental": true
   },
-  "exclude": ["node_modules", "__generated__"],
+  "exclude": ["node_modules", "__generated__", "CMS"],
   "include": ["**/*.ts", "**/*.tsx"]
 }
