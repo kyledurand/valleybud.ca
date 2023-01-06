@@ -17,6 +17,7 @@ import { displayNameForCheckoutOrderType } from "utils/enum-to-display-name/chec
 import { DesktopCartItem } from "./desktop-cart-item";
 import { MobileCartItem } from "./mobile-cart-item";
 import { LoadingSpinner } from "components/shared/loading-spinner";
+import { retailerId } from "api/apollo";
 
 interface CartProps {
   onClose: () => void;
@@ -44,6 +45,7 @@ export function Cart(props: CartProps): JSX.Element {
   async function handleRemoveItemFromCheckout(item: CheckoutItemFragment) {
     await removeItemFromCheckout({
       variables: {
+        retailerId,
         checkoutId,
         itemId: item.id,
       },
@@ -60,6 +62,7 @@ export function Cart(props: CartProps): JSX.Element {
   ) {
     await updateCheckoutItemQuantity({
       variables: {
+        retailerId,
         checkoutId,
         itemId: item.id,
         quantity: newQuantity,
@@ -74,6 +77,7 @@ export function Cart(props: CartProps): JSX.Element {
   async function handleCheckoutOrderTypeToggle() {
     await updateCheckout({
       variables: {
+        retailerId,
         checkoutId,
         pricingType: checkoutPricingType || PricingType.Recreational,
         orderType: otherOrderType,

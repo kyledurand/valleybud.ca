@@ -4,11 +4,13 @@ mutation UpdateCheckoutItemQuantity(
   $checkoutId: ID!
   $itemId: ID!
   $quantity: Int!
+  $retailerId: ID!
 ) {
   updateQuantity(
     checkoutId: $checkoutId
     itemId: $itemId
     quantity: $quantity
+    retailerId: $retailerId
   ) {
     ...Checkout
   }

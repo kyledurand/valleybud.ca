@@ -10,6 +10,11 @@ import { mediaQueriesUp } from "styles/media-queries";
 
 import { Carousel } from "components/Carousel";
 import { useState } from "react";
+import {
+  GetSpecialsListDocument,
+  useGetSpecialsListQuery,
+} from "api/queries/specials.graphql";
+import { initializeApollo, retailerId } from "api/apollo";
 
 interface Carousel {
   link: string;
@@ -21,11 +26,13 @@ interface Carousel {
 function Home({ carousel }: { carousel: Carousel[] }): React.ReactNode {
   const [selected, setSelected] = useState(0);
   const checkoutContext = useCheckout();
-
-  console.log(carousel);
-  carousel?.forEach((item: any) => {
-    console.log(item);
+  const { data, loading, error } = useGetSpecialsListQuery({
+    variables: {
+      retailerId,
+    },
   });
+
+  console.log({ data, loading, error });
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -133,6 +140,7 @@ const client = createClient({
 });
 
 export const getStaticProps: GetStaticProps = async function () {
+  const apolloClient = initializeApollo();
   const carousel = await client.fetch(`*[_type == "carousel"]{
     link,
     background,
@@ -140,10 +148,19 @@ export const getStaticProps: GetStaticProps = async function () {
     "imageUrl": image.asset->url,
   }`);
 
+  await apolloClient.query({
+    query: GetSpecialsListDocument,
+    variables: {
+      retailerId,
+    },
+  });
+
   return {
     props: {
       carousel,
+      initialApolloState: apolloClient.cache.extract(),
     },
+    revalidate: 10,
   };
 };
 

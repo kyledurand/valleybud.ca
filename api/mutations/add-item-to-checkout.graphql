@@ -5,12 +5,14 @@ mutation AddItemToCheckout(
   $productId: ID!
   $quantity: Int!
   $option: String!
+  $retailerId: ID!
 ) {
   addItem(
     checkoutId: $checkoutId
     productId: $productId
     quantity: $quantity
     option: $option
+    retailerId: $retailerId
   ) {
     ...Checkout
   }

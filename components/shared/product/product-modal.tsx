@@ -21,6 +21,7 @@ import { deriveDisplayPrices } from "utils/product";
 import { formatPrice } from "utils/number-format";
 
 import { StrainTypeLabel } from "./strain-type-label";
+import { retailerId } from "api/apollo";
 
 interface ProductModalProps {
   product: MenuProductFragment;
@@ -53,6 +54,7 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
   async function handleAddToCartClick() {
     await addItemToCheckoutMutation({
       variables: {
+        retailerId,
         checkoutId: checkout?.id || "",
         productId: product.id,
         quantity: selectedQuantity,

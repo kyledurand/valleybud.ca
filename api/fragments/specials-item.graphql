@@ -1,0 +1,28 @@
+fragment SpecialsItem on Special {
+  id
+  name
+  type
+  redemptionLimit
+  menuType
+  emailConfiguration {
+    description
+    descriptionHtml
+    subject
+    heading
+    enabled
+  }
+  scheduleConfiguration {
+    startStamp
+    endStamp
+    days
+    setEndDate
+    endDate
+    recurringStartTime
+    recurringEndTime
+  }
+  menuDisplayConfiguration {
+    name
+    description
+    image
+  }
+}
