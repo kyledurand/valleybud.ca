@@ -6,7 +6,7 @@ import { DesktopNav } from "./desktop-nav";
 import { MobileNav } from "./mobile-nav";
 
 export interface NavProps {
-  page?: "menu";
+  page?: "shop";
   search: string;
   setSearch(search: string): void;
   selectSingleCategory?(category?: Category): void;

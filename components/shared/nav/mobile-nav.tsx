@@ -43,10 +43,10 @@ export function MobileNav(props: NavProps): JSX.Element {
   }
 
   function handleShopClick() {
-    if (page === "menu") {
+    if (page === "shop") {
       setIsMenuOpen(false);
     } else {
-      router.push("/menu");
+      router.push("/shop");
     }
   }
 

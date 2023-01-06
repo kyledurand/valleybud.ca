@@ -3,7 +3,7 @@ import { useDebounce } from "use-debounce";
 import styled from "styled-components";
 import { useQueryParam } from "use-query-params";
 
-import { initializeApollo } from "api/apollo";
+import { initializeApollo, retailerId } from "api/apollo";
 import { MenuDocument, Category } from "api/queries/menu.graphql";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
@@ -68,7 +68,7 @@ function Menu() {
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
         <Nav
-          page="menu"
+          page="shop"
           selectSingleCategory={selectSingleCategory}
           search={query}
           setSearch={setQuery}
@@ -139,6 +139,7 @@ export const getStaticProps: GetStaticProps = async function () {
     apolloClient.query({
       query: MenuDocument,
       variables: {
+        retailerId: retailerId,
         category,
       },
     })

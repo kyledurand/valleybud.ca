@@ -5,15 +5,13 @@ import Link from "next/link";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import {
-  useHomePageMenuQuery,
-  Category,
-} from "api/queries/home-page-menu.graphql";
+import { useMenuQuery, Category } from "api/queries/menu.graphql";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueriesDown } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import { retailerId } from "api/apollo";
 
 export const SHOP_SECTION_CATEGORIES = [
   Category.Flower,
@@ -33,8 +31,9 @@ export function ShopSection(): JSX.Element {
     CategorySelectOption
   >(ALL_TOP_PRODUCTS);
 
-  const { data } = useHomePageMenuQuery({
+  const { data } = useMenuQuery({
     variables: {
+      retailerId: retailerId,
       category:
         selectedCategory === ALL_TOP_PRODUCTS ? undefined : selectedCategory,
     },
@@ -90,11 +89,11 @@ export function ShopSection(): JSX.Element {
       </Grid>
       <CTAContainer>
         {selectedCategory && selectedCategory !== ALL_TOP_PRODUCTS ? (
-          <Link href={`/menu?category=${selectedCategory}`} passHref>
+          <Link href={`/shop?category=${selectedCategory}`} passHref>
             <CTA>Shop {displayNameForCategory(selectedCategory)}</CTA>
           </Link>
         ) : (
-          <Link href="/menu" passHref>
+          <Link href="/shop" passHref>
             <CTA>Shop all products</CTA>
           </Link>
         )}

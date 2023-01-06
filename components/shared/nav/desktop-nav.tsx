@@ -43,11 +43,11 @@ export function DesktopNav(props: NavProps): JSX.Element {
   }
 
   function handleCategoryClick(category?: Category) {
-    if (page === "menu") {
+    if (page === "shop") {
       selectSingleCategory(category);
       closeShopMenu();
     } else {
-      router.push(`/menu?category=${category}`);
+      router.push(`/shop?category=${category}`);
     }
   }
 
@@ -92,7 +92,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
               setBrandMenuVisible((isBrandMenuVisible) => !isBrandMenuVisible);
             }}
           >
-            <NavLink isUnderlined={page === "menu"}>
+            <NavLink isUnderlined={page === "shop"}>
               shop by brand
               <Chevron
                 direction={

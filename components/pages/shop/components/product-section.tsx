@@ -4,6 +4,7 @@ import { Category, useMenuQuery } from "api/queries/menu.graphql";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueriesDown } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import { retailerId } from "api/apollo";
 
 interface ProductSectionProps {
   searchQuery: string;
@@ -16,6 +17,7 @@ export function ProductSection({
 }: ProductSectionProps): JSX.Element {
   const { data, loading } = useMenuQuery({
     variables: {
+      retailerId: retailerId,
       category: category,
       search: searchQuery,
     },

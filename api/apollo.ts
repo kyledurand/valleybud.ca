@@ -12,9 +12,9 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_DUTCHIE_PLUS_SERVER,
+      uri: process.env.NEXT_PUBLIC_DUTCHIE_PLUS_ENTERPRISE_SERVER,
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_DUTCHIE_PLUS_KEY}`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_DUTCHIE_PLUS_ENTERPRISE_KEY}`,
       },
     }),
     cache: new InMemoryCache(),
@@ -51,3 +51,5 @@ export function useApollo(
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
   return store;
 }
+
+export const retailerId = "73527fa1-9f5b-4037-8589-da465bd502b9";

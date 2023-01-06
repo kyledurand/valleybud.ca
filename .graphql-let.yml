@@ -1,7 +1,7 @@
 schema:
-  - ${NEXT_PUBLIC_DUTCHIE_PLUS_SERVER}:
+  - ${NEXT_PUBLIC_DUTCHIE_PLUS_ENTERPRISE_SERVER}:
     headers:
-      Authorization: Bearer ${NEXT_PUBLIC_DUTCHIE_PLUS_KEY}
+      Authorization: Bearer ${NEXT_PUBLIC_DUTCHIE_PLUS_ENTERPRISE_KEY}
 documents: "**/*.graphql"
 plugins:
   - typescript
