@@ -45,7 +45,7 @@ export function Cart(props: CartProps): JSX.Element {
   async function handleRemoveItemFromCheckout(item: CheckoutItemFragment) {
     await removeItemFromCheckout({
       variables: {
-        retailerId: retailerId,
+        retailerId,
         checkoutId,
         itemId: item.id,
       },
@@ -62,7 +62,7 @@ export function Cart(props: CartProps): JSX.Element {
   ) {
     await updateCheckoutItemQuantity({
       variables: {
-        retailerId: retailerId,
+        retailerId,
         checkoutId,
         itemId: item.id,
         quantity: newQuantity,
@@ -77,7 +77,7 @@ export function Cart(props: CartProps): JSX.Element {
   async function handleCheckoutOrderTypeToggle() {
     await updateCheckout({
       variables: {
-        retailerId: retailerId,
+        retailerId,
         checkoutId,
         pricingType: checkoutPricingType || PricingType.Recreational,
         orderType: otherOrderType,

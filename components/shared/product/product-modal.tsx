@@ -54,7 +54,7 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
   async function handleAddToCartClick() {
     await addItemToCheckoutMutation({
       variables: {
-        retailerId: retailerId,
+        retailerId,
         checkoutId: checkout?.id || "",
         productId: product.id,
         quantity: selectedQuantity,

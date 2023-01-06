@@ -17,7 +17,7 @@ export function ProductSection({
 }: ProductSectionProps): JSX.Element {
   const { data, loading } = useMenuQuery({
     variables: {
-      retailerId: retailerId,
+      retailerId,
       category: category,
       search: searchQuery,
     },

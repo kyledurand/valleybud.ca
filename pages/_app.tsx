@@ -1,7 +1,6 @@
 import { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import { normalize } from "styled-normalize";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import "../styles/globals.css";
 import {
   createGlobalStyle,
@@ -14,11 +13,7 @@ import {
   StylesProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";
-import {
-  mediaSizes,
-  mediaQueriesDown,
-  prefersDark,
-} from "styles/media-queries";
+import { mediaSizes, mediaQueriesDown } from "styles/media-queries";
 import { Meta } from "components/Meta";
 import { useSessionStorage } from "hooks/use-session-storage";
 import { AgeGate } from "components/age-gate";
@@ -31,9 +26,7 @@ export { ThemeProvider as StyledComponentsProvider } from "styled-components";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo();
-  const isDarkMode = useMediaQuery(prefersDark);
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
-  console.log({ isDarkMode });
   return (
     <>
       <Meta />

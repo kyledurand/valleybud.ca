@@ -42,7 +42,7 @@ export function useCheckout(): UseCheckoutResult {
     function fetchCheckout() {
       getCheckout({
         variables: {
-          retailerId: retailerId,
+          retailerId,
           id: checkoutId,
         },
       });
@@ -55,7 +55,7 @@ export function useCheckout(): UseCheckoutResult {
       async function createCheckout() {
         await createCheckoutMutation({
           variables: {
-            retailerId: retailerId,
+            retailerId,
             orderType: OrderType.Delivery,
             pricingType: PricingType.Recreational,
           },

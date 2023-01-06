@@ -139,7 +139,7 @@ export const getStaticProps: GetStaticProps = async function () {
     apolloClient.query({
       query: MenuDocument,
       variables: {
-        retailerId: retailerId,
+        retailerId,
         category,
       },
     })
