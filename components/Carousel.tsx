@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Image from "next/image";
 import styles from "../styles/Carousel.module.css";
 interface Image {
   link: string;
-  source: string;
-  title?: string;
-  subText?: string;
+  imageUrl: string;
   background?: string;
+  imageAlt?: string;
 }
 
 interface CarouselProps {
@@ -56,10 +54,13 @@ export function Carousel({
           position = styles.next;
 
         return (
-          <div
+          <a
             key={`Image-${index}`}
+            href={image.link}
             className={[styles.Image, position].join(" ")}
-            style={{ backgroundImage: `url(${image.source})` }}
+            style={{ backgroundImage: `url(${image.imageUrl})` }}
+            role="img"
+            aria-label={image.imageAlt || ""}
           />
         );
       })}

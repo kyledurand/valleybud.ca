@@ -12,12 +12,10 @@ import { Carousel } from "components/Carousel";
 import { useState } from "react";
 
 interface Carousel {
-  _id: string;
-  title: string;
-  titleColor: string;
-  imageUrl: string;
+  link: string;
+  background: string;
   imageAlt: string;
-  bgColor: string;
+  imageUrl: string;
 }
 
 function Home({ carousel }: { carousel: Carousel[] }): React.ReactNode {
@@ -36,11 +34,7 @@ function Home({ carousel }: { carousel: Carousel[] }): React.ReactNode {
         <HomeGrid>
           <CarouselContainer>
             <Carousel
-              images={[
-                { source: "/gday-bud.png", link: "/shop" },
-                { source: "/logo-alt.png", link: "/shop" },
-                { source: "/gday-bud.png", link: "/shop" },
-              ]}
+              images={carousel}
               selected={selected}
               onSelect={setSelected}
             />
@@ -140,12 +134,10 @@ const client = createClient({
 
 export const getStaticProps: GetStaticProps = async function () {
   const carousel = await client.fetch(`*[_type == "carousel"]{
-    _id,
-    title,
-    titleColor,
-    bgColor,
-    "imageUrl": image.asset->url,
+    link,
+    background,
     imageAlt,
+    "imageUrl": image.asset->url,
   }`);
 
   return {

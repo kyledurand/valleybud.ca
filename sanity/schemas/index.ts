@@ -1,2 +1,3 @@
 import carousel from './carousel'
-export const schemaTypes = [carousel]
+import categories from './categories'
+export const schemaTypes = [carousel, categories]

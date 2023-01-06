@@ -4,31 +4,25 @@ export default {
   title: 'Carousel',
   fields: [
     {
-      name: 'title',
+      name: 'imageAlt',
       type: 'string',
-      title: 'Title',
+      title: 'Image alt',
     },
     {
-      name: 'titleColor',
+      name: 'link',
       type: 'string',
-      title: 'Title color',
+      title: 'Link',
+    },
+    {
+      name: 'background',
+      type: 'string',
+      title: 'Background color',
       placeholder: '#000000',
     },
     {
       name: 'image',
       type: 'image',
       title: 'Image',
-    },
-    {
-      name: 'imageAlt',
-      type: 'string',
-      title: 'Image alt',
-    },
-    {
-      name: 'bgColor',
-      type: 'string',
-      title: 'Background color',
-      placeholder: '#000000',
     },
   ],
 }

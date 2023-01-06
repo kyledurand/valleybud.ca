@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { Logo } from "./shared/svg/logo";
 
 interface AgeGateProps {
-  onVerify(verified: string): void;
   sessionVerified: string;
+  onVerify(verified: string): void;
 }
 
 export function AgeGate({ onVerify, sessionVerified }: AgeGateProps) {
