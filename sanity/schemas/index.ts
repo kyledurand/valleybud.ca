@@ -1,4 +1,23 @@
-import Banner from './banner'
+import banner from './banner'
 import carousel from './carousel'
 import categories from './categories'
-export const schemaTypes = [Banner, carousel, categories]
+import about from './about'
+import contact from './contact'
+import locationPage from './location'
+import faq from './faq'
+import privacy from './privacy-policy'
+import returns from './return-policy'
+import terms from './terms-and-conditions'
+
+export const schemaTypes = [
+  banner,
+  carousel,
+  categories,
+  about,
+  contact,
+  faq,
+  locationPage,
+  privacy,
+  returns,
+  terms,
+]

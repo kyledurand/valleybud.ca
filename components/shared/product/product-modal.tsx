@@ -232,6 +232,7 @@ const QuantitySelect = styled(StyledSelect)`
 `;
 
 const DialogContent = styled.div`
+  position: relative;
   display: flex;
   max-height: 700px;
 
@@ -271,7 +272,6 @@ const ContentContainer = styled.div`
   width: 600px;
   flex-shrink: 0;
   padding: 80px 61px 47px;
-  position: relative;
   overflow-y: auto;
 
   @media ${mediaQueriesDown.phone} {
@@ -284,6 +284,8 @@ const CloseButtonContainer = styled.div`
   position: absolute;
   top: 16px;
   right: 20px;
+  z-index: 2;
+  background-color: red;
 `;
 
 const Brand = styled.div`

@@ -38,18 +38,29 @@ export function Footer(): JSX.Element {
           <LinkListItem>
             <a href="menu">apparel</a>
           </LinkListItem>
-
-          <LinkListItem>location</LinkListItem>
-          <LinkListItem>contact us</LinkListItem>
-          <LinkListItem>faqs</LinkListItem>
-          <LinkListItem>about valley bud</LinkListItem>
-
-          <LinkListItem>terms &amp; conditions</LinkListItem>
-          <LinkListItem>return policy</LinkListItem>
-          <LinkListItem>privacy policy</LinkListItem>
           <LinkListItem>
-            &copy; {new Date().getFullYear()} valley bud
+            <a href="location">location</a>
           </LinkListItem>
+          <LinkListItem>
+            <a href="contact">contact us</a>
+          </LinkListItem>
+          <LinkListItem>
+            <a href="faq">faqs</a>
+          </LinkListItem>
+          <LinkListItem>
+            <a href="about">about valley bud</a>
+          </LinkListItem>
+
+          <LinkListItem>
+            <a href="terms-and-conditions">terms &amp; conditions</a>
+          </LinkListItem>
+          <LinkListItem>
+            <a href="return-policy">return policy</a>
+          </LinkListItem>
+          <LinkListItem>
+            <a href="privacy-policy">privacy policy</a>
+          </LinkListItem>
+          <Li>&copy; {new Date().getFullYear()} valley bud</Li>
         </LinkList>
       </LinkListsContainer>
     </Container>
@@ -95,10 +106,10 @@ const LinkList = styled.ul`
 const LinkListItem = styled.li`
   cursor: pointer;
   display: inline;
-  margin-right: 43px;
   font-size: 13px;
+`;
 
-  &:last-of-type {
-    margin-right: 0px;
-  }
+const Li = styled.li`
+  list-style: none;
+  font-size: 13px;
 `;
