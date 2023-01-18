@@ -6,7 +6,6 @@ import { Footer } from "components/shared/footer";
 import styled from "styled-components";
 
 interface Data {
-  _key: string;
   content: any;
 }
 

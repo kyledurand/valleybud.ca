@@ -20,7 +20,6 @@ interface Carousel {
 }
 
 interface Banner {
-  _key: string;
   background: string;
   color: string;
   content: any;
