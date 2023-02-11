@@ -40,18 +40,19 @@ export const CarouselContainer = styled.div`
 export const ScrollableContainer = styled.div`
   grid-area: scrollable;
   display: flex;
-  gap: var(--space-4);
+  gap: var(--space-6);
   max-width: 100%;
   overflow: scroll;
+  justify-content: center;
 
   > * {
     min-width: 100px;
-    height: 50px;
-    background: var(--placeholder-2);
+    text-align: center;
   }
 
   @media ${mediaQueriesUp.sm} {
     flex-direction: column;
+    align-items: center;
   }
 `;
 

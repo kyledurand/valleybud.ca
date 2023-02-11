@@ -22,7 +22,7 @@ export function ProductSection({
       search: searchQuery,
     },
   });
-
+  console.log(data, category);
   return (
     <Section>
       {loading && <div>Loading...</div>}

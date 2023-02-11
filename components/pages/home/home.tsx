@@ -11,11 +11,19 @@ import { useState } from "react";
 import { useGetSpecialsListQuery } from "api/queries/specials.graphql";
 import { retailerId } from "api/apollo";
 import * as Styled from "./Styled";
+import Image from "next/image";
 
 interface Carousel {
   link: string;
   background: string;
   imageAlt: string;
+  imageUrl: string;
+}
+
+interface Category {
+  title: string;
+  imageAlt: string;
+  link: string;
   imageUrl: string;
 }
 
@@ -28,10 +36,12 @@ interface Banner {
 interface Props {
   carousel: Carousel[];
   banner: Banner[];
+  categories: Category[];
 }
 
-function Home({ carousel, banner }: Props): React.ReactNode {
+function Home({ carousel, banner, categories }: Props): React.ReactNode {
   const [selected, setSelected] = useState(0);
+  console.log({ categories });
   const checkoutContext = useCheckout();
   const { data, loading, error } = useGetSpecialsListQuery({
     variables: {
@@ -39,7 +49,7 @@ function Home({ carousel, banner }: Props): React.ReactNode {
     },
   });
 
-  console.log({ data, loading, error });
+  console.log({ data, loading, error, categories });
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -62,8 +72,17 @@ function Home({ carousel, banner }: Props): React.ReactNode {
             />
           </Styled.CarouselContainer>
           <Styled.ScrollableContainer>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index}>{`0${index}`}</div>
+            {categories.map((category) => (
+              <a href={category.link}>
+                <Image
+                  src={category.imageUrl}
+                  alt={category.imageAlt}
+                  width={256}
+                  height={136}
+                  style={{ width: "100%", height: "auto" }}
+                />
+                <div>{category.title}</div>
+              </a>
             ))}
           </Styled.ScrollableContainer>
           <Styled.PromosContainer>
@@ -93,11 +112,18 @@ export const getStaticProps: GetStaticProps = async function () {
     imageAlt,
     "imageUrl": image.asset->url,
   }`);
+  const categories = await client.fetch(`*[_type == "categories"]{
+    title,
+    imageAlt,
+    link,
+    "imageUrl": image.asset->url,
+  }`);
 
   return {
     props: {
       banner,
       carousel,
+      categories,
     },
   };
 };

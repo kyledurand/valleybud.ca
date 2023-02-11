@@ -28,6 +28,7 @@ const ProductSectionCategories = [
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,
+  Category.Apparel,
 ];
 
 function Menu() {
