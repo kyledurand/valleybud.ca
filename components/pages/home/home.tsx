@@ -73,7 +73,7 @@ function Home({ carousel, banner, categories }: Props): React.ReactNode {
           </Styled.CarouselContainer>
           <Styled.ScrollableContainer>
             {categories.map((category) => (
-              <a href={category.link}>
+              <a href={category.link} key={category.title}>
                 <Image
                   src={category.imageUrl}
                   alt={category.imageAlt}
