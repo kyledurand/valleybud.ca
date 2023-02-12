@@ -6,12 +6,14 @@ import { Footer } from "components/shared/footer";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 
+import { Text } from "components/Text";
 import { Carousel } from "components/Carousel";
 import { useState } from "react";
 import { useGetSpecialsListQuery } from "api/queries/specials.graphql";
 import { retailerId } from "api/apollo";
 import * as Styled from "./Styled";
 import Image from "next/image";
+import { Stack } from "components/Stack";
 
 interface Carousel {
   link: string;
@@ -20,8 +22,21 @@ interface Carousel {
   imageUrl: string;
 }
 
+interface Special {
+  title: string;
+  imageAlt: string;
+  link: string;
+  details: string;
+  promo: string;
+  priority: number;
+  action: string;
+  accentColor: string;
+  imageUrl: string;
+}
+
 interface Category {
   title: string;
+  priority: number;
   imageAlt: string;
   link: string;
   imageUrl: string;
@@ -37,9 +52,15 @@ interface Props {
   carousel: Carousel[];
   banner: Banner[];
   categories: Category[];
+  specials: Special[];
 }
 
-function Home({ carousel, banner, categories }: Props): React.ReactNode {
+function Home({
+  carousel,
+  banner,
+  categories,
+  specials,
+}: Props): React.ReactNode {
   const [selected, setSelected] = useState(0);
   console.log({ categories });
   const checkoutContext = useCheckout();
@@ -72,23 +93,74 @@ function Home({ carousel, banner, categories }: Props): React.ReactNode {
             />
           </Styled.CarouselContainer>
           <Styled.ScrollableContainer>
-            {categories.map((category) => (
-              <a href={category.link} key={category.title}>
-                <Image
-                  src={category.imageUrl}
-                  alt={category.imageAlt}
-                  width={256}
-                  height={136}
-                  style={{ width: "100%", height: "auto" }}
-                />
-                <div>{category.title}</div>
-              </a>
-            ))}
+            {categories
+              .sort((category, sorted) => category.priority - sorted.priority)
+              .map((category) => (
+                <a
+                  data-priority={category.priority}
+                  href={category.link}
+                  key={category.title}
+                >
+                  <Image
+                    src={category.imageUrl}
+                    alt={category.imageAlt}
+                    width={256}
+                    height={136}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                  <div>{category.title}</div>
+                </a>
+              ))}
           </Styled.ScrollableContainer>
           <Styled.PromosContainer>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index}>{`0${index}`}</div>
-            ))}
+            {specials
+              .sort((special, sorted) => special.priority - sorted.priority)
+              .map((special) => (
+                <a
+                  href={special.link}
+                  key={special.title}
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <Image
+                    src={special.imageUrl}
+                    alt={special.imageAlt}
+                    width={640}
+                    height={640}
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                  <div
+                    style={{
+                      padding: "var(--space-4",
+                      border: `2px solid ${special.accentColor}`,
+                      borderEndEndRadius: "3px",
+                      borderEndStartRadius: "3px",
+                    }}
+                  >
+                    <Stack>
+                      <div>
+                        <Text as="h4" variation="heading">
+                          {special.title}
+                        </Text>
+                        <Text variation="subheading">{special.details}</Text>
+                      </div>
+
+                      <Stack inline justify="space-between" align="center">
+                        <Text>{special.promo}</Text>
+                        <button
+                          style={{
+                            background: special.accentColor,
+                            padding: "var(--space-2)",
+                            border: "none",
+                            borderRadius: "3px",
+                          }}
+                        >
+                          {special.action}
+                        </button>
+                      </Stack>
+                    </Stack>
+                  </div>
+                </a>
+              ))}
           </Styled.PromosContainer>
         </Styled.HomeGrid>
         <Footer />
@@ -116,6 +188,18 @@ export const getStaticProps: GetStaticProps = async function () {
     title,
     imageAlt,
     link,
+    priority,
+    "imageUrl": image.asset->url,
+  }`);
+  const specials = await client.fetch(`*[_type == "specials"]{
+    title,
+    imageAlt,
+    link,
+    details,
+    promo,
+    priority,
+    action,
+    accentColor,
     "imageUrl": image.asset->url,
   }`);
 
@@ -124,6 +208,7 @@ export const getStaticProps: GetStaticProps = async function () {
       banner,
       carousel,
       categories,
+      specials,
     },
   };
 };

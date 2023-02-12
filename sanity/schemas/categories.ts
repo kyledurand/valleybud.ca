@@ -14,6 +14,11 @@ export default {
       title: 'Image alt',
     },
     {
+      name: 'priority',
+      type: 'number',
+      title: 'Priority',
+    },
+    {
       name: 'link',
       type: 'string',
       title: 'Link',

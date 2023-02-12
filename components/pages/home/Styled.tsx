@@ -44,6 +44,7 @@ export const ScrollableContainer = styled.div`
   max-width: 100%;
   overflow: scroll;
   justify-content: center;
+  padding: var(--space-4) 0;
 
   > * {
     min-width: 100px;
@@ -71,10 +72,6 @@ export const PromosContainer = styled.div`
   display: grid;
   gap: inherit;
   grid-template-columns: minmax(0, 1fr);
-
-  > * {
-    background: var(--placeholder-1);
-  }
 
   @media ${mediaQueriesUp.sm} {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
