@@ -95,7 +95,7 @@ function Home({
           <Styled.ScrollableContainer>
             {categories
               .sort(({ priority }, { priority: sortedPriority }) =>
-                sortedPriority ? priority || 999 - sortedPriority : -1
+                priority && sortedPriority ? priority - sortedPriority : -1
               )
               .map((category) => (
                 <a
@@ -117,7 +117,7 @@ function Home({
           <Styled.PromosContainer>
             {specials
               .sort(({ priority }, { priority: sortedPriority }) =>
-                sortedPriority ? priority || 999 - sortedPriority : -1
+                priority && sortedPriority ? priority - sortedPriority : -1
               )
               .map((special) => (
                 <a
@@ -141,7 +141,7 @@ function Home({
                       flex: 1,
                     }}
                   >
-                    <Stack>
+                    <Stack fullHeight justify="space-between">
                       <div>
                         <Text as="h4" variation="heading">
                           {special.title}

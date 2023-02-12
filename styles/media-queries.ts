@@ -1,7 +1,7 @@
 export const mediaSizes = {
   largeDesktop: 1200,
   desktop: 992,
-  largeTablet: 960, // matches MUI 'md' width
+  largeTablet: 960,
   tablet: 900,
   largePhone: 768,
   phone: 575,
@@ -12,7 +12,7 @@ export const prefersDark = "(prefers-color-scheme: dark)";
 
 export const mediaQueriesUp = {
   lg: `only screen and (min-width: ${mediaSizes.largeDesktop + 1}px)`,
-  md: `only screen and (min-width: ${mediaSizes.largeTablet - 1}px)`, // to match our MobileOnly component
+  md: `only screen and (min-width: ${mediaSizes.largeTablet + 1}px)`,
   sm: `only screen and (min-width: ${mediaSizes.largePhone + 1}px)`,
   xs: `only screen and (min-width: ${mediaSizes.smallPhone + 1}px)`,
   custom: (px: number): string => `only screen and (min-width: ${px}px)`,

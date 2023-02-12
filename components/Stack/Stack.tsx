@@ -10,9 +10,10 @@ type Align = "start" | "end" | "center" | "stretch" | "baseline";
 
 interface Props {
   space?: string;
-  inline?: boolean;
   justify?: Justify;
   align?: Align;
+  inline?: boolean;
+  fullHeight?: boolean;
   children: React.ReactNode;
 }
 
@@ -21,6 +22,7 @@ export function Stack({
   inline,
   justify,
   align,
+  fullHeight,
   space = "var(--space-4)",
 }: Props) {
   return (
@@ -31,6 +33,7 @@ export function Stack({
         gap: space,
         justifyContent: justify,
         alignItems: align,
+        height: fullHeight ? "100%" : undefined,
       }}
     >
       {children}
