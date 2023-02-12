@@ -148,7 +148,12 @@ function Home({
                         <Text variation="subheading">{special.details}</Text>
                       </div>
 
-                      <Stack inline justify="space-between" align="center">
+                      <Stack
+                        inline
+                        justify="space-between"
+                        align="center"
+                        space="var(--space-2)"
+                      >
                         <Text>{special.promo}</Text>
                         <button
                           style={{

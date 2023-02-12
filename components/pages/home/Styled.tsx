@@ -73,8 +73,12 @@ export const PromosContainer = styled.div`
   display: grid;
   gap: inherit;
   grid-template-columns: minmax(0, 1fr);
+  padding: 0 var(--space-2);
 
-  @media ${mediaQueriesUp.sm} {
+  @media ${mediaQueriesUp.xs} {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
+
+  @media ${mediaQueriesUp.sm} {
+    padding: 0;
 `;
