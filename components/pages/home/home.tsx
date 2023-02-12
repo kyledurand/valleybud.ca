@@ -70,7 +70,9 @@ function Home({
     },
   });
 
-  console.log({ data, loading, error, categories });
+  const dutchieSpecials = data?.specials || [];
+
+  console.log({ dutchieSpecials, loading, error });
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
