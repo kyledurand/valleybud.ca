@@ -4,26 +4,6 @@ import { mediaQueriesUp } from "styles/media-queries";
 export function Footer(): JSX.Element {
   return (
     <Container>
-      {/* <Header>Join our secret society</Header>
-      <Subheader>
-        Join our mailing list to learn about specials and new products arriving
-        at Valley Bud.
-      </Subheader> */}
-
-      {/* TODO
-      <EmailContainer>
-        <EmailInput
-          placeholder="Enter your email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          endAdornment={
-            <InputAdornment position="end">
-              <img src="icons/right-arrow-circle.svg" />
-            </InputAdornment>
-          }
-        />
-      </EmailContainer> */}
-
       <LinkListsContainer>
         <LinkList>
           <LinkListItem>
@@ -68,11 +48,10 @@ export function Footer(): JSX.Element {
 }
 
 const Container = styled.footer`
-  background-color: rgba(248, 245, 240, 0.56);
+  margin-top: var(--space-7);
+  color: var(--text);
+  background-color: var(--brand);
   padding: 0px 10px;
-  @media ${mediaQueriesUp.sm} {
-    padding: 120px 0 150px;
-  }
 `;
 
 const LinkListsContainer = styled.div`

@@ -23,23 +23,23 @@ interface Carousel {
 }
 
 interface Special {
-  title: string;
-  imageAlt: string;
-  link: string;
-  details: string;
-  promo: string;
-  priority: number;
-  action: string;
-  accentColor: string;
-  imageUrl: string;
+  title?: string;
+  imageAlt?: string;
+  link?: string;
+  details?: string;
+  promo?: string;
+  priority?: number;
+  action?: string;
+  accentColor?: string;
+  imageUrl?: string;
 }
 
 interface Category {
-  title: string;
-  priority: number;
-  imageAlt: string;
-  link: string;
-  imageUrl: string;
+  title?: string;
+  priority?: number;
+  imageAlt?: string;
+  link?: string;
+  imageUrl?: string;
 }
 
 interface Banner {
@@ -94,15 +94,17 @@ function Home({
           </Styled.CarouselContainer>
           <Styled.ScrollableContainer>
             {categories
-              .sort((category, sorted) => category.priority - sorted.priority)
+              .sort(({ priority }, { priority: sortedPriority }) =>
+                sortedPriority ? priority || 999 - sortedPriority : -1
+              )
               .map((category) => (
                 <a
-                  data-priority={category.priority}
                   href={category.link}
                   key={category.title}
+                  data-prioity={category.priority}
                 >
                   <Image
-                    src={category.imageUrl}
+                    src={category.imageUrl || ""}
                     alt={category.imageAlt}
                     width={256}
                     height={136}
@@ -114,7 +116,9 @@ function Home({
           </Styled.ScrollableContainer>
           <Styled.PromosContainer>
             {specials
-              .sort((special, sorted) => special.priority - sorted.priority)
+              .sort(({ priority }, { priority: sortedPriority }) =>
+                sortedPriority ? priority || 999 - sortedPriority : -1
+              )
               .map((special) => (
                 <a
                   href={special.link}
@@ -122,7 +126,7 @@ function Home({
                   style={{ display: "flex", flexDirection: "column" }}
                 >
                   <Image
-                    src={special.imageUrl}
+                    src={special.imageUrl || ""}
                     alt={special.imageAlt}
                     width={640}
                     height={640}

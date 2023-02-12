@@ -43,12 +43,13 @@ export const ScrollableContainer = styled.div`
   gap: var(--space-6);
   max-width: 100%;
   overflow: scroll;
-  justify-content: center;
+  justify-content: start;
   padding: var(--space-4) 0;
 
   > * {
     min-width: 100px;
     text-align: center;
+    display: block;
   }
 
   @media ${mediaQueriesUp.sm} {
