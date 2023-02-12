@@ -5,7 +5,7 @@ export const mediaSizes = {
   tablet: 900,
   largePhone: 768,
   phone: 575,
-  smallPhone: 376,
+  smallPhone: 390,
 };
 
 export const prefersDark = "(prefers-color-scheme: dark)";

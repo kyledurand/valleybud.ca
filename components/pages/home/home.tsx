@@ -134,10 +134,11 @@ function Home({
                   />
                   <div
                     style={{
-                      padding: "var(--space-4",
+                      padding: "var(--space-4)",
                       border: `2px solid ${special.accentColor}`,
                       borderEndEndRadius: "3px",
                       borderEndStartRadius: "3px",
+                      flex: 1,
                     }}
                   >
                     <Stack>
