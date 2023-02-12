@@ -21,6 +21,7 @@ const CATEGORIES = [
   Category.Topicals,
   Category.Accessories,
   Category.PreRolls,
+  Category.Apparel,
 ];
 
 interface CategoryFilterProps {

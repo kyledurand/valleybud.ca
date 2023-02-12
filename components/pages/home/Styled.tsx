@@ -38,9 +38,8 @@ export const CarouselContainer = styled.div`
 `;
 
 export const ScrollableContainer = styled.div`
-  grid-area: scrollable;
   display: flex;
-  gap: var(--space-6);
+  gap: var(--space-2);
   max-width: 100%;
   overflow: scroll;
   justify-content: start;
@@ -55,6 +54,25 @@ export const ScrollableContainer = styled.div`
   @media ${mediaQueriesUp.sm} {
     flex-direction: column;
     align-items: center;
+    gap: var(--space-6);
+  }
+`;
+
+export const ScrollHint = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+
+  @media ${mediaQueriesUp.sm} {
+    display: none;
   }
 `;
 

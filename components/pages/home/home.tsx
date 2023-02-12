@@ -97,28 +97,31 @@ function Home({
               onSelect={setSelected}
             />
           </Styled.CarouselContainer>
-          <Styled.ScrollableContainer>
-            {categories
-              .sort(({ priority }, { priority: sortedPriority }) =>
-                priority && sortedPriority ? priority - sortedPriority : -1
-              )
-              .map((category) => (
-                <a
-                  href={category.link}
-                  key={category.title}
-                  data-prioity={category.priority}
-                >
-                  <Image
-                    src={category.imageUrl || ""}
-                    alt={category.imageAlt}
-                    width={256}
-                    height={136}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                  <div>{category.title}</div>
-                </a>
-              ))}
-          </Styled.ScrollableContainer>
+          <div style={{ position: "relative", gridArea: "scrollable" }}>
+            <Styled.ScrollableContainer>
+              {categories
+                .sort(({ priority }, { priority: sortedPriority }) =>
+                  priority && sortedPriority ? priority - sortedPriority : -1
+                )
+                .map((category) => (
+                  <a
+                    href={category.link}
+                    key={category.title}
+                    data-prioity={category.priority}
+                  >
+                    <Image
+                      src={category.imageUrl || ""}
+                      alt={category.imageAlt}
+                      width={256}
+                      height={136}
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                    <div>{category.title}</div>
+                  </a>
+                ))}
+            </Styled.ScrollableContainer>
+            <Styled.ScrollHint />
+          </div>
           <Styled.PromosContainer>
             {specials
               .sort(({ priority }, { priority: sortedPriority }) =>
