@@ -14,6 +14,7 @@ import { retailerId } from "api/apollo";
 import * as Styled from "./Styled";
 import Image from "next/image";
 import { Stack } from "components/Stack";
+import { LoadingSpinner } from "components/shared/loading-spinner";
 
 interface Carousel {
   link: string;
@@ -64,7 +65,7 @@ function Home({
   const [selected, setSelected] = useState(0);
   console.log({ categories });
   const checkoutContext = useCheckout();
-  const { data, loading, error } = useGetSpecialsListQuery({
+  const { data, loading } = useGetSpecialsListQuery({
     variables: {
       retailerId,
     },
@@ -72,9 +73,11 @@ function Home({
 
   const dutchieSpecials = data?.specials || [];
 
-  console.log({ dutchieSpecials, loading, error });
+  console.log({ dutchieSpecials });
 
-  return (
+  return loading ? (
+    <LoadingSpinner centered />
+  ) : (
     <CheckoutContext.Provider value={checkoutContext}>
       <Styled.Container>
         <Nav search="" setSearch={() => {}} />

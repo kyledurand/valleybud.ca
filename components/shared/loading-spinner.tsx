@@ -2,9 +2,10 @@ import styled, { keyframes } from "styled-components";
 
 interface LoadingSpinnerProps {
   size?: number;
-  isInline?: boolean;
   color?: string;
   className?: string;
+  isInline?: boolean;
+  centered?: boolean;
 }
 
 export function LoadingSpinner(props: LoadingSpinnerProps): JSX.Element {
@@ -15,7 +16,7 @@ export function LoadingSpinner(props: LoadingSpinnerProps): JSX.Element {
     className = "",
   } = props;
   return (
-    <Outer size={size} isInline={isInline} className={className}>
+    <Outer size={size} isInline={isInline} className={className} centered>
       <Inner size={size} color={color} />
     </Outer>
   );
@@ -26,11 +27,19 @@ const rotate = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-const Outer = styled.div<{ size: number; isInline: boolean }>`
+const Outer = styled.div<{
+  size: number;
+  isInline: boolean;
+  centered: boolean;
+}>`
   display: ${(props) => (props.isInline ? "inline-block" : "block")};
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   animation: ${rotate} 1.5s linear infinite;
+  position: ${(props) => (props.centered ? "absolute" : "initial")};
+  top: ${(props) => (props.centered ? "50%" : "initial")};
+  left: ${(props) => (props.centered ? "50%" : "initial")};
+  z-index: 1;
 `;
 
 const Inner = styled.span<{ size: number; color: string }>`
