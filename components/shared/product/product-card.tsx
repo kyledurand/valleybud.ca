@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
-
+import { Text } from "../../Text";
 import { MenuProductFragment } from "api/queries/menu.graphql";
-import { deriveDisplayPrices } from "utils/product";
+import { capitalizeFirstLetter, deriveDisplayPrices } from "utils/product";
 
-import { StrainTypeLabel } from "./strain-type-label";
 import { ProductModal } from "./product-modal";
+import { Stack } from "components/Stack";
+import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
+import { retailerId } from "api/apollo";
+import { CheckoutContext } from "../checkout-context";
 
 interface ProductCardProps {
   product: MenuProductFragment;
@@ -13,20 +16,55 @@ interface ProductCardProps {
 
 export function ProductCard(props: ProductCardProps): JSX.Element {
   const { product } = props;
-
+  const { checkout } = useContext(CheckoutContext);
+  console.log({ product });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [
+    addItemToCheckoutMutation,
+    { loading: addingToCart },
+  ] = useAddItemToCheckoutMutation();
+
+  async function handleAddToCartClick(event: React.MouseEvent) {
+    event.stopPropagation();
+    await addItemToCheckoutMutation({
+      variables: {
+        retailerId,
+        checkoutId: checkout?.id || "",
+        productId: product.id,
+        quantity: 1,
+        option: product.variants[0].option,
+      },
+    });
+  }
 
   return (
     <>
       <Container onClick={() => setIsModalOpen(true)}>
         <ProductImage src={product.image} />
-        <DisplayPrice>
-          {/* TODO: determine when to show med vs rec */}
-          {deriveDisplayPrices(product).rec}
-        </DisplayPrice>
-        {product.brand?.name && <BrandName>{product.brand.name}</BrandName>}
-        <ProductName>{product.name}</ProductName>
-        <StrainTypeLabel strainType={product.strainType} />
+        <Stack gap="2">
+          <div>
+            <Text size="2">{product.name}</Text>
+            {product.brand?.name && <Text>{product.brand.name}</Text>}
+          </div>
+
+          <Stack inline align="center" gap="2">
+            <Text>
+              {capitalizeFirstLetter(product.strainType ?? "").replace(
+                /_/g,
+                " "
+              )}
+            </Text>
+            •<Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
+            <Text>cbd {product.potencyCbd?.formatted || "0mg"}</Text>
+          </Stack>
+
+          <Stack inline justify="space-between">
+            <Text>{deriveDisplayPrices(product).rec}</Text>
+            <AddToCart onClick={(event) => handleAddToCartClick(event)}>
+              {addingToCart ? "Adding" : "Add to cart"}
+            </AddToCart>
+          </Stack>
+        </Stack>
       </Container>
       <ProductModal
         product={product}
@@ -37,38 +75,27 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
   );
 }
 
-const Container = styled.div`
-  border: 1px solid rgba(160, 153, 142, 0.4);
-  cursor: pointer;
+const Container = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   margin: 0 auto;
-
-  padding: 25px;
+  padding: var(--space-2);
+  background: none;
+  border: none;
+  text-align: left;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: auto;
   object-fit: contain;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-2);
 `;
 
-const DisplayPrice = styled.div`
-  font-size: 16px;
-  margin-bottom: 8px;
-`;
-
-const BrandName = styled.div`
-  font-size: 13px;
-  color: var(--text);
-  opacity: 0.8;
-  margin-bottom: 4px;
-`;
-
-const ProductName = styled.div`
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 13px;
-  max-width: 225px;
+const AddToCart = styled.button`
+  background: none;
+  color: gray;
+  border: none;
 `;

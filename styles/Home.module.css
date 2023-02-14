@@ -26,13 +26,13 @@
 }
 
 .title {
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-4);
   color: var(--text);
   text-align: center;
 }
 
 .address {
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-3);
   color: #000;
   text-align: center;
 }

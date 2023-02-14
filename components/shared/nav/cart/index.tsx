@@ -1,23 +1,22 @@
-import { Fragment, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 
-import { OrderType, PricingType } from "api/queries/checkout.graphql";
 import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
 import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
 import { useUpdateCheckoutItemQuantityMutation } from "api/mutations/update-checkout-item-quantity.graphql";
-import { useUpdateCheckoutMutation } from "api/mutations/update-checkout.graphql";
+
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 
 import { formatPrice } from "utils/number-format";
-import { displayNameForCheckoutOrderType } from "utils/enum-to-display-name/checkout-order-type";
 
 import { DesktopCartItem } from "./desktop-cart-item";
 import { MobileCartItem } from "./mobile-cart-item";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { retailerId } from "api/apollo";
+import { CloseButton } from "components/shared/svg/close-button";
 
 interface CartProps {
   onClose: () => void;
@@ -30,12 +29,6 @@ export function Cart(props: CartProps): JSX.Element {
 
   const checkoutId = checkout?.id || "";
   const checkoutItems = checkout?.items;
-  const checkoutOrderType = checkout?.orderType || OrderType.Delivery;
-  const otherOrderType =
-    checkoutOrderType === OrderType.Delivery
-      ? OrderType.Pickup
-      : OrderType.Delivery;
-  const checkoutPricingType = checkout?.pricingType;
 
   // MUTATIONS
   const [
@@ -70,47 +63,20 @@ export function Cart(props: CartProps): JSX.Element {
     });
   }
 
-  const [
-    updateCheckout,
-    { loading: isUpdateCheckoutLoading },
-  ] = useUpdateCheckoutMutation();
-  async function handleCheckoutOrderTypeToggle() {
-    await updateCheckout({
-      variables: {
-        retailerId,
-        checkoutId,
-        pricingType: checkoutPricingType || PricingType.Recreational,
-        orderType: otherOrderType,
-      },
-    });
-  }
-
   const isCheckoutOperationLoading =
-    isCheckoutLoading ||
-    isRemoveItemLoading ||
-    isUpdateQuantityLoading ||
-    isUpdateCheckoutLoading;
-
-  const deliveryPickupToggle = (
-    <DeliveryPickupToggle onClick={handleCheckoutOrderTypeToggle}>
-      {`Switch to ${displayNameForCheckoutOrderType(otherOrderType)}`}
-    </DeliveryPickupToggle>
-  );
+    isCheckoutLoading || isRemoveItemLoading || isUpdateQuantityLoading;
 
   const headerAndDeliveryInfo = (
     <>
       <Header>
         <HeaderLabel>
-          Shopping Cart
+          Cart
           {isCheckoutOperationLoading && (
             <CheckoutLoadingSpinner isInline size={18} />
           )}
         </HeaderLabel>
-        <HeaderCloseButton onClick={onClose}>Close</HeaderCloseButton>
+        <CloseButton onClick={onClose} />
       </Header>
-      <DeliveryPickupSection>
-        <DesktopOnly>{deliveryPickupToggle}</DesktopOnly>
-      </DeliveryPickupSection>
     </>
   );
 
@@ -146,7 +112,7 @@ export function Cart(props: CartProps): JSX.Element {
 
       <CheckoutItems>
         {checkoutItems.map((item) => (
-          <Fragment key={item.id}>
+          <>
             <DesktopCartItemContainer>
               <DesktopCartItem
                 item={item}
@@ -163,7 +129,7 @@ export function Cart(props: CartProps): JSX.Element {
                 costOfCheckoutItem={costOfCheckoutItem}
               />
             </MobileCartItemContainer>
-          </Fragment>
+          </>
         ))}
       </CheckoutItems>
 
@@ -182,6 +148,7 @@ const CheckoutItems = styled.div`
 
 const Container = styled.div`
   width: 100%;
+  min-width: 320px;
 `;
 
 const Header = styled.div`
@@ -199,37 +166,6 @@ const HeaderLabel = styled.div`
   font-weight: 700;
   display: flex;
   align-items: center;
-`;
-
-const HeaderCloseButton = styled.button`
-  border: 1px solid #d9d6d2;
-  background-color: #ffffff;
-  color: rgb(166, 161, 155);
-  padding: 10px 29px;
-  font-size: 12px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1) !important;
-  }
-`;
-
-const DeliveryPickupSection = styled.div`
-  height: 80px;
-  padding: 13px 25px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #000;
-`;
-
-const DeliveryPickupToggle = styled.button`
-  color: #4a8ca0;
-  background-color: transparent;
-  text-decoration: underline;
-  font-size: 12px;
-  cursor: pointer;
-  border: none;
 `;
 
 const EmptyCart = styled.div`

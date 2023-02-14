@@ -1,14 +1,4 @@
 .Text {
   margin: 0;
-  font-size: var(--font-size-3);
-}
-
-.subheading {
-  font-size: var(--font-size-4);
-  font-weight: 500;
-}
-
-.heading {
-  font-size: var(--font-size-5);
-  font-weight: 700;
+  font-size: var(--font-size-1);
 }

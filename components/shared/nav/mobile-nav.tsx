@@ -61,7 +61,7 @@ export function MobileNav(props: NavProps): JSX.Element {
   return (
     <>
       <Container ref={baseNavBarRef}>
-        <Logo height={58} width={116} onClick={handleLogoClick} />
+        <Logo width={140} onClick={handleLogoClick} />
         {isMenuOpen ? (
           <CloseButton isDark onClick={closeMenu} />
         ) : (

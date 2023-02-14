@@ -17,7 +17,7 @@ interface DesktopCartItemProps {
   costOfCheckoutItem: (item: CheckoutItemFragment) => number;
 }
 
-const QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8];
+const QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export function DesktopCartItem(props: DesktopCartItemProps): JSX.Element {
   const {

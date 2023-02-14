@@ -27,3 +27,9 @@ export function deriveDisplayPrices(
     rec: variant?.priceRec ? formatPrice(variant.priceRec) : "n/a",
   };
 }
+
+export function capitalizeFirstLetter(string?: String) {
+  return `${string?.charAt(0).toUpperCase()}${string
+    ?.slice(1)
+    .toLocaleLowerCase()}`;
+}

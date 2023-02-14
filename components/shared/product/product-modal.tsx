@@ -20,7 +20,6 @@ import { mediaQueriesDown } from "styles/media-queries";
 import { deriveDisplayPrices } from "utils/product";
 import { formatPrice } from "utils/number-format";
 
-import { StrainTypeLabel } from "./strain-type-label";
 import { retailerId } from "api/apollo";
 
 interface ProductModalProps {
@@ -88,7 +87,7 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
             </CloseButtonContainer>
           </DesktopOnly>
 
-          <StyledStrainTypeLabel strainType={product.strainType} />
+          <p>{product.strainType?.toLocaleUpperCase()}</p>
 
           {product.brand?.name && <Brand>{product.brand.name}</Brand>}
 
@@ -160,13 +159,6 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
 const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-right: 34px;
   margin-left: 34px;
-`;
-const StyledStrainTypeLabel = styled(StrainTypeLabel)`
-  margin-bottom: 13px;
-
-  @media ${mediaQueriesDown.phone} {
-    margin-bottom: 11px;
-  }
 `;
 
 const StyledButton = styled(Button)`

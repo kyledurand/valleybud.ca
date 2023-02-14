@@ -151,17 +151,17 @@ function Home({
                   >
                     <Stack fullHeight justify="space-between">
                       <div>
-                        <Text as="h4" variation="heading">
+                        <Text as="h4" size="3">
                           {special.title}
                         </Text>
-                        <Text variation="subheading">{special.details}</Text>
+                        <Text size="2">{special.details}</Text>
                       </div>
 
                       <Stack
                         inline
                         justify="space-between"
                         align="center"
-                        space="var(--space-2)"
+                        gap="2"
                       >
                         <Text>{special.promo}</Text>
                         <button

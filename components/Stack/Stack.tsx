@@ -1,3 +1,5 @@
+import type { Space } from "types";
+
 type Justify =
   | "start"
   | "end"
@@ -9,7 +11,7 @@ type Justify =
 type Align = "start" | "end" | "center" | "stretch" | "baseline";
 
 interface Props {
-  space?: string;
+  gap?: Space;
   justify?: Justify;
   align?: Align;
   inline?: boolean;
@@ -23,14 +25,14 @@ export function Stack({
   justify,
   align,
   fullHeight,
-  space = "var(--space-4)",
+  gap = "4",
 }: Props) {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: inline ? "row" : "column",
-        gap: space,
+        gap: `var(--space-${gap})`,
         justifyContent: justify,
         alignItems: align,
         height: fullHeight ? "100%" : undefined,
