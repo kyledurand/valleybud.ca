@@ -63,7 +63,6 @@ function Home({
   specials,
 }: Props): React.ReactNode {
   const [selected, setSelected] = useState(0);
-  console.log({ categories });
   const checkoutContext = useCheckout();
   const { data, loading } = useGetSpecialsListQuery({
     variables: {
@@ -80,7 +79,7 @@ function Home({
   ) : (
     <CheckoutContext.Provider value={checkoutContext}>
       <Styled.Container>
-        <Nav search="" setSearch={() => {}} />
+        <Nav />
         <Styled.Banner
           style={{
             backgroundColor: banner[0].background,

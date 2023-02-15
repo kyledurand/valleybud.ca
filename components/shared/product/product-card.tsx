@@ -17,7 +17,6 @@ interface ProductCardProps {
 export function ProductCard(props: ProductCardProps): JSX.Element {
   const { product } = props;
   const { checkout } = useContext(CheckoutContext);
-  console.log({ product });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [
     addItemToCheckoutMutation,

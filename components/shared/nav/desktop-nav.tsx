@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import Drawer from "@material-ui/core/Drawer";
-import { useApollo } from "api/apollo";
+import { retailerId, useApollo } from "api/apollo";
 import { Category } from "api/queries/checkout.graphql";
 import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 import { Logo } from "components/shared/svg/logo";
@@ -14,6 +14,8 @@ import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { NavProps } from "./index";
 import { Cart } from "./cart/index";
 import { VisuallyHidden } from "components/utilities";
+import { useBrandsQueryQuery } from "api/queries/brands.graphql";
+import { useQueryParam, StringParam } from "use-query-params";
 
 const SUBMENU_CATEGORIES = [
   Category.Flower,
@@ -27,7 +29,16 @@ const SUBMENU_CATEGORIES = [
 ];
 
 export function DesktopNav(props: NavProps): JSX.Element {
-  const { page, selectSingleCategory = () => undefined } = props;
+  const [query] = useQueryParam("search", StringParam);
+  const [search, setSearch] = useState(query);
+  const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
+    variables: { retailerId },
+  });
+  const {
+    page,
+    selectSingleCategory = () => undefined,
+    selectSingleBrand = () => undefined,
+  } = props;
 
   const [isBrandMenuVisible, setBrandMenuVisible] = useState(false);
   const [isCategoryMenuVisible, setIsCategoryMenuVisible] = useState(false);
@@ -48,6 +59,15 @@ export function DesktopNav(props: NavProps): JSX.Element {
       closeShopMenu();
     } else {
       router.push(`/shop?category=${category}`);
+    }
+  }
+
+  function handleBrandClick(brand?: { name: string; id: string }) {
+    if (page === "shop") {
+      selectSingleBrand({ name: brand?.name, id: brand?.id });
+      closeShopMenu();
+    } else {
+      router.push(`/shop?brandID=${brand?.id}&brandName=${brand?.name}`);
     }
   }
 
@@ -108,11 +128,22 @@ export function DesktopNav(props: NavProps): JSX.Element {
               <NavLink>
                 <label>
                   <VisuallyHidden>search: </VisuallyHidden>
-                  <input
-                    value={props.search}
-                    onChange={({ target }) => props.setSearch(target.value)}
-                    placeholder="search"
-                  />
+                  <form
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      const formData = new FormData(event.currentTarget);
+                      const query = formData.get("search");
+                      console.log(query);
+                      router.push(`/shop?search=${query}`);
+                    }}
+                  >
+                    <input
+                      name="search"
+                      onChange={(event) => setSearch(event.target.value)}
+                      value={search || undefined}
+                      placeholder="search"
+                    />
+                  </form>
                 </label>
               </NavLink>
             </NavLinkListItem>
@@ -134,10 +165,17 @@ export function DesktopNav(props: NavProps): JSX.Element {
         </NavLinksContainer>
 
         {/* SHOP BRANDS */}
-        {isBrandMenuVisible && (
+        {isBrandMenuVisible && !brandsLoading && (
           <StyledMenu>
             <SubmenuSection>
-              <SubmenuItem>brand1</SubmenuItem>
+              {brandData?.menu?.brands.map(({ name, id }) => (
+                <SubmenuItem
+                  key={id}
+                  onClick={() => handleBrandClick({ id, name })}
+                >
+                  {name}
+                </SubmenuItem>
+              ))}
             </SubmenuSection>
           </StyledMenu>
         )}

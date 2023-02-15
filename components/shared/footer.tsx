@@ -10,7 +10,7 @@ export function Footer(): JSX.Element {
             <a href="menu">shop by category</a>
           </LinkListItem>
           <LinkListItem>
-            <a href="menu">shop by brand</a>
+            <a href="brands">shop by brand</a>
           </LinkListItem>
           <LinkListItem>
             <a href="menu">accessories</a>
@@ -64,7 +64,6 @@ const LinkListsContainer = styled.div`
 
 const LinkList = styled.ul`
   display: grid;
-  gap: var(--space-2);
   grid-template-columns: 1fr;
   text-align: left;
   padding: var(--space-4);
@@ -84,6 +83,7 @@ const LinkList = styled.ul`
 
 const LinkListItem = styled.li`
   cursor: pointer;
+  padding: var(--space-1) 0;
   display: inline;
   font-size: 13px;
 `;

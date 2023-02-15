@@ -15,6 +15,6 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["cdn.sanity.io"],
+    domains: ["cdn.sanity.io", "s3-us-west-2.amazonaws.com"],
   },
 };

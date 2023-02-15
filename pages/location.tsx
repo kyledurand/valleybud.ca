@@ -16,7 +16,7 @@ interface Props {
 export default function Location({ data }: Props): React.ReactNode {
   return (
     <Container>
-      <Nav search="" setSearch={() => {}} />
+      <Nav />
       <PortableText value={data[0].content} />
       <Footer />
     </Container>

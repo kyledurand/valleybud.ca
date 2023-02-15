@@ -5,36 +5,42 @@ import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueriesUp } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { retailerId } from "api/apollo";
+import { LoadingSpinner } from "components/shared/loading-spinner";
 
 interface ProductSectionProps {
   searchQuery: string;
   category: Category;
+  selectedBrand?: {
+    name?: string | null;
+    id?: string | null;
+  };
 }
 
 export function ProductSection({
   category,
+  selectedBrand,
   searchQuery,
-}: ProductSectionProps): JSX.Element {
+}: ProductSectionProps) {
   const { data, loading } = useMenuQuery({
     variables: {
       retailerId,
       category: category,
       search: searchQuery,
+      brandId: selectedBrand?.id,
     },
   });
-  console.log(data, category);
-  return (
-    <Section>
-      {loading && <div>Loading...</div>}
-      <SectionHeader>{displayNameForCategory(category)}</SectionHeader>
 
+  return data?.menu?.products.length ? (
+    <Section>
+      {loading && <LoadingSpinner />}
+      <SectionHeader>{displayNameForCategory(category)}</SectionHeader>
       <Grid>
         {(data?.menu?.products || []).map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </Grid>
     </Section>
-  );
+  ) : null;
 }
 
 const Section = styled.section`
@@ -61,6 +67,5 @@ const Grid = styled.div`
 `;
 
 const SectionHeader = styled.h2`
-  font-family: "Playfair Display";
   margin: var(--space-2) 0;
 `;

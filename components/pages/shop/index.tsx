@@ -1,10 +1,8 @@
-import { GetStaticProps } from "next";
-import { useDebounce } from "use-debounce";
 import styled from "styled-components";
-import { useQueryParam } from "use-query-params";
+import { StringParam, useQueryParam } from "use-query-params";
 
-import { initializeApollo, retailerId } from "api/apollo";
-import { MenuDocument, Category } from "api/queries/menu.graphql";
+import { retailerId } from "api/apollo";
+import { Category, Brand } from "api/queries/menu.graphql";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
 import { DesktopOnly } from "components/shared/responsive/desktop-only";
@@ -17,7 +15,7 @@ import { CategoriesParam } from "utils/query-param";
 import { CategoryFilter } from "./components/filters/category-filter";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
-import { useState } from "react";
+import { useBrandsQueryQuery } from "api/queries/brands.graphql";
 
 const ProductSectionCategories = [
   Category.Flower,
@@ -32,8 +30,12 @@ const ProductSectionCategories = [
 ];
 
 function Menu() {
-  const [query, setQuery] = useState("");
-  const [debouncedQuery] = useDebounce(query, 100);
+  const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
+    variables: { retailerId },
+  });
+  const [query] = useQueryParam("search", StringParam);
+  const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
+  const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
 
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
@@ -58,21 +60,42 @@ function Menu() {
     setSelectedCategories(selectedCategories);
   }
 
+  function selectSingleBrand(brand: Partial<Brand>) {
+    setBrandId(brand.id);
+    setBrandName(brand.name);
+  }
+
   const categoriesToShow =
     selectedCategories.size === 0
       ? ProductSectionCategories
       : ProductSectionCategories.filter((category) =>
           selectedCategories.has(category)
         );
-
+  const brandsMarkup = !brandsLoading && (
+    <select
+      name="brands"
+      onChange={(event) => {
+        setBrandId(event.target.value);
+        setBrandName(event.target.options[event.target.selectedIndex].text);
+      }}
+    >
+      <option value="">Choose a brand</option>
+      {brandData?.menu?.brands.map((brand) => {
+        return (
+          <option key={brand.id} value={brand.id}>
+            {brand.name}
+          </option>
+        );
+      })}
+    </select>
+  );
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Container>
         <Nav
           page="shop"
           selectSingleCategory={selectSingleCategory}
-          search={query}
-          setSearch={setQuery}
+          selectSingleBrand={selectSingleBrand}
         />
         <Content>
           <DesktopOnly>
@@ -90,11 +113,13 @@ function Menu() {
             />
           </MobileOnly>
           <div>
+            {brandsMarkup}
             {categoriesToShow.map((category) => (
               <ProductSection
                 key={category}
                 category={category}
-                searchQuery={debouncedQuery}
+                searchQuery={query || ""}
+                selectedBrand={{ id: brandID, name: brandName }}
               />
             ))}
           </div>
@@ -132,28 +157,5 @@ const Sidebar = styled.aside`
   margin-right: 36px;
   flex-shrink: 0;
 `;
-
-export const getStaticProps: GetStaticProps = async function () {
-  const apolloClient = initializeApollo();
-
-  const queries = ProductSectionCategories.map((category) =>
-    apolloClient.query({
-      query: MenuDocument,
-      variables: {
-        retailerId,
-        category,
-      },
-    })
-  );
-
-  await Promise.all(queries);
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-    revalidate: 10,
-  };
-};
 
 export default Menu;

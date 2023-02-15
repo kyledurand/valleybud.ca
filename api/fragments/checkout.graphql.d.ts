@@ -140,6 +140,8 @@ export declare type Query = {
   order?: Maybe<Order>;
   /** Get the data for a particular product. */
   product?: Maybe<Product>;
+  /** Check the availability of a product at retailers within an enterprise using only the enterprise product id. */
+  productAvailabilityByRetailer: Array<ProductAvailabilityByRetailer>;
   retailers: Array<Retailer>;
   retailer?: Maybe<Retailer>;
   retailersNearLocation: Array<RetailerNearLocation>;
@@ -151,6 +153,7 @@ export declare type QueryCheckoutArgs = {
 };
 export declare type QueryCustomersArgs = {
   retailerId: Scalars["ID"];
+  filter?: Maybe<CustomersFilter>;
   pagination?: Maybe<Pagination>;
   sort?: Maybe<CustomersSort>;
 };
@@ -179,6 +182,9 @@ export declare type QueryOrderArgs = {
 export declare type QueryProductArgs = {
   id: Scalars["ID"];
   retailerId: Scalars["ID"];
+};
+export declare type QueryProductAvailabilityByRetailerArgs = {
+  enterpriseProductId: Scalars["ID"];
 };
 export declare type QueryRetailerArgs = {
   id: Scalars["ID"];
@@ -211,6 +217,7 @@ export declare enum OrderType {
   DriveThruPickup = "DRIVE_THRU_PICKUP",
   InStorePickup = "IN_STORE_PICKUP",
   Pickup = "PICKUP",
+  Kiosk = "KIOSK",
 }
 /** Single-use container for a user's cart items + order metadata */
 export declare type Checkout = {
@@ -420,6 +427,7 @@ export declare type Menu = {
   products: Array<Product>;
   productsCount: Scalars["Int"];
   weights: Array<Scalars["String"]>;
+  tags?: Maybe<Array<Scalars["String"]>>;
 };
 export declare enum MenuSectionFilterType {
   CustomSection = "CUSTOM_SECTION",
@@ -454,6 +462,7 @@ export declare type MenuFilter = {
   search?: Maybe<Scalars["String"]>;
   strainType?: Maybe<StrainType>;
   subcategory?: Maybe<Subcategory>;
+  tags?: Maybe<Array<Maybe<Scalars["String"]>>>;
   weights?: Maybe<Array<Scalars["String"]>>;
 };
 export declare type MenuSectionFilter = {
@@ -587,7 +596,9 @@ export declare type Retailer = {
   id: Scalars["ID"];
   menuTypes: Array<MenuType>;
   name: Scalars["String"];
+  /** @deprecated Use paymentMethodsByOrderTypes */
   paymentOptions: PaymentOptions;
+  paymentMethodsByOrderTypes: Array<PaymentMethodsByOrderType>;
   settings: Settings;
 };
 export declare enum DistanceUnit {
@@ -726,6 +737,28 @@ export declare type PaymentOptions = {
   payInStore?: Maybe<Scalars["Boolean"]>;
   paytender?: Maybe<Scalars["Boolean"]>;
 };
+export declare enum PaymentMethod {
+  Aeropay = "AEROPAY",
+  Alt_36 = "ALT_36",
+  CanPay = "CAN_PAY",
+  Cash = "CASH",
+  Chase = "CHASE",
+  Check = "CHECK",
+  CreditCardAtDoor = "CREDIT_CARD_AT_DOOR",
+  CreditCardByPhone = "CREDIT_CARD_BY_PHONE",
+  Debit = "DEBIT",
+  DutchiePay = "DUTCHIE_PAY",
+  Hypur = "HYPUR",
+  Linx = "LINX",
+  Merrco = "MERRCO",
+  Moneris = "MONERIS",
+  Paytender = "PAYTENDER",
+}
+export declare type PaymentMethodsByOrderType = {
+  __typename?: "PaymentMethodsByOrderType";
+  orderType: OrderType;
+  paymentMethods: Array<PaymentMethod>;
+};
 export declare type Settings = {
   __typename?: "Settings";
   menuWeights?: Maybe<Scalars["String"]>;
@@ -799,6 +832,9 @@ export declare type Customer = {
   orders?: Maybe<Array<Order>>;
   phone: Scalars["String"];
 };
+export declare type CustomersFilter = {
+  email?: Maybe<Scalars["String"]>;
+};
 /** Order information */
 export declare type Order = {
   __typename?: "Order";
@@ -836,6 +872,9 @@ export declare type Product = {
   id: Scalars["ID"];
   /** ID of active product batch to identify terpene and cannabinoid concentrations */
   productBatchId?: Maybe<Scalars["ID"]>;
+  productAvailabilityByRetailer?: Maybe<
+    Array<Maybe<ProductAvailabilityByRetailer>>
+  >;
   /** The product's image source hosted by our CDN */
   image: Scalars["String"];
   images: Array<ProductImage>;
@@ -882,6 +921,12 @@ export declare type PosMetaData = {
   id?: Maybe<Scalars["String"]>;
   category?: Maybe<Scalars["String"]>;
   sku?: Maybe<Scalars["String"]>;
+};
+export declare type ProductAvailabilityByRetailer = {
+  __typename?: "ProductAvailabilityByRetailer";
+  isAvailable: Scalars["Boolean"];
+  retailer: Retailer;
+  productId: Scalars["String"];
 };
 export declare enum CacheControlScope {
   Public = "PUBLIC",

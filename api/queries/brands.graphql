@@ -1,0 +1,14 @@
+fragment brandFragment on Brand {
+  description
+  id
+  imageUrl
+  name
+}
+
+query BrandsQuery($retailerId: ID!) {
+  menu(retailerId: $retailerId) {
+    brands {
+      ...brandFragment
+    }
+  }
+}
