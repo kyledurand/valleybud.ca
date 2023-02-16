@@ -13,10 +13,14 @@ const DARK_THEME_COLOR_PROPS = {
   media: "(prefers-color-scheme: dark)",
 } as MetaHTMLAttributes<HTMLMetaElement>;
 
-export function Meta() {
+interface Props {
+  title?: string;
+}
+
+export function Meta({ title }: Props) {
   return (
     <Head>
-      <title>Welcome to Valleybud.ca</title>
+      <title>{title || "Welcome to Valleybud.ca"}</title>
       <meta
         name="description"
         content="Cannabis retailer based in the Ottawa valley"

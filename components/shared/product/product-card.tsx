@@ -9,13 +9,15 @@ import { Stack } from "components/Stack";
 import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
 import { retailerId } from "api/apollo";
 import { CheckoutContext } from "../checkout-context";
+import Image from "next/image";
 
 interface ProductCardProps {
   product: MenuProductFragment;
+  layout: "grid" | "list";
 }
 
 export function ProductCard(props: ProductCardProps): JSX.Element {
-  const { product } = props;
+  const { product, layout } = props;
   const { checkout } = useContext(CheckoutContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [
@@ -38,26 +40,32 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 
   return (
     <>
-      <Container onClick={() => setIsModalOpen(true)}>
-        <ProductImage src={product.image} />
-        <Stack gap="2">
-          <div>
-            <Text size="2">{product.name}</Text>
-            {product.brand?.name && <Text>{product.brand.name}</Text>}
-          </div>
+      <Container layout={layout} onClick={() => setIsModalOpen(true)}>
+        <ProductImage
+          width={layout === "list" ? 100 : 280}
+          height={layout === "list" ? 100 : 280}
+          src={product.image}
+        />
+        <Stack inline={layout === "list"} justify="space-between" grow wrap>
+          <Stack>
+            <div>
+              <Text size="2">{product.name}</Text>
+              {product.brand?.name && <Text>{product.brand.name}</Text>}
+            </div>
 
-          <Stack inline align="center" gap="2">
-            <Text>
-              {capitalizeFirstLetter(product.strainType ?? "").replace(
-                /_/g,
-                " "
-              )}
-            </Text>
-            •<Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
-            <Text>cbd {product.potencyCbd?.formatted || "0mg"}</Text>
+            <Stack inline align="center" gap="2">
+              <Text>
+                {capitalizeFirstLetter(product.strainType ?? "").replace(
+                  /_/g,
+                  " "
+                )}
+              </Text>
+              •<Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
+              <Text>cbd {product.potencyCbd?.formatted || "0mg"}</Text>
+            </Stack>
           </Stack>
 
-          <Stack inline justify="space-between">
+          <Stack inline justify="space-between" align="center">
             <Text>{deriveDisplayPrices(product).rec}</Text>
             <AddToCart onClick={(event) => handleAddToCartClick(event)}>
               {addingToCart ? "Adding" : "Add to cart"}
@@ -74,19 +82,21 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
   );
 }
 
-const Container = styled.button`
+const Container = styled.button<{ layout: string }>`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: ${({ layout }) => (layout === "list" ? "row" : "column")};
+  justify-content: ${({ layout }) =>
+    layout === "list" ? "flex-start" : "space-between"};
+  align-items: center;
+  gap: var(--space-4);
   width: 100%;
   margin: 0 auto;
-  padding: var(--space-2);
   background: none;
   border: none;
   text-align: left;
 `;
 
-const ProductImage = styled.img`
+const ProductImage = styled(Image)`
   width: 100%;
   height: auto;
   object-fit: contain;

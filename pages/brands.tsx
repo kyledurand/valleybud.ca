@@ -1,5 +1,6 @@
 import { retailerId } from "api/apollo";
 import { useBrandsQueryQuery } from "api/queries/brands.graphql";
+import { Meta } from "components/Meta";
 import { Container } from "components/pages/home/Styled";
 import { Footer } from "components/shared/footer";
 import { LoadingSpinner } from "components/shared/loading-spinner";
@@ -14,6 +15,7 @@ export default function Brands() {
   const brands = [...(data?.menu?.brands || [])];
   return (
     <Container>
+      <Meta title="Brands | Valleybud.ca" />
       <Nav />
       {loading && <LoadingSpinner centered />}
       <h1>Brands</h1>

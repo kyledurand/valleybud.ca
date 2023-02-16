@@ -161,7 +161,6 @@ const Header = styled.div`
 `;
 
 const HeaderLabel = styled.div`
-  font-family: "Playfair Display";
   font-size: 20px;
   font-weight: 700;
   display: flex;

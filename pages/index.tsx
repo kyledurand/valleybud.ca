@@ -3,6 +3,7 @@ import { Logo } from "components/shared/svg/logo";
 import styled from "styled-components";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import { Meta } from "components/Meta";
 
 export default function Shop() {
   const { breakpoints } = useTheme();
@@ -11,6 +12,7 @@ export default function Shop() {
 
   return (
     <>
+      <Meta />
       <LogoContainer>
         <Logo width={breakpointMatches ? 300 : undefined} color="white" />
       </LogoContainer>

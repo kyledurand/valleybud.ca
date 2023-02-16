@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import { Category, useMenuQuery } from "api/queries/menu.graphql";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueriesUp } from "styles/media-queries";
@@ -10,6 +9,7 @@ import { LoadingSpinner } from "components/shared/loading-spinner";
 interface ProductSectionProps {
   searchQuery: string;
   category: Category;
+  view: "grid" | "list";
   selectedBrand?: {
     name?: string | null;
     id?: string | null;
@@ -18,9 +18,12 @@ interface ProductSectionProps {
 
 export function ProductSection({
   category,
+  view = "grid",
   selectedBrand,
   searchQuery,
 }: ProductSectionProps) {
+  const Layout = view === "grid" ? Grid : List;
+
   const { data, loading } = useMenuQuery({
     variables: {
       retailerId,
@@ -34,11 +37,11 @@ export function ProductSection({
     <Section>
       {loading && <LoadingSpinner />}
       <SectionHeader>{displayNameForCategory(category)}</SectionHeader>
-      <Grid>
+      <Layout>
         {(data?.menu?.products || []).map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard layout={view} key={product.id} product={product} />
         ))}
-      </Grid>
+      </Layout>
     </Section>
   ) : null;
 }
@@ -63,6 +66,16 @@ const Grid = styled.div`
   @media ${mediaQueriesUp.sm} {
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-3);
+  }
+`;
+
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  @media ${mediaQueriesUp.sm} {
+    gap: var(--space-2);
   }
 `;
 

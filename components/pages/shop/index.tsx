@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { StringParam, useQueryParam } from "use-query-params";
 
@@ -16,6 +17,9 @@ import { CategoryFilter } from "./components/filters/category-filter";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 import { useBrandsQueryQuery } from "api/queries/brands.graphql";
+import { Meta } from "components/Meta";
+import { useMediaQuery } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 
 const ProductSectionCategories = [
   Category.Flower,
@@ -30,12 +34,15 @@ const ProductSectionCategories = [
 ];
 
 function Menu() {
-  const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
-    variables: { retailerId },
-  });
+  const { breakpoints } = useTheme();
+  const defaultView = useMediaQuery(breakpoints.up("md")) ? "grid" : "list";
+  const [view, setView] = useState<"list" | "grid">(defaultView);
   const [query] = useQueryParam("search", StringParam);
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
   const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
+  const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
+    variables: { retailerId },
+  });
 
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
@@ -91,9 +98,11 @@ function Menu() {
   );
   return (
     <CheckoutContext.Provider value={checkoutContext}>
+      <Meta title="Shop Valleybud.ca" />
       <Container>
         <Nav
           page="shop"
+          setView={setView}
           selectSingleCategory={selectSingleCategory}
           selectSingleBrand={selectSingleBrand}
         />
@@ -116,6 +125,7 @@ function Menu() {
             {brandsMarkup}
             {categoriesToShow.map((category) => (
               <ProductSection
+                view={view}
                 key={category}
                 category={category}
                 searchQuery={query || ""}

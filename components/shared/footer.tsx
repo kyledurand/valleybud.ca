@@ -25,9 +25,6 @@ export function Footer(): JSX.Element {
             <a href="contact">contact us</a>
           </LinkListItem>
           <LinkListItem>
-            <a href="faq">faqs</a>
-          </LinkListItem>
-          <LinkListItem>
             <a href="about">about valley bud</a>
           </LinkListItem>
 

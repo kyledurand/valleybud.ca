@@ -1,5 +1,6 @@
 import styles from "../styles/Home.module.css";
 import { Logo } from "components/shared/svg/logo";
+import { Meta } from "components/Meta";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
         backgroundColor: "var(--brand-accent-orange)",
       }}
     >
+      <Meta title="Thank you for your order! | Valleybud.ca" />
       <main className={styles.main}>
         <div className={styles.logo}>
           <Logo width={600} height={188} color="white" />

@@ -4,6 +4,7 @@ import { createClient } from "next-sanity";
 import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
 import styled from "styled-components";
+import { Meta } from "components/Meta";
 
 interface Data {
   content: any;
@@ -16,6 +17,7 @@ interface Props {
 export default function Privacy({ data }: Props): React.ReactNode {
   return (
     <Container>
+      <Meta title="Privacy Policy | Valleybud.ca" />
       <Nav />
       <PortableText value={data[0].content} />
       <Footer />

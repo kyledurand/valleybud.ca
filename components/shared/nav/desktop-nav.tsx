@@ -16,6 +16,8 @@ import { Cart } from "./cart/index";
 import { VisuallyHidden } from "components/utilities";
 import { useBrandsQueryQuery } from "api/queries/brands.graphql";
 import { useQueryParam, StringParam } from "use-query-params";
+import { Button, ButtonGroup, SvgIcon } from "@material-ui/core";
+import { ViewList, ViewModule } from "@mui/icons-material";
 
 const SUBMENU_CATEGORIES = [
   Category.Flower,
@@ -86,7 +88,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
   }
 
   return (
-    <>
+    <Wrapper>
       {(isBrandMenuVisible || isCategoryMenuVisible) && (
         <Backdrop onClick={closeShopMenu} />
       )}
@@ -112,7 +114,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
               setBrandMenuVisible((isBrandMenuVisible) => !isBrandMenuVisible);
             }}
           >
-            <NavLink isUnderlined={page === "shop"}>
+            <NavLink>
               shop by brand
               <Chevron
                 direction={
@@ -163,7 +165,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
             </NavIconContainer>
           </NavIcons>
         </NavLinksContainer>
-
         {/* SHOP BRANDS */}
         {isBrandMenuVisible && !brandsLoading && (
           <StyledMenu>
@@ -199,9 +200,26 @@ export function DesktopNav(props: NavProps): JSX.Element {
           <Cart onClose={closeCart} apolloClient={apolloClient} />
         </Drawer>
       </NavContainer>
-    </>
+      {page === "shop" && (
+        <ViewToggle>
+          <ButtonGroup>
+            <Button variant="contained" onClick={() => props.setView?.("list")}>
+              <SvgIcon component={ViewList} inheritViewBox />
+            </Button>
+            <Button variant="contained" onClick={() => props.setView?.("grid")}>
+              <SvgIcon component={ViewModule} inheritViewBox />
+            </Button>
+          </ButtonGroup>
+        </ViewToggle>
+      )}
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Backdrop = styled.div`
   position: absolute;
@@ -287,10 +305,7 @@ const NavLinkListItem = styled.div`
   }
 `;
 
-const NavLink = styled.div<{
-  darkBackground?: boolean;
-  isUnderlined?: boolean;
-}>`
+const NavLink = styled.div`
   color: var(--link);
   cursor: pointer;
   display: flex;
@@ -298,8 +313,6 @@ const NavLink = styled.div<{
   align-items: center;
   height: 100%;
   user-select: none;
-  border-bottom: ${(props) =>
-    props.isUnderlined ? "3px solid #F4BD33" : "none"};
 
   & > svg {
     margin-left: 4px;
@@ -346,4 +359,9 @@ const CartCount = styled.div`
   top: -11px;
   right: -22px;
   color: #ffffff;
+`;
+
+const ViewToggle = styled.div`
+  align-self: end;
+  padding: 0 var(--space-5);
 `;

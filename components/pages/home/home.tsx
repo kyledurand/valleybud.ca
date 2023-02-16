@@ -15,6 +15,7 @@ import * as Styled from "./Styled";
 import Image from "next/image";
 import { Stack } from "components/Stack";
 import { LoadingSpinner } from "components/shared/loading-spinner";
+import { Meta } from "components/Meta";
 
 interface Carousel {
   link: string;
@@ -78,6 +79,7 @@ function Home({
     <LoadingSpinner centered />
   ) : (
     <CheckoutContext.Provider value={checkoutContext}>
+      <Meta />
       <Styled.Container>
         <Nav />
         <Styled.Banner

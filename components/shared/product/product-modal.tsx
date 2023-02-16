@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import styled from "styled-components";
 
 import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useMediaQuery } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -290,7 +290,6 @@ const Brand = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: "Playfair Display";
   font-weight: 700;
   font-size: 30px;
   margin-bottom: 20px;

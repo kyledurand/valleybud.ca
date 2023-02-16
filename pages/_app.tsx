@@ -14,7 +14,6 @@ import {
   createMuiTheme,
 } from "@material-ui/core/styles";
 import { mediaSizes, mediaQueriesDown } from "styles/media-queries";
-import { Meta } from "components/Meta";
 import { useSessionStorage } from "hooks/use-session-storage";
 import { AgeGate } from "components/age-gate";
 
@@ -28,28 +27,25 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
   const apolloClient = useApollo();
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
   return (
-    <>
-      <Meta />
-      <QueryParamProvider>
-        <ApolloProvider client={apolloClient}>
-          <StyledComponentsProvider theme={styledComponentsTheme}>
-            <MuiProvider theme={muiTheme}>
-              <StylesProvider injectFirst>
-                <GlobalStyle />
-                {sessionVerified === "true" ? (
-                  <Component {...pageProps} />
-                ) : (
-                  <AgeGate
-                    onVerify={setSessionVerified}
-                    sessionVerified={sessionVerified}
-                  />
-                )}
-              </StylesProvider>
-            </MuiProvider>
-          </StyledComponentsProvider>
-        </ApolloProvider>
-      </QueryParamProvider>
-    </>
+    <QueryParamProvider>
+      <ApolloProvider client={apolloClient}>
+        <StyledComponentsProvider theme={styledComponentsTheme}>
+          <MuiProvider theme={muiTheme}>
+            <StylesProvider injectFirst>
+              <GlobalStyle />
+              {sessionVerified === "true" ? (
+                <Component {...pageProps} />
+              ) : (
+                <AgeGate
+                  onVerify={setSessionVerified}
+                  sessionVerified={sessionVerified}
+                />
+              )}
+            </StylesProvider>
+          </MuiProvider>
+        </StyledComponentsProvider>
+      </ApolloProvider>
+    </QueryParamProvider>
   );
 }
 export const styledComponentsTheme = {
