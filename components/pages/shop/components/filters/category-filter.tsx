@@ -1,57 +1,63 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  makeStyles,
+} from "@material-ui/core";
 
-import { Category } from "api/queries/menu.graphql";
-import { ListCheckbox } from "components/shared/svg/list-checkbox";
+import { Category, Effects } from "api/queries/menu.graphql";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
-
-import { MenuFilterHeader } from "./menu-filter-header";
-
-const CATEGORIES = [
-  Category.Flower,
-  Category.Vaporizers,
-  Category.Concentrates,
-  Category.Edibles,
-  Category.Tinctures,
-  Category.Topicals,
-  Category.Accessories,
-  Category.PreRolls,
-  Category.Apparel,
-];
+import { Text } from "components/Text";
+import { CATEGORIES } from "../..";
 
 interface CategoryFilterProps {
-  selectedCategories: Set<Category>;
+  // selectedCategories: Set<Category>;
   onCategorySelect: (category: Category) => void;
+  onEffectSelect: (effect: Effects) => void;
 }
 
-export function CategoryFilter(props: CategoryFilterProps): JSX.Element {
-  const { selectedCategories, onCategorySelect } = props;
-  const [isCategoryExpanded, setIsCategoryExpanded] = useState(true);
+const useStyles = makeStyles({
+  root: {
+    padding: "var(--space-1)",
+  },
+});
 
+export function CategoryFilter({
+  onCategorySelect,
+  onEffectSelect,
+}: CategoryFilterProps): JSX.Element {
+  const classes = useStyles();
   return (
     <Container>
-      <MenuFilterHeader
-        name="CATEGORY"
-        onClick={() => setIsCategoryExpanded(!isCategoryExpanded)}
-        isExpanded={isCategoryExpanded}
-      />
-      {isCategoryExpanded && (
-        <StyledList>
-          {CATEGORIES.map((category) => (
-            <ListItem key={category} onClick={() => onCategorySelect(category)}>
-              <ListItemIcon>
-                <ListCheckbox isSelected={selectedCategories.has(category)} />
-              </ListItemIcon>
-              <ListItemText primary={displayNameForCategory(category)} />
-            </ListItem>
-          ))}
-        </StyledList>
-      )}
+      <Text size="2">Filter</Text>
+      <FormGroup>
+        {CATEGORIES.map((category) => (
+          <FormControlLabel
+            key={category}
+            label={displayNameForCategory(category)}
+            onClick={() => onCategorySelect(category)}
+            control={
+              <Checkbox className={classes.root} id={category} size="small" />
+            }
+          />
+        ))}
+      </FormGroup>
+
+      <FormGroup style={{ marginTop: "var(--space-4)" }}>
+        <legend>Effects:</legend>
+        {Object.entries(Effects).map(([key, effect]) => (
+          <FormControlLabel
+            key={key}
+            onClick={() => onEffectSelect(effect)}
+            control={
+              <Checkbox className={classes.root} id={key} size="small" />
+            }
+            label={key}
+          />
+        ))}
+      </FormGroup>
     </Container>
   );
 }
@@ -61,24 +67,5 @@ const Container = styled.div`
 
   &:last-of-type {
     border: none;
-  }
-`;
-
-const StyledList = styled(List)`
-  padding: 0px !important;
-
-  & .MuiListItem-root {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 0;
-    cursor: pointer;
-  }
-
-  & .MuiTypography-root {
-    font-size: 13px;
-  }
-
-  & .MuiListItemIcon-root {
-    min-width: 35px;
   }
 `;
