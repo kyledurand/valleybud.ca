@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { Text } from "../../Text";
-import { MenuProductFragment } from "api/queries/menu.graphql";
+import { ProductFragment } from "api/queries/menu.graphql";
 import { capitalizeFirstLetter, deriveDisplayPrices } from "utils/product";
 
 import { ProductModal } from "./product-modal";
@@ -12,7 +12,7 @@ import { CheckoutContext } from "../checkout-context";
 import Image from "next/image";
 
 interface ProductCardProps {
-  product: MenuProductFragment;
+  product: ProductFragment;
   layout: "grid" | "list";
 }
 
@@ -73,6 +73,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
           </Stack>
         </Stack>
       </Container>
+      {JSON.stringify(product.effects, null, 2)}
       <ProductModal
         product={product}
         open={isModalOpen}
@@ -82,7 +83,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
   );
 }
 
-const Container = styled.button<{ layout: string }>`
+const Container = styled.a<{ layout: string }>`
   display: flex;
   flex-direction: ${({ layout }) => (layout === "list" ? "row" : "column")};
   justify-content: ${({ layout }) =>

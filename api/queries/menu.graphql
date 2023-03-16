@@ -1,18 +1,26 @@
-# import MenuProduct from '../fragments/menu-product.graphql'
+# import product from '../fragments/menu-product.graphql'
 
 query Menu(
   $category: Category
   $search: String
   $retailerId: ID!
   $brandId: String
+  $effects: [Effects!]
+  $offset: Int!
+  $limit: Int!
 ) {
   menu(
-    filter: { category: $category, search: $search, brandId: $brandId }
-    pagination: { limit: 12, offset: 0 }
+    filter: {
+      category: $category
+      search: $search
+      effects: $effects
+      brandId: $brandId
+    }
+    pagination: { limit: $limit, offset: $offset }
     retailerId: $retailerId
   ) {
     products {
-      ...MenuProduct
+      ...product
     }
   }
 }

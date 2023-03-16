@@ -5,6 +5,7 @@ import { mediaQueriesUp } from "styles/media-queries";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { retailerId } from "api/apollo";
 import { LoadingSpinner } from "components/shared/loading-spinner";
+import { Effects } from "api/fragments/menu-product.graphql";
 
 interface ProductSectionProps {
   searchQuery: string;
@@ -14,6 +15,9 @@ interface ProductSectionProps {
     name?: string | null;
     id?: string | null;
   };
+  selectedEffects: Effects[];
+  offset: number;
+  paginationLimit: number;
 }
 
 export function ProductSection({
@@ -21,6 +25,9 @@ export function ProductSection({
   view = "grid",
   selectedBrand,
   searchQuery,
+  selectedEffects,
+  offset,
+  paginationLimit,
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
 
@@ -30,6 +37,9 @@ export function ProductSection({
       category: category,
       search: searchQuery,
       brandId: selectedBrand?.id,
+      effects: selectedEffects,
+      offset: offset,
+      limit: paginationLimit,
     },
   });
 

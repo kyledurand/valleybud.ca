@@ -11,52 +11,95 @@ import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
 import { mediaQueriesDown } from "styles/media-queries";
-import { CategoriesParam } from "utils/query-param";
+import { CategoriesParam, EffectsParam } from "utils/query-param";
 
-import { CategoryFilter } from "./components/filters/category-filter";
+import { SecondaryFilters } from "./components/filters/secondary-filters";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 import { useBrandsQueryQuery } from "api/queries/brands.graphql";
 import { Meta } from "components/Meta";
 import { useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
+import { Effects } from "api/fragments/menu-product.graphql";
 
-const ProductSectionCategories = [
+// const EFFECTS: Effects[] = [
+//   Effects.Calm,
+//   Effects.ClearMind,
+//   Effects.Creative,
+//   Effects.Energetic,
+//   Effects.Focused,
+//   Effects.Happy,
+//   Effects.Inspired,
+//   Effects.Relaxed,
+//   Effects.Sleepy,
+//   Effects.Uplifted,
+// ];
+
+export const CATEGORIES: Category[] = [
   Category.Flower,
   Category.Vaporizers,
+  Category.PreRolls,
+  Category.Cbd,
+  Category.Accessories,
+  Category.Clones,
   Category.Concentrates,
   Category.Edibles,
+  Category.Orals,
+  Category.Seeds,
   Category.Tinctures,
   Category.Topicals,
-  Category.Accessories,
-  Category.PreRolls,
+  Category.NotApplicable,
   Category.Apparel,
 ];
 
+const PAGINATION_LIMIT = 12;
+
 function Menu() {
   const { breakpoints } = useTheme();
-  const defaultView = useMediaQuery(breakpoints.up("md")) ? "grid" : "list";
+  const defaultView = useMediaQuery(breakpoints.up("sm")) ? "grid" : "list";
   const [view, setView] = useState<"list" | "grid">(defaultView);
+  const [offset, setOffset] = useState(0);
+  // const [selectedEffects, setSelectedEffects] = useState<Effects[] | undefined>(
+  //   []
+  // );
   const [query] = useQueryParam("search", StringParam);
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
   const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
+  const checkoutContext = useCheckout();
   const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
     variables: { retailerId },
   });
+
+  const [selectedEffects, setSelectedEffects] = useQueryParam(
+    "effect",
+    EffectsParam
+  );
 
   const [selectedCategories, setSelectedCategories] = useQueryParam(
     "category",
     CategoriesParam
   );
-  const checkoutContext = useCheckout();
 
   function onCategorySelect(category: Category) {
+    console.log("onCategorySelect");
+
     if (selectedCategories.has(category)) {
       selectedCategories.delete(category);
     } else {
       selectedCategories.add(category);
     }
     setSelectedCategories(selectedCategories);
+  }
+
+  function onEffectSelect(effect: Effects) {
+    console.log("onEffectSelect");
+
+    if (selectedEffects.has(effect)) {
+      selectedEffects.delete(effect);
+    } else {
+      selectedEffects.add(effect);
+    }
+    setSelectedEffects(selectedEffects);
   }
 
   function selectSingleCategory(category?: Category) {
@@ -74,10 +117,9 @@ function Menu() {
 
   const categoriesToShow =
     selectedCategories.size === 0
-      ? ProductSectionCategories
-      : ProductSectionCategories.filter((category) =>
-          selectedCategories.has(category)
-        );
+      ? CATEGORIES
+      : CATEGORIES.filter((category) => selectedCategories.has(category));
+
   const brandsMarkup = !brandsLoading && (
     <select
       name="brands"
@@ -109,9 +151,10 @@ function Menu() {
         <Content>
           <DesktopOnly>
             <Sidebar>
-              <CategoryFilter
-                selectedCategories={selectedCategories}
+              <SecondaryFilters
                 onCategorySelect={onCategorySelect}
+                onEffectSelect={onEffectSelect}
+                selectedCategories={selectedCategories}
               />
             </Sidebar>
           </DesktopOnly>
@@ -121,7 +164,7 @@ function Menu() {
               selectSingleCategory={selectSingleCategory}
             />
           </MobileOnly>
-          <div>
+          <Products>
             {brandsMarkup}
             {categoriesToShow.map((category) => (
               <ProductSection
@@ -130,10 +173,23 @@ function Menu() {
                 category={category}
                 searchQuery={query || ""}
                 selectedBrand={{ id: brandID, name: brandName }}
+                selectedEffects={[...selectedEffects]}
+                offset={offset}
+                paginationLimit={PAGINATION_LIMIT}
               />
             ))}
-          </div>
+          </Products>
         </Content>
+        <button
+          onClick={() => setOffset((offset) => offset - PAGINATION_LIMIT)}
+        >
+          prev
+        </button>
+        <button
+          onClick={() => setOffset((offset) => offset + PAGINATION_LIMIT)}
+        >
+          next
+        </button>
         <Footer />
       </Container>
     </CheckoutContext.Provider>
@@ -149,6 +205,10 @@ const Container = styled.div`
   @media ${mediaQueriesDown.phone} {
     width: 100%;
   }
+`;
+
+const Products = styled.div`
+  flex: 1;
 `;
 
 const Content = styled.div`
