@@ -13,7 +13,7 @@ import { useCheckout } from "hooks/use-checkout";
 import { mediaQueriesDown } from "styles/media-queries";
 import { CategoriesParam, EffectsParam } from "utils/query-param";
 
-import { CategoryFilter } from "./components/filters/category-filter";
+import { SecondaryFilters } from "./components/filters/secondary-filters";
 import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 import { useBrandsQueryQuery } from "api/queries/brands.graphql";
@@ -81,6 +81,8 @@ function Menu() {
   );
 
   function onCategorySelect(category: Category) {
+    console.log("onCategorySelect");
+
     if (selectedCategories.has(category)) {
       selectedCategories.delete(category);
     } else {
@@ -90,6 +92,8 @@ function Menu() {
   }
 
   function onEffectSelect(effect: Effects) {
+    console.log("onEffectSelect");
+
     if (selectedEffects.has(effect)) {
       selectedEffects.delete(effect);
     } else {
@@ -147,9 +151,10 @@ function Menu() {
         <Content>
           <DesktopOnly>
             <Sidebar>
-              <CategoryFilter
+              <SecondaryFilters
                 onCategorySelect={onCategorySelect}
                 onEffectSelect={onEffectSelect}
+                selectedCategories={selectedCategories}
               />
             </Sidebar>
           </DesktopOnly>
@@ -168,7 +173,7 @@ function Menu() {
                 category={category}
                 searchQuery={query || ""}
                 selectedBrand={{ id: brandID, name: brandName }}
-                selectedEffects={selectedEffects}
+                selectedEffects={[...selectedEffects]}
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}
               />

@@ -12,8 +12,8 @@ import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { Text } from "components/Text";
 import { CATEGORIES } from "../..";
 
-interface CategoryFilterProps {
-  // selectedCategories: Set<Category>;
+interface SecondaryFiltersProps {
+  selectedCategories: Set<Category>;
   onCategorySelect: (category: Category) => void;
   onEffectSelect: (effect: Effects) => void;
 }
@@ -24,10 +24,10 @@ const useStyles = makeStyles({
   },
 });
 
-export function CategoryFilter({
+export function SecondaryFilters({
   onCategorySelect,
   onEffectSelect,
-}: CategoryFilterProps): JSX.Element {
+}: SecondaryFiltersProps): JSX.Element {
   const classes = useStyles();
   return (
     <Container>
@@ -37,7 +37,7 @@ export function CategoryFilter({
           <FormControlLabel
             key={category}
             label={displayNameForCategory(category)}
-            onClick={() => onCategorySelect(category)}
+            onChange={() => onCategorySelect(category)}
             control={
               <Checkbox className={classes.root} id={category} size="small" />
             }
@@ -50,7 +50,7 @@ export function CategoryFilter({
         {Object.entries(Effects).map(([key, effect]) => (
           <FormControlLabel
             key={key}
-            onClick={() => onEffectSelect(effect)}
+            onChange={() => onEffectSelect(effect)}
             control={
               <Checkbox className={classes.root} id={key} size="small" />
             }
