@@ -18,9 +18,10 @@ import { MobileFilters } from "./components/filters/mobile-filters";
 import { ProductSection } from "./components/product-section";
 import { useBrandsQueryQuery } from "api/queries/brands.graphql";
 import { Meta } from "components/Meta";
-import { useMediaQuery } from "@material-ui/core";
+import { Button, ButtonGroup, SvgIcon, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { Effects } from "api/fragments/menu-product.graphql";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 // const EFFECTS: Effects[] = [
 //   Effects.Calm,
@@ -81,25 +82,23 @@ function Menu() {
   );
 
   function onCategorySelect(category: Category) {
-    console.log("onCategorySelect");
-
     if (selectedCategories.has(category)) {
       selectedCategories.delete(category);
     } else {
       selectedCategories.add(category);
     }
     setSelectedCategories(selectedCategories);
+    setOffset(0);
   }
 
   function onEffectSelect(effect: Effects) {
-    console.log("onEffectSelect");
-
     if (selectedEffects.has(effect)) {
       selectedEffects.delete(effect);
     } else {
       selectedEffects.add(effect);
     }
     setSelectedEffects(selectedEffects);
+    setOffset(0);
   }
 
   function selectSingleCategory(category?: Category) {
@@ -180,16 +179,25 @@ function Menu() {
             ))}
           </Products>
         </Content>
-        <button
-          onClick={() => setOffset((offset) => offset - PAGINATION_LIMIT)}
-        >
-          prev
-        </button>
-        <button
-          onClick={() => setOffset((offset) => offset + PAGINATION_LIMIT)}
-        >
-          next
-        </button>
+
+        <Pagination>
+          <ButtonGroup>
+            <Button
+              aria-label="Previous products"
+              variant="contained"
+              onClick={() => setOffset((offset) => offset - PAGINATION_LIMIT)}
+            >
+              <SvgIcon component={ChevronLeft} inheritViewBox />
+            </Button>
+            <Button
+              aria-label="More products"
+              variant="contained"
+              onClick={() => setOffset((offset) => offset + PAGINATION_LIMIT)}
+            >
+              <SvgIcon component={ChevronRight} inheritViewBox />
+            </Button>
+          </ButtonGroup>
+        </Pagination>
         <Footer />
       </Container>
     </CheckoutContext.Provider>
@@ -209,6 +217,11 @@ const Container = styled.div`
 
 const Products = styled.div`
   flex: 1;
+`;
+
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Content = styled.div`

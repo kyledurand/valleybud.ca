@@ -60,7 +60,7 @@ const Section = styled.section`
   margin-bottom: 50px;
 
   @media ${mediaQueriesUp.sm} {
-    margin-bottom: 64px;
+    margin-bottom: var(--space-4);
   }
 `;
 

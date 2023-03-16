@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  makeStyles,
-} from "@material-ui/core";
+import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 
 import { Category, Effects } from "api/queries/menu.graphql";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
@@ -18,17 +13,10 @@ interface SecondaryFiltersProps {
   onEffectSelect: (effect: Effects) => void;
 }
 
-const useStyles = makeStyles({
-  root: {
-    padding: "var(--space-1)",
-  },
-});
-
 export function SecondaryFilters({
   onCategorySelect,
   onEffectSelect,
 }: SecondaryFiltersProps): JSX.Element {
-  const classes = useStyles();
   return (
     <Container>
       <Text size="2">Filter</Text>
@@ -39,7 +27,11 @@ export function SecondaryFilters({
             label={displayNameForCategory(category)}
             onChange={() => onCategorySelect(category)}
             control={
-              <Checkbox className={classes.root} id={category} size="small" />
+              <Checkbox
+                style={{ padding: "var(--space-1)" }}
+                id={category}
+                size="small"
+              />
             }
           />
         ))}
@@ -52,7 +44,11 @@ export function SecondaryFilters({
             key={key}
             onChange={() => onEffectSelect(effect)}
             control={
-              <Checkbox className={classes.root} id={key} size="small" />
+              <Checkbox
+                style={{ padding: "var(--space-1)" }}
+                id={key}
+                size="small"
+              />
             }
             label={key}
           />

@@ -73,7 +73,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
           </Stack>
         </Stack>
       </Container>
-      {JSON.stringify(product.effects, null, 2)}
+
       <ProductModal
         product={product}
         open={isModalOpen}
