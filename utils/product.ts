@@ -1,4 +1,4 @@
-import { ProductFragmentFragment } from "api/fragments/menu-product.graphql";
+import { ProductFragment } from "api/fragments/menu-product.graphql";
 import { formatPrice } from "./number-format";
 
 interface DisplayPrices {
@@ -6,9 +6,7 @@ interface DisplayPrices {
   rec: string;
 }
 
-export function deriveDisplayPrices(
-  product: ProductFragmentFragment
-): DisplayPrices {
+export function deriveDisplayPrices(product: ProductFragment): DisplayPrices {
   if (product.variants?.length === 0) {
     return {
       med: "n/a",

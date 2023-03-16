@@ -1,4 +1,4 @@
-# import productFragment from '../fragments/menu-product.graphql'
+# import product from '../fragments/menu-product.graphql'
 
 query Menu(
   $category: Category
@@ -20,7 +20,7 @@ query Menu(
     retailerId: $retailerId
   ) {
     products {
-      ...productFragment
+      ...product
     }
   }
 }

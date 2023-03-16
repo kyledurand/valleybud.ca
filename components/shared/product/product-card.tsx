@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { Text } from "../../Text";
-import { ProductFragmentFragment } from "api/queries/menu.graphql";
+import { ProductFragment } from "api/queries/menu.graphql";
 import { capitalizeFirstLetter, deriveDisplayPrices } from "utils/product";
 
 import { ProductModal } from "./product-modal";
@@ -12,7 +12,7 @@ import { CheckoutContext } from "../checkout-context";
 import Image from "next/image";
 
 interface ProductCardProps {
-  product: ProductFragmentFragment;
+  product: ProductFragment;
   layout: "grid" | "list";
 }
 

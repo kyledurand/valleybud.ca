@@ -9,7 +9,7 @@ fragment activeCannabinoidFragment on ActiveCannabinoid {
   value
 }
 
-fragment productFragment on Product {
+fragment product on Product {
   brand {
     description
     id
