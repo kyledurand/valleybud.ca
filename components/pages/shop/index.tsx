@@ -60,9 +60,6 @@ function Menu() {
   const defaultView = useMediaQuery(breakpoints.up("sm")) ? "grid" : "list";
   const [view, setView] = useState<"list" | "grid">(defaultView);
   const [offset, setOffset] = useState(0);
-  // const [selectedEffects, setSelectedEffects] = useState<Effects[] | undefined>(
-  //   []
-  // );
   const [query] = useQueryParam("search", StringParam);
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
   const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
@@ -185,14 +182,20 @@ function Menu() {
             <Button
               aria-label="Previous products"
               variant="contained"
-              onClick={() => setOffset((offset) => offset - PAGINATION_LIMIT)}
+              onClick={() => {
+                setOffset((offset) => offset - PAGINATION_LIMIT);
+                window.scrollTo(0, 0);
+              }}
             >
               <SvgIcon component={ChevronLeft} inheritViewBox />
             </Button>
             <Button
               aria-label="More products"
               variant="contained"
-              onClick={() => setOffset((offset) => offset + PAGINATION_LIMIT)}
+              onClick={() => {
+                setOffset((offset) => offset + PAGINATION_LIMIT);
+                window.scrollTo(0, 0);
+              }}
             >
               <SvgIcon component={ChevronRight} inheritViewBox />
             </Button>

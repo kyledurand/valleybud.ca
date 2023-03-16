@@ -53,7 +53,9 @@ export function ProductSection({
         ))}
       </Layout>
     </Section>
-  ) : null;
+  ) : (
+    <p>No products found</p>
+  );
 }
 
 const Section = styled.section`
