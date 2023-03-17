@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import { StringParam, useQueryParam } from "use-query-params";
 
@@ -67,6 +67,8 @@ function Menu() {
   const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
     variables: { retailerId },
   });
+
+  useLayoutEffect(() => setView(defaultView), [defaultView]);
 
   const [selectedEffects, setSelectedEffects] = useQueryParam(
     "effect",

@@ -65,7 +65,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
             </Stack>
           </Stack>
 
-          <Stack inline justify="space-between" align="center">
+          <Stack inline justify="space-between" align="center" grow>
             <Text>{deriveDisplayPrices(product).rec}</Text>
             <AddToCart onClick={(event) => handleAddToCartClick(event)}>
               {addingToCart ? "Adding" : "Add to cart"}
