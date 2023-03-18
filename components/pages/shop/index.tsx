@@ -23,35 +23,9 @@ import { useTheme } from "@material-ui/core/styles";
 import { Effects } from "api/fragments/menu-product.graphql";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
-// const EFFECTS: Effects[] = [
-//   Effects.Calm,
-//   Effects.ClearMind,
-//   Effects.Creative,
-//   Effects.Energetic,
-//   Effects.Focused,
-//   Effects.Happy,
-//   Effects.Inspired,
-//   Effects.Relaxed,
-//   Effects.Sleepy,
-//   Effects.Uplifted,
-// ];
-
-export const CATEGORIES: Category[] = [
-  Category.Flower,
-  Category.Vaporizers,
-  Category.PreRolls,
-  Category.Cbd,
-  Category.Accessories,
-  Category.Clones,
-  Category.Concentrates,
-  Category.Edibles,
-  Category.Orals,
-  Category.Seeds,
-  Category.Tinctures,
-  Category.Topicals,
-  Category.NotApplicable,
-  Category.Apparel,
-];
+export const CATEGORIES: Category[] = Object.entries(Category).map(
+  ([_, category]) => category
+);
 
 const PAGINATION_LIMIT = 12;
 

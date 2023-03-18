@@ -5,7 +5,6 @@ import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import { Category, Effects } from "api/queries/menu.graphql";
 import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { Text } from "components/Text";
-import { CATEGORIES } from "../..";
 
 interface SecondaryFiltersProps {
   selectedCategories: Set<Category>;
@@ -21,9 +20,9 @@ export function SecondaryFilters({
     <Container>
       <Text size="2">Filter</Text>
       <FormGroup>
-        {CATEGORIES.map((category) => (
+        {Object.entries(Category).map(([key, category]) => (
           <FormControlLabel
-            key={category}
+            key={key}
             label={displayNameForCategory(category)}
             onChange={() => onCategorySelect(category)}
             control={
