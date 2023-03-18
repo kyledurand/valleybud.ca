@@ -18,6 +18,7 @@ interface Props {
   grow?: boolean;
   inline?: boolean;
   fullHeight?: boolean;
+  fullWidth?: boolean;
   children: React.ReactNode;
 }
 
@@ -29,6 +30,7 @@ export function Stack({
   justify,
   align,
   fullHeight,
+  fullWidth,
   gap = "2",
 }: Props) {
   return (
@@ -42,6 +44,7 @@ export function Stack({
         height: fullHeight ? "100%" : undefined,
         flex: grow ? 1 : undefined,
         flexWrap: wrap ? "wrap" : undefined,
+        width: fullWidth ? "100%" : undefined,
       }}
     >
       {children}

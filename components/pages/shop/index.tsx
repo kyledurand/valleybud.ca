@@ -20,8 +20,13 @@ import { useBrandsQueryQuery } from "api/queries/brands.graphql";
 import { Meta } from "components/Meta";
 import { Button, ButtonGroup, SvgIcon, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import { Effects } from "api/fragments/menu-product.graphql";
+import {
+  Effects,
+  MenuSortKey,
+  SortDirection,
+} from "api/fragments/menu-product.graphql";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Stack } from "components/Stack";
 
 export const CATEGORIES: Category[] = Object.entries(Category)
   .map(([_, category]) => category)
@@ -29,10 +34,22 @@ export const CATEGORIES: Category[] = Object.entries(Category)
 
 const PAGINATION_LIMIT = 12; // 12 products per category.
 
+const SORT_OPTIONS = {
+  [`${MenuSortKey.Popular}-${SortDirection.Asc}`]: "Popular",
+  [`${MenuSortKey.Price}-${SortDirection.Desc}`]: "Price: High to Low",
+  [`${MenuSortKey.Price}-${SortDirection.Asc}`]: "Price: Low to High",
+  [`${MenuSortKey.Potency}-${SortDirection.Desc}`]: "Potency: High to Low",
+  [`${MenuSortKey.Potency}-${SortDirection.Asc}`]: "Potency: Low to High",
+};
+
 function Menu() {
   const { breakpoints } = useTheme();
   const defaultView = useMediaQuery(breakpoints.up("sm")) ? "grid" : "list";
   const [view, setView] = useState<"list" | "grid">(defaultView);
+  const [sort, setSort] = useState({
+    sortKey: MenuSortKey.Popular,
+    sortDirection: SortDirection.Asc,
+  });
   const [offset, setOffset] = useState(0);
   const [query] = useQueryParam("search", StringParam);
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
@@ -87,13 +104,21 @@ function Menu() {
     setBrandName(brand.name);
   }
 
+  function handleSort(value: string) {
+    const [sortKey, sortDirection] = value.split("-") as [
+      sortKey: MenuSortKey,
+      sortDirection: SortDirection
+    ];
+    setSort({ sortKey, sortDirection });
+  }
+
   const categoriesToShow =
     selectedCategories.size === 0
       ? CATEGORIES
       : CATEGORIES.filter((category) => selectedCategories.has(category));
 
   const brandsMarkup = !brandsLoading && (
-    <BrandSelect
+    <Select
       name="brands"
       onChange={(event) => {
         setBrandId(event.target.value);
@@ -106,7 +131,17 @@ function Menu() {
           {brand.name}
         </option>
       ))}
-    </BrandSelect>
+    </Select>
+  );
+
+  const sortMarkup = (
+    <Select name="Sort by" onChange={(event) => handleSort(event.target.value)}>
+      {Object.entries(SORT_OPTIONS).map(([key, value]) => (
+        <option key={key} value={key}>
+          {value}
+        </option>
+      ))}
+    </Select>
   );
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -135,7 +170,10 @@ function Menu() {
             />
           </MobileOnly>
           <Products>
-            {brandsMarkup}
+            <Stack inline justify="end">
+              {brandsMarkup}
+              {sortMarkup}
+            </Stack>
             {categoriesToShow.map((category) => (
               <ProductSection
                 view={view}
@@ -146,6 +184,7 @@ function Menu() {
                 selectedEffects={[...selectedEffects]}
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}
+                sort={sort}
               />
             ))}
           </Products>
@@ -202,7 +241,7 @@ const Pagination = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 45px;
+  padding: var(--space-7);
   display: flex;
   background: var(--background);
 
@@ -218,7 +257,7 @@ const Sidebar = styled.aside`
   flex-shrink: 0;
 `;
 
-const BrandSelect = styled.select`
+const Select = styled.select`
   border: 1px solid rgba(0, 0, 0, 0.23);
   padding: var(--space-1);
   font-size: 13px;

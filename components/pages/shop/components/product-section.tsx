@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import { Category, useMenuQuery } from "api/queries/menu.graphql";
+import {
+  Category,
+  SortDirection,
+  useMenuQuery,
+} from "api/queries/menu.graphql";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueriesUp } from "styles/media-queries";
 import { retailerId } from "api/apollo";
 import { LoadingSpinner } from "components/shared/loading-spinner";
-import { Effects } from "api/fragments/menu-product.graphql";
+import { Effects, MenuSortKey } from "api/fragments/menu-product.graphql";
 import { enumToTitleCase } from "utils/product";
 
 interface ProductSectionProps {
@@ -18,6 +22,10 @@ interface ProductSectionProps {
   selectedEffects: Effects[];
   offset: number;
   paginationLimit: number;
+  sort: {
+    sortKey?: MenuSortKey;
+    sortDirection: SortDirection;
+  };
 }
 
 export function ProductSection({
@@ -28,6 +36,7 @@ export function ProductSection({
   selectedEffects,
   offset,
   paginationLimit,
+  sort: { sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc },
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
 
@@ -40,6 +49,8 @@ export function ProductSection({
       effects: selectedEffects,
       offset: offset,
       limit: paginationLimit,
+      sortDirection: sortDirection,
+      sortKey: sortKey,
     },
   });
 
@@ -53,9 +64,9 @@ export function ProductSection({
         ))}
       </Layout>
     </Section>
-  ) : (
-    <p>No products found</p>
-  );
+  ) : loading ? (
+    <p>Loading...</p>
+  ) : null;
 }
 
 const Section = styled.section`

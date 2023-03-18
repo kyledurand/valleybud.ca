@@ -8,6 +8,8 @@ query Menu(
   $effects: [Effects!]
   $offset: Int!
   $limit: Int!
+  $sortDirection: SortDirection!
+  $sortKey: MenuSortKey!
 ) {
   menu(
     filter: {
@@ -18,6 +20,7 @@ query Menu(
     }
     pagination: { limit: $limit, offset: $offset }
     retailerId: $retailerId
+    sort: { direction: $sortDirection, key: $sortKey }
   ) {
     products {
       ...product

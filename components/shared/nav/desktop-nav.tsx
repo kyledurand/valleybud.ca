@@ -354,5 +354,5 @@ const CartCount = styled.div`
 
 const ViewToggle = styled.div`
   align-self: end;
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-7);
 `;

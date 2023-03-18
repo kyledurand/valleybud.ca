@@ -38,6 +38,16 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
     });
   }
 
+  const strainMarkup =
+    product.strainType === "NOT_APPLICABLE" ? null : (
+      <>
+        <Text>
+          {enumToTitleCase(product.strainType ?? "").replace(/_/g, " ")}
+        </Text>
+        •
+      </>
+    );
+
   return (
     <>
       <Container layout={layout} onClick={() => setIsModalOpen(true)}>
@@ -46,7 +56,13 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
           height={layout === "list" ? 100 : 280}
           src={product.image}
         />
-        <Stack inline={layout === "list"} justify="space-between" grow wrap>
+        <Stack
+          inline={layout === "list"}
+          justify="space-between"
+          grow
+          wrap
+          fullWidth
+        >
           <Stack>
             <div>
               <Text size="2">{product.name}</Text>
@@ -54,10 +70,8 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
             </div>
 
             <Stack inline align="center" gap="2">
-              <Text>
-                {enumToTitleCase(product.strainType ?? "").replace(/_/g, " ")}
-              </Text>
-              •<Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
+              {strainMarkup}
+              <Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
               <Text>cbd {product.potencyCbd?.formatted || "0mg"}</Text>
             </Stack>
           </Stack>
