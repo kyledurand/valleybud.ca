@@ -88,7 +88,7 @@ const Grid = styled.div`
 
   @media ${mediaQueriesUp.sm} {
     grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-3);
+    gap: var(--space-6);
   }
 `;
 

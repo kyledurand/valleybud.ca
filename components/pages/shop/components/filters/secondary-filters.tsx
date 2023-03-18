@@ -22,7 +22,7 @@ export function SecondaryFilters({
 }: SecondaryFiltersProps): JSX.Element {
   return (
     <Container>
-      <Text size="2">Filter</Text>
+      <Text size="2">Categories</Text>
       <FormGroup>
         {filteredCategories.map((category) => (
           <FormControlLabel
