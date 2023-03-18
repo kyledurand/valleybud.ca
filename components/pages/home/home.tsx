@@ -73,7 +73,7 @@ function Home({
 
   const dutchieSpecials = data?.specials || [];
 
-  console.log({ dutchieSpecials });
+  console.log(dutchieSpecials ? { dutchieSpecials } : null);
 
   return loading ? (
     <LoadingSpinner centered />

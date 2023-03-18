@@ -93,7 +93,7 @@ function Menu() {
       : CATEGORIES.filter((category) => selectedCategories.has(category));
 
   const brandsMarkup = !brandsLoading && (
-    <select
+    <BrandSelect
       name="brands"
       onChange={(event) => {
         setBrandId(event.target.value);
@@ -101,14 +101,12 @@ function Menu() {
       }}
     >
       <option value="">Choose a brand</option>
-      {brandData?.menu?.brands.map((brand) => {
-        return (
-          <option key={brand.id} value={brand.id}>
-            {brand.name}
-          </option>
-        );
-      })}
-    </select>
+      {brandData?.menu?.brands.map((brand) => (
+        <option key={brand.id} value={brand.id}>
+          {brand.name}
+        </option>
+      ))}
+    </BrandSelect>
   );
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -218,6 +216,12 @@ const Sidebar = styled.aside`
   width: 250px;
   margin-right: 36px;
   flex-shrink: 0;
+`;
+
+const BrandSelect = styled.select`
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: var(--space-1);
+  font-size: 13px;
 `;
 
 export default Menu;

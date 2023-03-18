@@ -104,8 +104,6 @@ export function Cart(props: CartProps): JSX.Element {
     return formatPrice(totalPrice);
   }
 
-  console.log(checkout?.redirectUrl);
-
   return (
     <Container>
       {headerAndDeliveryInfo}

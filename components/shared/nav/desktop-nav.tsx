@@ -124,7 +124,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
                       event.preventDefault();
                       const formData = new FormData(event.currentTarget);
                       const query = formData.get("search");
-                      console.log(query);
                       router.push(`/shop?search=${query}`);
                     }}
                   >

@@ -46,6 +46,8 @@ const MobileCategorySelect = styled(Select)`
   height: 58px;
   border-radius: 0px !important;
   color: var(--text);
+  margin-bottom: var(--space-2);
+  font-family: BrandonWeb;
 
   & .MuiSelect-select {
     font-size: 13px;

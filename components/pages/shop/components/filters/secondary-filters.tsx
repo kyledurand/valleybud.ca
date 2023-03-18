@@ -16,8 +16,6 @@ const filteredCategories = Object.entries(Category)
   .map(([_, category]) => category)
   .filter((category) => category !== Category.NotApplicable);
 
-console.log(filteredCategories);
-
 export function SecondaryFilters({
   onCategorySelect,
   onEffectSelect,
