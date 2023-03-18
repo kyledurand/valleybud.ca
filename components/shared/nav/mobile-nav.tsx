@@ -9,7 +9,6 @@ import { Logo } from "components/shared/svg/logo";
 import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
 import { CloseButton } from "components/shared/svg/close-button";
 import { CartIcon } from "components/shared/svg/cart-icon";
-import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 
@@ -47,6 +46,7 @@ export function MobileNav(props: NavProps): JSX.Element {
       setIsMenuOpen(false);
     } else {
       router.push("/shop");
+      setIsMenuOpen(false);
     }
   }
 
@@ -89,15 +89,15 @@ export function MobileNav(props: NavProps): JSX.Element {
             <CartIcon onClick={openCart} />
           </CartIconContainer>
         </LoginAndCartSection>
-        <StyledMenuItem onClick={handleShopClick}>
-          Shop
-          <Chevron direction={ChevronDirection.Right} height={16} width={16} />
+        <StyledMenuItem onClick={handleShopClick}>Shop</StyledMenuItem>
+        <StyledMenuItem
+          onClick={() => {
+            router.push("/location");
+            setIsMenuOpen(false);
+          }}
+        >
+          Location
         </StyledMenuItem>
-        <StyledMenuItem>Find a Location</StyledMenuItem>
-        <StyledMenuItem>Cannabis Corner</StyledMenuItem>
-        <StyledMenuItem>Specials</StyledMenuItem>
-        <StyledMenuItem>Rewards</StyledMenuItem>
-        <StyledMenuItem>Refer a Friend</StyledMenuItem>
       </StyledMenu>
       {/* CART  */}
       <StyledMenu

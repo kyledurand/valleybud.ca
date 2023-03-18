@@ -10,6 +10,7 @@ import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout
 import { retailerId } from "api/apollo";
 import { CheckoutContext } from "../checkout-context";
 import Image from "next/image";
+import { useMediaQuery, useTheme } from "@material-ui/core";
 
 interface ProductCardProps {
   product: ProductFragment;
@@ -17,6 +18,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard(props: ProductCardProps): JSX.Element {
+  const { breakpoints } = useTheme();
+  const mdUp = useMediaQuery(breakpoints.up("md"));
   const { product, layout } = props;
   const { checkout } = useContext(CheckoutContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,7 +82,13 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 
           <Stack
             inline
-            justify={layout === "grid" ? "space-between" : "end"}
+            justify={
+              layout === "grid"
+                ? "space-between"
+                : mdUp
+                ? "end"
+                : "space-between"
+            }
             align="center"
             grow
           >

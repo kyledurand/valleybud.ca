@@ -4,6 +4,11 @@ export default {
   title: 'About',
   fields: [
     {
+      name: 'image',
+      type: 'image',
+      title: 'Image',
+    },
+    {
       title: 'Content',
       name: 'content',
       type: 'array',

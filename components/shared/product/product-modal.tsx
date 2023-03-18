@@ -277,7 +277,6 @@ const CloseButtonContainer = styled.div`
   top: 16px;
   right: 20px;
   z-index: 2;
-  background-color: red;
 `;
 
 const Brand = styled.div`

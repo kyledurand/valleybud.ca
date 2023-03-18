@@ -32,7 +32,7 @@ export const CATEGORIES: Category[] = Object.entries(Category)
   .map(([_, category]) => category)
   .filter((category) => category !== Category.NotApplicable);
 
-const PAGINATION_LIMIT = 12; // 12 products per category.
+const PAGINATION_LIMIT = 12; // 12 products per category with many categories on the page.
 
 const SORT_OPTIONS = {
   [`${MenuSortKey.Popular}-${SortDirection.Asc}`]: "Popular",

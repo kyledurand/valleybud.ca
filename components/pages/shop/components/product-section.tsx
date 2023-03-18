@@ -79,16 +79,15 @@ const Section = styled.section`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2);
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
 
   @media ${mediaQueriesUp.xs} {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   @media ${mediaQueriesUp.sm} {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-6);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `;
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { GetStaticProps } from "next";
 import { createClient } from "next-sanity";
@@ -5,9 +6,11 @@ import { Nav } from "components/shared/nav";
 import { Footer } from "components/shared/footer";
 import styled from "styled-components";
 import { Meta } from "components/Meta";
+import { Fragment } from "react";
 
 interface Data {
   content: any;
+  imageUrl?: string;
 }
 
 interface Props {
@@ -19,7 +22,23 @@ export default function About({ data }: Props): React.ReactNode {
     <Container>
       <Meta title="About Valleybud.ca" />
       <Nav />
-      <PortableText value={data[0].content} />
+      {data.map(({ content, imageUrl }) => (
+        <Fragment key={imageUrl}>
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              width={2048}
+              height={1089}
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                margin: "0 auto",
+              }}
+            />
+          )}
+          <PortableText value={content} />
+        </Fragment>
+      ))}
       <Footer />
     </Container>
   );
@@ -33,7 +52,10 @@ const client = createClient({
 });
 
 export const getStaticProps: GetStaticProps = async function () {
-  const data = await client.fetch(`*[_type == "about"]`);
+  const data = await client.fetch(`*[_type == "about"]{
+    content,
+    "imageUrl": image.asset->url,
+  }`);
 
   return {
     props: {
