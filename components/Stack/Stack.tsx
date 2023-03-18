@@ -24,7 +24,7 @@ interface Props {
 
 export function Stack({
   children,
-  wrap,
+  wrap = true,
   grow,
   inline,
   justify,
