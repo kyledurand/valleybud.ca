@@ -47,6 +47,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
         •
       </>
     );
+  console.log(product);
 
   return (
     <>

@@ -17,7 +17,8 @@ export function deriveDisplayPrices(product: ProductFragment): DisplayPrices {
   const variant =
     product.variants?.length === 1
       ? product.variants[0]
-      : product.variants?.find((variant) => variant.option === "1g");
+      : product.variants?.find((variant) => variant.option === "1g") ||
+        product.variants[0];
 
   // TODO: handle specials
   return {
