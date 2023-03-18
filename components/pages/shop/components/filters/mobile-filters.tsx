@@ -12,16 +12,6 @@ interface MobileFiltersProps {
 }
 
 const ALL_PRODUCTS = "All products";
-const CATEGORIES = [
-  Category.Flower,
-  Category.Vaporizers,
-  Category.Concentrates,
-  Category.Edibles,
-  Category.Tinctures,
-  Category.Topicals,
-  Category.Accessories,
-  Category.PreRolls,
-];
 
 export function MobileFilters(props: MobileFiltersProps): JSX.Element {
   const { selectedCategories, selectSingleCategory } = props;
@@ -42,8 +32,8 @@ export function MobileFilters(props: MobileFiltersProps): JSX.Element {
       <MenuItem key="all-products" value={ALL_PRODUCTS}>
         All products
       </MenuItem>
-      {CATEGORIES.map((category) => (
-        <MenuItem key={category} value={category}>
+      {Object.entries(Category).map(([key, category]) => (
+        <MenuItem key={key} value={category}>
           {enumToTitleCase(category)}
         </MenuItem>
       ))}

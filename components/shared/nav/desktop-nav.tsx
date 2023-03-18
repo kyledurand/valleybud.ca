@@ -19,17 +19,6 @@ import { Button, ButtonGroup, SvgIcon } from "@material-ui/core";
 import { ViewList, ViewModule } from "@mui/icons-material";
 import { enumToTitleCase } from "utils/product";
 
-const SUBMENU_CATEGORIES = [
-  Category.Flower,
-  Category.Vaporizers,
-  Category.Concentrates,
-  Category.Edibles,
-  Category.Tinctures,
-  Category.Topicals,
-  Category.Accessories,
-  Category.PreRolls,
-];
-
 export function DesktopNav(props: NavProps): JSX.Element {
   const [query] = useQueryParam("search", StringParam);
   const [search, setSearch] = useState(query);
@@ -184,9 +173,9 @@ export function DesktopNav(props: NavProps): JSX.Element {
         {isCategoryMenuVisible && (
           <StyledMenu>
             <SubmenuSection>
-              {SUBMENU_CATEGORIES.map((category) => (
+              {Object.entries(Category).map(([key, category]) => (
                 <SubmenuItem
-                  key={category}
+                  key={key}
                   onClick={() => handleCategoryClick(category)}
                 >
                   {enumToTitleCase(category)}
