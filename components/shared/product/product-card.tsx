@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { Text } from "../../Text";
 import { ProductFragment } from "api/queries/menu.graphql";
-import { capitalizeFirstLetter, deriveDisplayPrices } from "utils/product";
+import { enumToTitleCase, deriveDisplayPrices } from "utils/product";
 
 import { ProductModal } from "./product-modal";
 import { Stack } from "components/Stack";
@@ -55,10 +55,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 
             <Stack inline align="center" gap="2">
               <Text>
-                {capitalizeFirstLetter(product.strainType ?? "").replace(
-                  /_/g,
-                  " "
-                )}
+                {enumToTitleCase(product.strainType ?? "").replace(/_/g, " ")}
               </Text>
               •<Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
               <Text>cbd {product.potencyCbd?.formatted || "0mg"}</Text>

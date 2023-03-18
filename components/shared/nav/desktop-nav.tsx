@@ -9,7 +9,6 @@ import { Logo } from "components/shared/svg/logo";
 import { CartIcon } from "components/shared/svg/cart-icon";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { LoadingSpinner } from "components/shared/loading-spinner";
-import { displayNameForCategory } from "utils/enum-to-display-name/category";
 
 import { NavProps } from "./index";
 import { Cart } from "./cart/index";
@@ -18,6 +17,7 @@ import { useBrandsQueryQuery } from "api/queries/brands.graphql";
 import { useQueryParam, StringParam } from "use-query-params";
 import { Button, ButtonGroup, SvgIcon } from "@material-ui/core";
 import { ViewList, ViewModule } from "@mui/icons-material";
+import { enumToTitleCase } from "utils/product";
 
 const SUBMENU_CATEGORIES = [
   Category.Flower,
@@ -189,7 +189,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                   key={category}
                   onClick={() => handleCategoryClick(category)}
                 >
-                  {displayNameForCategory(category)}
+                  {enumToTitleCase(category)}
                 </SubmenuItem>
               ))}
             </SubmenuSection>
@@ -231,10 +231,6 @@ const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
-const SubmenuSection = styled.div`
-  outline: none;
-`;
-
 const StyledMenu = styled.div`
   position: absolute;
   top: 100%;
@@ -246,7 +242,14 @@ const StyledMenu = styled.div`
 
   display: flex;
   justify-content: space-between;
-  padding: 25px 200px;
+  padding: 25px;
+`;
+
+const SubmenuSection = styled.div`
+  outline: none;
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
 `;
 
 const SubmenuItem = styled.div`

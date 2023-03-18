@@ -23,11 +23,11 @@ import { useTheme } from "@material-ui/core/styles";
 import { Effects } from "api/fragments/menu-product.graphql";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
-export const CATEGORIES: Category[] = Object.entries(Category).map(
-  ([_, category]) => category
-);
+export const CATEGORIES: Category[] = Object.entries(Category)
+  .map(([_, category]) => category)
+  .filter((category) => category !== Category.NotApplicable);
 
-const PAGINATION_LIMIT = 12;
+const PAGINATION_LIMIT = 12; // 12 products per category.
 
 function Menu() {
   const { breakpoints } = useTheme();

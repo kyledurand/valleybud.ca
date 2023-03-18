@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { Category, useMenuQuery } from "api/queries/menu.graphql";
 import { ProductCard } from "components/shared/product/product-card";
 import { mediaQueriesUp } from "styles/media-queries";
-import { displayNameForCategory } from "utils/enum-to-display-name/category";
 import { retailerId } from "api/apollo";
 import { LoadingSpinner } from "components/shared/loading-spinner";
 import { Effects } from "api/fragments/menu-product.graphql";
+import { enumToTitleCase } from "utils/product";
 
 interface ProductSectionProps {
   searchQuery: string;
@@ -46,7 +46,7 @@ export function ProductSection({
   return data?.menu?.products.length ? (
     <Section>
       {loading && <LoadingSpinner />}
-      <SectionHeader>{displayNameForCategory(category)}</SectionHeader>
+      <SectionHeader>{enumToTitleCase(category)}</SectionHeader>
       <Layout>
         {(data?.menu?.products || []).map((product) => (
           <ProductCard layout={view} key={product.id} product={product} />

@@ -4,7 +4,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import { Category } from "api/queries/menu.graphql";
-import { displayNameForCategory } from "utils/enum-to-display-name/category";
+import { enumToTitleCase } from "utils/product";
 
 interface MobileFiltersProps {
   selectedCategories: Set<Category>;
@@ -44,7 +44,7 @@ export function MobileFilters(props: MobileFiltersProps): JSX.Element {
       </MenuItem>
       {CATEGORIES.map((category) => (
         <MenuItem key={category} value={category}>
-          {displayNameForCategory(category)}
+          {enumToTitleCase(category)}
         </MenuItem>
       ))}
     </MobileCategorySelect>
