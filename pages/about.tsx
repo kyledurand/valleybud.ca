@@ -29,6 +29,7 @@ export default function About({ data }: Props): React.ReactNode {
             {imageUrl && (
               <Image
                 src={imageUrl}
+                alt="Absolute legends"
                 width={2100}
                 height={1400}
                 style={{

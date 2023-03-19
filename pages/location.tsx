@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Meta } from "components/Meta";
 import Image from "next/image";
 import { Fragment } from "react";
+import { Stack } from "components/Stack";
 
 interface Data {
   content: any;
@@ -18,8 +19,6 @@ interface Props {
 }
 
 export default function Location({ data }: Props): React.ReactNode {
-  console.log(data[0].imageUrl);
-
   return (
     <Container>
       <Meta title="Location | Valleybud.ca" />
@@ -36,19 +35,21 @@ export default function Location({ data }: Props): React.ReactNode {
       />
       {data.map(({ content, imageUrl }) => (
         <Fragment key={imageUrl}>
-          {imageUrl && (
-            <Image
-              src={imageUrl}
-              width={2048}
-              height={1089}
-              style={{
-                maxWidth: "100%",
-                height: "auto",
-                margin: "0 auto",
-              }}
-            />
-          )}
-          <PortableText value={content} />
+          <Stack align="center" padding gap>
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                width={2048}
+                height={1089}
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  margin: "0 auto",
+                }}
+              />
+            )}
+            <PortableText value={content} />
+          </Stack>
         </Fragment>
       ))}
       <Footer />
