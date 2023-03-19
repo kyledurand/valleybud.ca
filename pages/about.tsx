@@ -30,12 +30,15 @@ export default function About({ data }: Props): React.ReactNode {
               <Image
                 src={imageUrl}
                 alt="Absolute legends"
+                title="Absolute legends"
                 width={2100}
                 height={1400}
                 style={{
                   maxWidth: "100%",
                   height: "auto",
                   margin: "0 auto",
+                  overflow: "hidden",
+                  borderRadius: "var(--border-radius-1)",
                 }}
               />
             )}
