@@ -63,17 +63,18 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
         <Stack
           inline={layout === "list"}
           justify="space-between"
+          gap
           grow
           wrap
           fullWidth
         >
-          <Stack>
+          <Stack gap>
             <div>
               <Text size="2">{product.name}</Text>
               {product.brand?.name && <Text>{product.brand.name}</Text>}
             </div>
 
-            <Stack inline align="center" gap="2">
+            <Stack inline align="center" gap>
               {strainMarkup}
               <Text>thc {product.potencyThc?.formatted || "0mg"}</Text>-
               <Text>cbd {product.potencyCbd?.formatted || "0mg"}</Text>
@@ -81,6 +82,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
           </Stack>
 
           <Stack
+            gap
             inline
             justify={
               layout === "grid"

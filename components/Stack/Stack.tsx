@@ -11,7 +11,7 @@ type Justify =
 type Align = "start" | "end" | "center" | "stretch" | "baseline";
 
 interface Props {
-  gap?: Space;
+  gap?: Space | boolean;
   justify?: Justify;
   align?: Align;
   wrap?: boolean;
@@ -19,6 +19,7 @@ interface Props {
   inline?: boolean;
   fullHeight?: boolean;
   fullWidth?: boolean;
+  padding?: Space | boolean;
   children: React.ReactNode;
 }
 
@@ -28,17 +29,23 @@ export function Stack({
   grow,
   inline,
   justify,
+  padding,
   align,
   fullHeight,
   fullWidth,
-  gap = "2",
+  gap,
 }: Props) {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: inline ? "row" : "column",
-        gap: `var(--space-${gap})`,
+        gap:
+          typeof gap === "boolean" ? "var(--space-4)" : `var(--space-${gap})`,
+        padding:
+          typeof padding === "boolean"
+            ? "var(--space-2)"
+            : `var(--space-${gap})`,
         justifyContent: justify,
         alignItems: align,
         height: fullHeight ? "100%" : undefined,

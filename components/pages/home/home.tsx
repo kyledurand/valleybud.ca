@@ -150,7 +150,7 @@ function Home({
                       flex: 1,
                     }}
                   >
-                    <Stack fullHeight justify="space-between">
+                    <Stack fullHeight justify="space-between" gap>
                       <div>
                         <Text as="h4" size="3">
                           {special.title}
@@ -158,12 +158,7 @@ function Home({
                         <Text size="2">{special.details}</Text>
                       </div>
 
-                      <Stack
-                        inline
-                        justify="space-between"
-                        align="center"
-                        gap="2"
-                      >
+                      <Stack inline justify="space-between" align="center" gap>
                         <Text>{special.promo}</Text>
                         <button
                           style={{

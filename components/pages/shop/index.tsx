@@ -170,7 +170,7 @@ function Menu() {
             />
           </MobileOnly>
           <Products>
-            <Stack inline justify="end">
+            <Stack inline justify="end" gap>
               {brandsMarkup}
               {sortMarkup}
             </Stack>
