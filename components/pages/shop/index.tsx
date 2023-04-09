@@ -10,7 +10,7 @@ import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
-import { mediaQueriesDown } from "styles/media-queries";
+import { mediaQueriesDown, mediaQueriesUp } from "styles/media-queries";
 import { CategoriesParam, EffectsParam } from "utils/query-param";
 
 import { SecondaryFilters } from "./components/filters/secondary-filters";
@@ -170,7 +170,7 @@ function Menu() {
             />
           </MobileOnly>
           <Products>
-            <Stack inline justify="end" gap>
+            <Stack inline justify="end" gap="2">
               {brandsMarkup}
               {sortMarkup}
             </Stack>
@@ -261,6 +261,11 @@ const Select = styled.select`
   border: 1px solid rgba(0, 0, 0, 0.23);
   padding: var(--space-1);
   font-size: 13px;
+  width: 100%;
+
+  @media ${mediaQueriesUp.xs} {
+    width: auto;
+  }
 `;
 
 export default Menu;
