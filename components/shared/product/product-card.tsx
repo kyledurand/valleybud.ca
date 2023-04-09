@@ -82,7 +82,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
           </Stack>
 
           <Stack
-            gap
+            gap="1"
             inline
             justify={
               layout === "grid"
@@ -91,12 +91,12 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
                 ? "end"
                 : "space-between"
             }
-            align="center"
+            align="end"
             grow
           >
             <Text>{deriveDisplayPrices(product).rec}</Text>
             <AddToCart onClick={(event) => handleAddToCartClick(event)}>
-              {addingToCart ? "Adding" : "Add to cart"}
+              {addingToCart ? "Adding" : "+ Add to cart"}
             </AddToCart>
           </Stack>
         </Stack>
@@ -112,6 +112,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
 }
 
 const Container = styled.a<{ layout: string }>`
+  // TODO: Migrate this to use the new Stack component
   display: flex;
   flex-direction: ${({ layout }) => (layout === "list" ? "row" : "column")};
   justify-content: ${({ layout }) =>
@@ -136,4 +137,6 @@ const AddToCart = styled.button`
   background: none;
   color: gray;
   border: none;
+  padding: 0;
+  word-break: keep-all;
 `;

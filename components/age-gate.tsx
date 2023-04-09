@@ -38,7 +38,7 @@ const Container = styled.div`
 const ErrorText = styled.p`
   color: var(--text);
   background-color: var(--background-error);
-  border-radius: var(--border-radius-1);
+  border-radius: var(--radius-1);
   margin: 0;
   padding: var(--space-4);
 `;
@@ -59,5 +59,5 @@ const ButtonGroup = styled.div`
 const Button = styled.button`
   background-color: var(--button-primary);
   padding: var(--space-2) var(--space-4);
-  border-radius: var(--border-radius-1);
+  border-radius: var(--radius-1);
 `;

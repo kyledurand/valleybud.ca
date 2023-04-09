@@ -41,11 +41,17 @@ export function Stack({
         display: "flex",
         flexDirection: inline ? "row" : "column",
         gap:
-          typeof gap === "boolean" ? "var(--space-4)" : `var(--space-${gap})`,
+          gap === true
+            ? "var(--space-4)"
+            : gap
+            ? `var(--space-${gap})`
+            : undefined,
         padding:
-          typeof padding === "boolean"
+          padding === true
             ? "var(--space-2)"
-            : `var(--space-${gap})`,
+            : padding
+            ? `var(--space-${padding})`
+            : undefined,
         justifyContent: justify,
         alignItems: align,
         height: fullHeight ? "100%" : undefined,

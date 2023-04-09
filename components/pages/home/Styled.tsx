@@ -81,7 +81,7 @@ export const Banner = styled.div`
   margin-bottom: var(--space-4);
 
   @media ${mediaQueriesUp.md} {
-    border-radius: var(--border-radius-1);
+    border-radius: var(--radius-1);
     margin-bottom: var(--space-4);
   }
 `;

@@ -37,7 +37,9 @@
   --placeholder-1: aliceblue;
   --placeholder-2: blanchedalmond;
   /* Borders */
-  --border-radius-1: 4px;
+  --radius-1: 4px;
+  /* Shadows */
+  --shadow-1: 0 1px 6px 2px rgba(0, 0, 0, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {

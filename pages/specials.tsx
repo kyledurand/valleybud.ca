@@ -49,7 +49,7 @@ export default function Specials() {
                       width: 100,
                       height: 100,
                       background: "lightgray",
-                      borderRadius: "var(--border-radius-1)",
+                      borderRadius: "var(--radius-1)",
                     }}
                   />
                 )}

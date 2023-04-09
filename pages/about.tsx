@@ -38,7 +38,7 @@ export default function About({ data }: Props): React.ReactNode {
                   height: "auto",
                   margin: "0 auto",
                   overflow: "hidden",
-                  borderRadius: "var(--border-radius-1)",
+                  borderRadius: "var(--radius-1)",
                 }}
               />
             )}
