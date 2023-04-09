@@ -1,12 +1,12 @@
-const { createServer } = require("https");
-const { parse } = require("url");
+const {createServer} = require("https");
+const {parse} = require("url");
 const next = require("next");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const app = next({dev});
 const handle = app.getRequestHandler();
 
 const homedir = os.homedir();

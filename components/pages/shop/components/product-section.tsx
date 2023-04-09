@@ -1,15 +1,11 @@
 import styled from "styled-components";
-import {
-  Category,
-  SortDirection,
-  useMenuQuery,
-} from "api/queries/menu.graphql";
-import { ProductCard } from "components/shared/product/product-card";
-import { mediaQueriesUp } from "styles/media-queries";
-import { retailerId } from "api/apollo";
-import { LoadingSpinner } from "components/shared/loading-spinner";
-import { Effects, MenuSortKey } from "api/fragments/menu-product.graphql";
-import { enumToTitleCase } from "utils/product";
+import {Category, SortDirection, useMenuQuery} from "api/queries/menu.graphql";
+import {ProductCard} from "components/shared/product/product-card";
+import {mediaQueriesUp} from "styles/media-queries";
+import {retailerId} from "api/apollo";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {Effects, MenuSortKey} from "api/fragments/menu-product.graphql";
+import {enumToTitleCase} from "utils/product";
 
 interface ProductSectionProps {
   searchQuery: string;
@@ -36,11 +32,11 @@ export function ProductSection({
   selectedEffects,
   offset,
   paginationLimit,
-  sort: { sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc },
+  sort: {sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc},
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
 
-  const { data, loading } = useMenuQuery({
+  const {data, loading} = useMenuQuery({
     variables: {
       retailerId,
       category: category,
@@ -91,14 +87,13 @@ const Grid = styled.div`
   }
 `;
 
-const List = styled.div<{ view: "grid" | "list" }>`
+const List = styled.div<{view: "grid" | "list"}>`
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 
   @media ${mediaQueriesUp.sm} {
-    gap: ${({ view }) =>
-      view === "grid" ? "var(--space-2)" : "var(--space-5)"};
+    gap: ${({view}) => (view === "grid" ? "var(--space-2)" : "var(--space-5)")};
   }
 `;
 

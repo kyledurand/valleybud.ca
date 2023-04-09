@@ -18,9 +18,9 @@ query Menu(
       effects: $effects
       brandId: $brandId
     }
-    pagination: { limit: $limit, offset: $offset }
+    pagination: {limit: $limit, offset: $offset}
     retailerId: $retailerId
-    sort: { direction: $sortDirection, key: $sortKey }
+    sort: {direction: $sortDirection, key: $sortKey}
   ) {
     products {
       ...product

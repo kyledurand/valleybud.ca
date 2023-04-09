@@ -1,31 +1,31 @@
-import { useState, useRef, useContext } from "react";
-import { useRouter } from "next/router";
+import {useState, useRef, useContext} from "react";
+import {useRouter} from "next/router";
 import styled from "styled-components";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { useApollo } from "api/apollo";
-import { Logo } from "components/shared/svg/logo";
-import { MobileMenuIcon } from "components/shared/svg/mobile-menu-icon";
-import { CloseButton } from "components/shared/svg/close-button";
-import { CartIcon } from "components/shared/svg/cart-icon";
-import { CheckoutContext } from "components/shared/checkout-context";
-import { LoadingSpinner } from "components/shared/loading-spinner";
+import {useApollo} from "api/apollo";
+import {Logo} from "components/shared/svg/logo";
+import {MobileMenuIcon} from "components/shared/svg/mobile-menu-icon";
+import {CloseButton} from "components/shared/svg/close-button";
+import {CartIcon} from "components/shared/svg/cart-icon";
+import {CheckoutContext} from "components/shared/checkout-context";
+import {LoadingSpinner} from "components/shared/loading-spinner";
 
-import { NavProps } from "./index";
-import { Cart } from "./cart/index";
+import {NavProps} from "./index";
+import {Cart} from "./cart/index";
 
 const NAV_HEIGHT = "76px";
 
 export function MobileNav(props: NavProps): JSX.Element {
-  const { page } = props;
+  const {page} = props;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const baseNavBarRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const apolloClient = useApollo();
-  const { checkout, loading } = useContext(CheckoutContext);
+  const {checkout, loading} = useContext(CheckoutContext);
 
   const checkoutItemsCount = checkout?.items.length || 0;
 
@@ -75,7 +75,7 @@ export function MobileNav(props: NavProps): JSX.Element {
         hideBackdrop
         elevation={0}
         transitionDuration={0}
-        style={{ marginTop: NAV_HEIGHT }}
+        style={{marginTop: NAV_HEIGHT}}
       >
         <LoginAndCartSection>
           <CartIconContainer>
@@ -113,7 +113,7 @@ export function MobileNav(props: NavProps): JSX.Element {
   );
 }
 
-const Container = styled.div<{ darkBackground?: boolean }>`
+const Container = styled.div<{darkBackground?: boolean}>`
   z-index: 3;
   height: ${NAV_HEIGHT};
   width: 100%;

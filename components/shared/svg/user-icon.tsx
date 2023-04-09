@@ -9,7 +9,7 @@ interface UserIconProps {
 }
 
 export function UserIcon(props: UserIconProps): JSX.Element {
-  const { height = 23, width = 22, className = "", onClick } = props;
+  const {height = 23, width = 22, className = "", onClick} = props;
   const color = "var(--text)";
   return (
     <StyledSvg
@@ -28,5 +28,5 @@ export function UserIcon(props: UserIconProps): JSX.Element {
 }
 
 const StyledSvg = styled.svg`
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
+  cursor: ${({onClick}) => (onClick ? "pointer" : "auto")};
 `;

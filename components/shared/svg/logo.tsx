@@ -8,7 +8,7 @@ interface LogoProps {
 }
 
 export function Logo(props: LogoProps): JSX.Element {
-  const { height = 70, width = 140, color = "var(--brand)", onClick } = props;
+  const {height = 70, width = 140, color = "var(--brand)", onClick} = props;
 
   return (
     <StyledSvg
@@ -16,7 +16,7 @@ export function Logo(props: LogoProps): JSX.Element {
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
       color={color}
-      style={{ maxWidth: width, maxHeight: height, width: "100%" }}
+      style={{maxWidth: width, maxHeight: height, width: "100%"}}
     >
       <defs>
         <clipPath id="a">
@@ -187,7 +187,7 @@ export function Logo(props: LogoProps): JSX.Element {
 }
 
 const StyledSvg = styled.svg`
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
+  cursor: ${({onClick}) => (onClick ? "pointer" : "auto")};
   max-width: 100%;
-  color: ${({ color }) => color};
+  color: ${({color}) => color};
 `;

@@ -1,13 +1,13 @@
-import { PortableText } from "@portabletext/react";
-import { GetStaticProps } from "next";
-import { createClient } from "next-sanity";
-import { Nav } from "components/shared/nav";
-import { Footer } from "components/shared/footer";
+import {PortableText} from "@portabletext/react";
+import {GetStaticProps} from "next";
+import {createClient} from "next-sanity";
+import {Nav} from "components/shared/nav";
+import {Footer} from "components/shared/footer";
 import styled from "styled-components";
-import { Meta } from "components/Meta";
+import {Meta} from "components/Meta";
 import Image from "next/image";
-import { Fragment } from "react";
-import { Stack } from "components/Stack";
+import {Fragment} from "react";
+import {Stack} from "components/Stack";
 
 interface Data {
   content: any;
@@ -18,7 +18,7 @@ interface Props {
   data: Data[];
 }
 
-export default function Location({ data }: Props): React.ReactNode {
+export default function Location({data}: Props): React.ReactNode {
   return (
     <Container>
       <Meta title="Location | Valleybud.ca" />
@@ -28,12 +28,12 @@ export default function Location({ data }: Props): React.ReactNode {
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d701.0553989150294!2d-76.03663367073423!3d45.34433889869374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cd203369771bb2f%3A0x34d763c771b837ba!2svalley%20bud!5e0!3m2!1sen!2sca!4v1679162039187!5m2!1sen!2sca"
         width="100%"
         height={500}
-        style={{ border: 0 }}
+        style={{border: 0}}
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       />
-      {data.map(({ content, imageUrl }) => (
+      {data.map(({content, imageUrl}) => (
         <Fragment key={imageUrl}>
           <Stack align="center" padding gap>
             {imageUrl && (

@@ -1,33 +1,33 @@
-import { useLayoutEffect, useState } from "react";
+import {useLayoutEffect, useState} from "react";
 import styled from "styled-components";
-import { StringParam, useQueryParam } from "use-query-params";
+import {StringParam, useQueryParam} from "use-query-params";
 
-import { retailerId } from "api/apollo";
-import { Category, Brand } from "api/queries/menu.graphql";
-import { Nav } from "components/shared/nav";
-import { Footer } from "components/shared/footer";
-import { DesktopOnly } from "components/shared/responsive/desktop-only";
-import { MobileOnly } from "components/shared/responsive/mobile-only";
-import { CheckoutContext } from "components/shared/checkout-context";
-import { useCheckout } from "hooks/use-checkout";
-import { mediaQueriesDown } from "styles/media-queries";
-import { CategoriesParam, EffectsParam } from "utils/query-param";
+import {retailerId} from "api/apollo";
+import {Category, Brand} from "api/queries/menu.graphql";
+import {Nav} from "components/shared/nav";
+import {Footer} from "components/shared/footer";
+import {DesktopOnly} from "components/shared/responsive/desktop-only";
+import {MobileOnly} from "components/shared/responsive/mobile-only";
+import {CheckoutContext} from "components/shared/checkout-context";
+import {useCheckout} from "hooks/use-checkout";
+import {mediaQueriesDown} from "styles/media-queries";
+import {CategoriesParam, EffectsParam} from "utils/query-param";
 
-import { SecondaryFilters } from "./components/filters/secondary-filters";
-import { MobileFilters } from "./components/filters/mobile-filters";
-import { ProductSection } from "./components/product-section";
-import { useBrandsQueryQuery } from "api/queries/brands.graphql";
-import { Meta } from "components/Meta";
-import { Button, ButtonGroup, SvgIcon, useMediaQuery } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import {SecondaryFilters} from "./components/filters/secondary-filters";
+import {MobileFilters} from "./components/filters/mobile-filters";
+import {ProductSection} from "./components/product-section";
+import {useBrandsQueryQuery} from "api/queries/brands.graphql";
+import {Meta} from "components/Meta";
+import {Button, ButtonGroup, SvgIcon, useMediaQuery} from "@material-ui/core";
+import {useTheme} from "@material-ui/core/styles";
 import {
   Effects,
   MenuSortKey,
   SortDirection,
 } from "api/fragments/menu-product.graphql";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
-import { Stack } from "components/Stack";
-import { Select } from "components/Select";
+import {ChevronLeft, ChevronRight} from "@mui/icons-material";
+import {Stack} from "components/Stack";
+import {Select} from "components/Select";
 
 export const CATEGORIES: Category[] = Object.entries(Category)
   .map(([_, category]) => category)
@@ -44,7 +44,7 @@ const SORT_OPTIONS = {
 };
 
 function Menu() {
-  const { breakpoints } = useTheme();
+  const {breakpoints} = useTheme();
   const smUp = useMediaQuery(breakpoints.up("sm"));
   const defaultView = smUp ? "grid" : "list";
   const [view, setView] = useState<"list" | "grid">(defaultView);
@@ -57,8 +57,8 @@ function Menu() {
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
   const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
   const checkoutContext = useCheckout();
-  const { data: brandData, loading: brandsLoading } = useBrandsQueryQuery({
-    variables: { retailerId },
+  const {data: brandData, loading: brandsLoading} = useBrandsQueryQuery({
+    variables: {retailerId},
   });
 
   useLayoutEffect(() => setView(defaultView), [defaultView]);
@@ -113,7 +113,7 @@ function Menu() {
       sortKey: MenuSortKey,
       sortDirection: SortDirection
     ];
-    setSort({ sortKey, sortDirection });
+    setSort({sortKey, sortDirection});
   }
 
   const categoriesToShow =
@@ -130,7 +130,7 @@ function Menu() {
         setBrandName(event.target.options[event.target.selectedIndex].text);
       }}
       options={[
-        { value: "", label: "Choose a brand" },
+        {value: "", label: "Choose a brand"},
         ...(brandData?.menu?.brands ?? []).map((brand) => ({
           label: brand.name,
           value: brand.id,
@@ -192,7 +192,7 @@ function Menu() {
                 key={category}
                 category={category}
                 searchQuery={query || ""}
-                selectedBrand={{ id: brandID, name: brandName }}
+                selectedBrand={{id: brandID, name: brandName}}
                 selectedEffects={[...selectedEffects]}
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}

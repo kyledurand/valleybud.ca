@@ -1,17 +1,17 @@
-import { retailerId } from "api/apollo";
-import { useBrandsQueryQuery } from "api/queries/brands.graphql";
-import { Meta } from "components/Meta";
-import { Container } from "components/pages/home/Styled";
-import { Footer } from "components/shared/footer";
-import { LoadingSpinner } from "components/shared/loading-spinner";
-import { Nav } from "components/shared/nav";
-import { Text } from "components/Text";
+import {retailerId} from "api/apollo";
+import {useBrandsQueryQuery} from "api/queries/brands.graphql";
+import {Meta} from "components/Meta";
+import {Container} from "components/pages/home/Styled";
+import {Footer} from "components/shared/footer";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {Nav} from "components/shared/nav";
+import {Text} from "components/Text";
 import Image from "next/image";
 import styled from "styled-components";
-import { mediaQueriesUp } from "styles/media-queries";
+import {mediaQueriesUp} from "styles/media-queries";
 
 export default function Brands() {
-  const { data, loading } = useBrandsQueryQuery({ variables: { retailerId } });
+  const {data, loading} = useBrandsQueryQuery({variables: {retailerId}});
   const brands = [...(data?.menu?.brands || [])];
   return (
     <Container>

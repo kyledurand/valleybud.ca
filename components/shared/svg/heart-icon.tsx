@@ -9,7 +9,7 @@ interface HeartIconProps {
 }
 
 export function HeartIcon(props: HeartIconProps): JSX.Element {
-  const { isDark, height = 23, width = 27, className = "", onClick } = props;
+  const {isDark, height = 23, width = 27, className = "", onClick} = props;
   const color = isDark ? "#1F2B49" : "#ffffff";
   return (
     <StyledSvg
@@ -27,5 +27,5 @@ export function HeartIcon(props: HeartIconProps): JSX.Element {
 }
 
 const StyledSvg = styled.svg`
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
+  cursor: ${({onClick}) => (onClick ? "pointer" : "auto")};
 `;

@@ -1,34 +1,34 @@
-import { useState, useContext } from "react";
-import styled, { css } from "styled-components";
-import { useRouter } from "next/router";
+import {useState, useContext} from "react";
+import styled, {css} from "styled-components";
+import {useRouter} from "next/router";
 import Drawer from "@material-ui/core/Drawer";
-import { useApollo } from "api/apollo";
-import { Category } from "api/queries/checkout.graphql";
-import { Chevron, ChevronDirection } from "components/shared/svg/chevron";
-import { Logo } from "components/shared/svg/logo";
-import { CartIcon } from "components/shared/svg/cart-icon";
-import { CheckoutContext } from "components/shared/checkout-context";
-import { LoadingSpinner } from "components/shared/loading-spinner";
+import {useApollo} from "api/apollo";
+import {Category} from "api/queries/checkout.graphql";
+import {Chevron, ChevronDirection} from "components/shared/svg/chevron";
+import {Logo} from "components/shared/svg/logo";
+import {CartIcon} from "components/shared/svg/cart-icon";
+import {CheckoutContext} from "components/shared/checkout-context";
+import {LoadingSpinner} from "components/shared/loading-spinner";
 
-import { NavProps } from "./index";
-import { Cart } from "./cart/index";
-import { VisuallyHidden } from "components/utilities";
+import {NavProps} from "./index";
+import {Cart} from "./cart/index";
+import {VisuallyHidden} from "components/utilities";
 
-import { Button, ButtonGroup, SvgIcon } from "@material-ui/core";
-import { ViewList, ViewModule } from "@mui/icons-material";
+import {Button, ButtonGroup, SvgIcon} from "@material-ui/core";
+import {ViewList, ViewModule} from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
-import { enumToTitleCase } from "utils/product";
-import { Stack } from "components/Stack";
+import {enumToTitleCase} from "utils/product";
+import {Stack} from "components/Stack";
 import Link from "next/link";
 
 export function DesktopNav(props: NavProps): JSX.Element {
-  const { page, selectSingleCategory = () => undefined } = props;
+  const {page, selectSingleCategory = () => undefined} = props;
 
   const [isCategoryMenuVisible, setIsCategoryMenuVisible] = useState(false);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const router = useRouter();
   const apolloClient = useApollo();
-  const { checkout, loading } = useContext(CheckoutContext);
+  const {checkout, loading} = useContext(CheckoutContext);
 
   const checkoutItemsCount = checkout?.items.length || 0;
 
@@ -111,7 +111,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
               <label>
                 <VisuallyHidden>search: </VisuallyHidden>
                 <form
-                  style={{ position: "relative" }}
+                  style={{position: "relative"}}
                   onSubmit={(event) => {
                     event.preventDefault();
                     const formData = new FormData(event.currentTarget);

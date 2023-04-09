@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mediaQueriesUp } from "styles/media-queries";
+import {mediaQueriesUp} from "styles/media-queries";
 
 export function Footer(): JSX.Element {
   return (

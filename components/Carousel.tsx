@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useTheme } from "@material-ui/core/styles";
+import React, {useEffect} from "react";
+import {useTheme} from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import styles from "../styles/Carousel.module.css";
 interface Image {
@@ -28,7 +28,7 @@ export function Carousel({
   onSelect,
   selected,
 }: CarouselProps) {
-  const { breakpoints } = useTheme();
+  const {breakpoints} = useTheme();
   const idealHeight = useMediaQuery(breakpoints.up("md"))
     ? height.desktop
     : height.mobile;
@@ -58,7 +58,7 @@ export function Carousel({
             key={`Image-${index}`}
             href={image.link}
             className={[styles.Image, position].join(" ")}
-            style={{ backgroundImage: `url(${image.imageUrl})` }}
+            style={{backgroundImage: `url(${image.imageUrl})`}}
             role="img"
             aria-label={image.imageAlt || ""}
           />
@@ -66,7 +66,7 @@ export function Carousel({
       })}
 
       <div className={styles.Pips}>
-        {Array.from({ length: images.length }).map((_, index) => (
+        {Array.from({length: images.length}).map((_, index) => (
           <button
             key={`button-${index}`}
             className={[

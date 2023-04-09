@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { PortableText } from "@portabletext/react";
-import { GetStaticProps } from "next";
-import { createClient } from "next-sanity";
-import { Nav } from "components/shared/nav";
-import { Footer } from "components/shared/footer";
+import {PortableText} from "@portabletext/react";
+import {GetStaticProps} from "next";
+import {createClient} from "next-sanity";
+import {Nav} from "components/shared/nav";
+import {Footer} from "components/shared/footer";
 import styled from "styled-components";
-import { Meta } from "components/Meta";
-import { Fragment } from "react";
-import { Stack } from "components/Stack";
+import {Meta} from "components/Meta";
+import {Fragment} from "react";
+import {Stack} from "components/Stack";
 
 interface Data {
   content: any;
@@ -18,12 +18,12 @@ interface Props {
   data: Data[];
 }
 
-export default function About({ data }: Props): React.ReactNode {
+export default function About({data}: Props): React.ReactNode {
   return (
     <Container>
       <Meta title="About Valleybud.ca" />
       <Nav />
-      {data.map(({ content, imageUrl }) => (
+      {data.map(({content, imageUrl}) => (
         <Fragment key={imageUrl}>
           <Stack align="center" padding gap>
             {imageUrl && (

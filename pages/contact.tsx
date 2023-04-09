@@ -1,10 +1,10 @@
-import { PortableText } from "@portabletext/react";
-import { GetStaticProps } from "next";
-import { createClient } from "next-sanity";
-import { Nav } from "components/shared/nav";
-import { Footer } from "components/shared/footer";
+import {PortableText} from "@portabletext/react";
+import {GetStaticProps} from "next";
+import {createClient} from "next-sanity";
+import {Nav} from "components/shared/nav";
+import {Footer} from "components/shared/footer";
 import styled from "styled-components";
-import { Meta } from "components/Meta";
+import {Meta} from "components/Meta";
 
 interface Data {
   content: any;
@@ -14,7 +14,7 @@ interface Props {
   data: Data[];
 }
 
-export default function Contact({ data }: Props): React.ReactNode {
+export default function Contact({data}: Props): React.ReactNode {
   return (
     <Container>
       <Meta title="Contact Valleybud" />

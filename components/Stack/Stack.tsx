@@ -1,4 +1,4 @@
-import type { Space } from "types";
+import type {Space} from "types";
 
 type Justify =
   | "start"

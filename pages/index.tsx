@@ -1,12 +1,12 @@
 import Script from "next/script";
-import { Logo } from "components/shared/svg/logo";
+import {Logo} from "components/shared/svg/logo";
 import styled from "styled-components";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
-import { Meta } from "components/Meta";
+import {useTheme} from "@material-ui/core/styles";
+import {Meta} from "components/Meta";
 
 export default function Shop() {
-  const { breakpoints } = useTheme();
+  const {breakpoints} = useTheme();
   const mediaQuery = breakpoints.up("md");
   const breakpointMatches = useMediaQuery(mediaQuery);
 

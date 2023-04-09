@@ -1,5 +1,5 @@
-import { encodeDelimitedArray, decodeDelimitedArray } from "use-query-params";
-import { Category, Effects } from "api/fragments/menu-product.graphql";
+import {encodeDelimitedArray, decodeDelimitedArray} from "use-query-params";
+import {Category, Effects} from "api/fragments/menu-product.graphql";
 
 type QueryParamValue = string | (string | null)[] | null | undefined;
 

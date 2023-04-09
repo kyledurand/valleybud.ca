@@ -7,7 +7,7 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "babel-jest",
     "\\.graphql$": [
       "graphql-let/jestTransformer",
-      { subsequentTransformer: "babel-jest" },
+      {subsequentTransformer: "babel-jest"},
     ],
   },
 };

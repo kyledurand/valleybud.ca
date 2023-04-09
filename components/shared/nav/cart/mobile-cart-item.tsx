@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
-import { formatPrice } from "utils/number-format";
+import {CheckoutItemFragment} from "api/fragments/checkout-item.graphql";
+import {formatPrice} from "utils/number-format";
 
 interface MobileCartItemProps {
   item: CheckoutItemFragment;

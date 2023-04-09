@@ -9,7 +9,7 @@ interface CartIconProps {
 }
 
 export function CartIcon(props: CartIconProps): JSX.Element {
-  const { height = 23, width = 23, className = "", onClick } = props;
+  const {height = 23, width = 23, className = "", onClick} = props;
   const color = "var(--text)";
   return (
     <StyledSvg
@@ -29,5 +29,5 @@ export function CartIcon(props: CartIconProps): JSX.Element {
 }
 
 const StyledSvg = styled.svg`
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
+  cursor: ${({onClick}) => (onClick ? "pointer" : "auto")};
 `;

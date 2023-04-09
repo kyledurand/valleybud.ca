@@ -1,21 +1,21 @@
-import { PortableText } from "@portabletext/react";
-import { GetStaticProps } from "next";
-import { createClient } from "next-sanity";
-import { Nav } from "components/shared/nav";
-import { Footer } from "components/shared/footer";
-import { CheckoutContext } from "components/shared/checkout-context";
-import { useCheckout } from "hooks/use-checkout";
+import {PortableText} from "@portabletext/react";
+import {GetStaticProps} from "next";
+import {createClient} from "next-sanity";
+import {Nav} from "components/shared/nav";
+import {Footer} from "components/shared/footer";
+import {CheckoutContext} from "components/shared/checkout-context";
+import {useCheckout} from "hooks/use-checkout";
 
-import { Text } from "components/Text";
-import { Carousel } from "components/Carousel";
-import { useState } from "react";
-import { useGetSpecialsListQuery } from "api/queries/specials.graphql";
-import { retailerId } from "api/apollo";
+import {Text} from "components/Text";
+import {Carousel} from "components/Carousel";
+import {useState} from "react";
+import {useGetSpecialsListQuery} from "api/queries/specials.graphql";
+import {retailerId} from "api/apollo";
 import * as Styled from "./Styled";
 import Image from "next/image";
-import { Stack } from "components/Stack";
-import { LoadingSpinner } from "components/shared/loading-spinner";
-import { Meta } from "components/Meta";
+import {Stack} from "components/Stack";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {Meta} from "components/Meta";
 
 interface Carousel {
   link: string;
@@ -65,7 +65,7 @@ function Home({
 }: Props): React.ReactNode {
   const [selected, setSelected] = useState(0);
   const checkoutContext = useCheckout();
-  const { data, loading } = useGetSpecialsListQuery({
+  const {data, loading} = useGetSpecialsListQuery({
     variables: {
       retailerId,
     },
@@ -73,7 +73,7 @@ function Home({
 
   const dutchieSpecials = data?.specials || [];
 
-  console.log(dutchieSpecials ? { dutchieSpecials } : null);
+  console.log(dutchieSpecials ? {dutchieSpecials} : null);
 
   return loading ? (
     <LoadingSpinner centered />
@@ -98,10 +98,10 @@ function Home({
               onSelect={setSelected}
             />
           </Styled.CarouselContainer>
-          <div style={{ position: "relative", gridArea: "scrollable" }}>
+          <div style={{position: "relative", gridArea: "scrollable"}}>
             <Styled.ScrollableContainer>
               {categories
-                .sort(({ priority }, { priority: sortedPriority }) =>
+                .sort(({priority}, {priority: sortedPriority}) =>
                   priority && sortedPriority ? priority - sortedPriority : -1
                 )
                 .map((category) => (
@@ -115,7 +115,7 @@ function Home({
                       alt={category.imageAlt}
                       width={256}
                       height={136}
-                      style={{ width: "100%", height: "auto" }}
+                      style={{width: "100%", height: "auto"}}
                     />
                     <div>{category.title}</div>
                   </a>
@@ -125,21 +125,21 @@ function Home({
           </div>
           <Styled.PromosContainer>
             {specials
-              .sort(({ priority }, { priority: sortedPriority }) =>
+              .sort(({priority}, {priority: sortedPriority}) =>
                 priority && sortedPriority ? priority - sortedPriority : -1
               )
               .map((special) => (
                 <a
                   href={special.link}
                   key={special.title}
-                  style={{ display: "flex", flexDirection: "column" }}
+                  style={{display: "flex", flexDirection: "column"}}
                 >
                   <Image
                     src={special.imageUrl || ""}
                     alt={special.imageAlt}
                     width={640}
                     height={640}
-                    style={{ width: "100%", height: "auto" }}
+                    style={{width: "100%", height: "auto"}}
                   />
                   <div
                     style={{

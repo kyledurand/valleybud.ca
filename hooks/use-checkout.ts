@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-import { Checkout } from "api/fragments/checkout.graphql";
-import { useCheckoutLazyQuery } from "api/queries/checkout.graphql";
+import {Checkout} from "api/fragments/checkout.graphql";
+import {useCheckoutLazyQuery} from "api/queries/checkout.graphql";
 import {
   useCreateCheckoutMutation,
   OrderType,
   PricingType,
 } from "api/mutations/create-checkout.graphql";
 
-import { useLocalStorage } from "./use-local-storage";
-import { retailerId } from "api/apollo";
+import {useLocalStorage} from "./use-local-storage";
+import {retailerId} from "api/apollo";
 
 export interface UseCheckoutResult {
   checkout: Checkout | undefined;
@@ -25,7 +25,7 @@ export function useCheckout(): UseCheckoutResult {
   // mutation/query
   const [
     createCheckoutMutation,
-    { data: createCheckoutData, loading: createCheckoutLoading },
+    {data: createCheckoutData, loading: createCheckoutLoading},
   ] = useCreateCheckoutMutation();
   const [
     getCheckout,

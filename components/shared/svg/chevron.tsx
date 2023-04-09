@@ -55,6 +55,6 @@ export function Chevron(props: ChevronProps): JSX.Element {
   );
 }
 
-const StyledSvg = styled.svg<{ direction: ChevronDirection }>`
+const StyledSvg = styled.svg<{direction: ChevronDirection}>`
   ${(props) => handleDirectionType(props.direction)}
 `;

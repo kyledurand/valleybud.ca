@@ -1,5 +1,5 @@
 // TODO: generate enums that we can use generally instead of importing from specific queries like this
-import { StrainType } from "api/fragments/menu-product.graphql";
+import {StrainType} from "api/fragments/menu-product.graphql";
 
 const STRAIN_TYPE_DISPLAY_NAME_MAP = new Map<StrainType, string>([
   [StrainType.Sativa, "Sativa"],

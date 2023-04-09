@@ -1,18 +1,18 @@
-import { retailerId } from "api/apollo";
-import { useGetSpecialsListQuery } from "api/queries/specials.graphql";
-import { Meta } from "components/Meta";
-import { Container } from "components/pages/home/Styled";
-import { Footer } from "components/shared/footer";
-import { LoadingSpinner } from "components/shared/loading-spinner";
-import { Nav } from "components/shared/nav";
-import { Text } from "components/Text";
+import {retailerId} from "api/apollo";
+import {useGetSpecialsListQuery} from "api/queries/specials.graphql";
+import {Meta} from "components/Meta";
+import {Container} from "components/pages/home/Styled";
+import {Footer} from "components/shared/footer";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {Nav} from "components/shared/nav";
+import {Text} from "components/Text";
 import Image from "next/image";
 import styled from "styled-components";
-import { mediaQueriesUp } from "styles/media-queries";
+import {mediaQueriesUp} from "styles/media-queries";
 
 export default function Specials() {
-  const { data, loading } = useGetSpecialsListQuery({
-    variables: { retailerId },
+  const {data, loading} = useGetSpecialsListQuery({
+    variables: {retailerId},
   });
   const specials = data?.specials;
 

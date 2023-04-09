@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
+import {useContext, useState} from "react";
 import styled from "styled-components";
-import { Text } from "../../Text";
-import { ProductFragment } from "api/queries/menu.graphql";
-import { enumToTitleCase, deriveDisplayPrices } from "utils/product";
+import {Text} from "../../Text";
+import {ProductFragment} from "api/queries/menu.graphql";
+import {enumToTitleCase, deriveDisplayPrices} from "utils/product";
 
-import { ProductModal } from "./product-modal";
-import { Stack } from "components/Stack";
-import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
-import { retailerId } from "api/apollo";
-import { CheckoutContext } from "../checkout-context";
+import {ProductModal} from "./product-modal";
+import {Stack} from "components/Stack";
+import {useAddItemToCheckoutMutation} from "api/mutations/add-item-to-checkout.graphql";
+import {retailerId} from "api/apollo";
+import {CheckoutContext} from "../checkout-context";
 import Image from "next/image";
-import { useMediaQuery, useTheme } from "@material-ui/core";
+import {useMediaQuery, useTheme} from "@material-ui/core";
 
 interface ProductCardProps {
   product: ProductFragment;
@@ -18,14 +18,14 @@ interface ProductCardProps {
 }
 
 export function ProductCard(props: ProductCardProps): JSX.Element {
-  const { breakpoints } = useTheme();
+  const {breakpoints} = useTheme();
   const mdUp = useMediaQuery(breakpoints.up("md"));
-  const { product, layout } = props;
-  const { checkout } = useContext(CheckoutContext);
+  const {product, layout} = props;
+  const {checkout} = useContext(CheckoutContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [
     addItemToCheckoutMutation,
-    { loading: addingToCart },
+    {loading: addingToCart},
   ] = useAddItemToCheckoutMutation();
 
   async function handleAddToCartClick(event: React.MouseEvent) {
@@ -111,11 +111,11 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
   );
 }
 
-const Container = styled.a<{ layout: string }>`
+const Container = styled.a<{layout: string}>`
   // TODO: Migrate this to use the new Stack component
   display: flex;
-  flex-direction: ${({ layout }) => (layout === "list" ? "row" : "column")};
-  justify-content: ${({ layout }) =>
+  flex-direction: ${({layout}) => (layout === "list" ? "row" : "column")};
+  justify-content: ${({layout}) =>
     layout === "list" ? "flex-start" : "space-between"};
   align-items: center;
   gap: var(--space-4);

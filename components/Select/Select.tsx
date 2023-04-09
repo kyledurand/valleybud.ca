@@ -9,7 +9,7 @@ export interface SelectProps
   }[];
 }
 
-export function Select({ options, ...rest }: SelectProps) {
+export function Select({options, ...rest}: SelectProps) {
   return (
     <StyledSelect {...rest}>
       {options?.map((option) => (
@@ -21,9 +21,9 @@ export function Select({ options, ...rest }: SelectProps) {
   );
 }
 
-const StyledSelect = styled.select<{ fullWidth?: boolean }>`
+const StyledSelect = styled.select<{fullWidth?: boolean}>`
   border: var(--outline-1);
   padding: var(--space-2);
   border-radius: var(--radius-1);
-  width: ${({ fullWidth }) => (fullWidth ? "100%" : "auto")};
+  width: ${({fullWidth}) => (fullWidth ? "100%" : "auto")};
 `;

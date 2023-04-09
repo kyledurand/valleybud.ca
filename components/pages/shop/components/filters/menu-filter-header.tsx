@@ -7,7 +7,7 @@ interface MenuFilterHeaderProps {
 }
 
 export function MenuFilterHeader(props: MenuFilterHeaderProps): JSX.Element {
-  const { name, onClick, isExpanded } = props;
+  const {name, onClick, isExpanded} = props;
   return (
     <Header onClick={onClick}>
       <span>{name}</span>

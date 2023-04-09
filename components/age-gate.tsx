@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { Logo } from "./shared/svg/logo";
+import {Logo} from "./shared/svg/logo";
 
 interface AgeGateProps {
   sessionVerified: string;
   onVerify(verified: string): void;
 }
 
-export function AgeGate({ onVerify, sessionVerified }: AgeGateProps) {
+export function AgeGate({onVerify, sessionVerified}: AgeGateProps) {
   return (
     <Container>
       <Logo width={400} height={188} color="var(--text)" />
@@ -16,7 +16,7 @@ export function AgeGate({ onVerify, sessionVerified }: AgeGateProps) {
           website.
         </ErrorText>
       )}
-      <p style={{ margin: 0 }}>Are you over the age of 19?</p>
+      <p style={{margin: 0}}>Are you over the age of 19?</p>
       <ButtonGroup>
         <Button onClick={() => onVerify("false")}>0-18</Button>
         <Button onClick={() => onVerify("true")}>19+</Button>

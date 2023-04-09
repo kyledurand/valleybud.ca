@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 interface LoadingSpinnerProps {
   size?: number;
@@ -42,7 +42,7 @@ const Outer = styled.div<{
   z-index: 1;
 `;
 
-const Inner = styled.span<{ size: number; color: string }>`
+const Inner = styled.span<{size: number; color: string}>`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   display: block;

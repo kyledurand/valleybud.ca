@@ -1,26 +1,26 @@
-import { useState, useContext } from "react";
+import {useState, useContext} from "react";
 import styled from "styled-components";
 
-import { useTheme } from "@material-ui/core/styles";
-import { useMediaQuery } from "@material-ui/core";
+import {useTheme} from "@material-ui/core/styles";
+import {useMediaQuery} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 
-import { useAddItemToCheckoutMutation } from "api/mutations/add-item-to-checkout.graphql";
-import { ProductFragment } from "api/fragments/menu-product.graphql";
-import { DesktopOnly } from "components/shared/responsive/desktop-only";
-import { MobileOnly } from "components/shared/responsive/mobile-only";
-import { CloseButton } from "components/shared/svg/close-button";
-import { CartIcon } from "components/shared/svg/cart-icon";
-import { CheckoutContext } from "components/shared/checkout-context";
-import { LoadingSpinner } from "components/shared/loading-spinner";
-import { mediaQueriesDown } from "styles/media-queries";
-import { deriveDisplayPrices } from "utils/product";
-import { formatPrice } from "utils/number-format";
+import {useAddItemToCheckoutMutation} from "api/mutations/add-item-to-checkout.graphql";
+import {ProductFragment} from "api/fragments/menu-product.graphql";
+import {DesktopOnly} from "components/shared/responsive/desktop-only";
+import {MobileOnly} from "components/shared/responsive/mobile-only";
+import {CloseButton} from "components/shared/svg/close-button";
+import {CartIcon} from "components/shared/svg/cart-icon";
+import {CheckoutContext} from "components/shared/checkout-context";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {mediaQueriesDown} from "styles/media-queries";
+import {deriveDisplayPrices} from "utils/product";
+import {formatPrice} from "utils/number-format";
 
-import { retailerId } from "api/apollo";
+import {retailerId} from "api/apollo";
 
 interface ProductModalProps {
   product: ProductFragment;
@@ -31,11 +31,11 @@ interface ProductModalProps {
 const QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export function ProductModal(props: ProductModalProps): JSX.Element {
-  const { product, open, onClose } = props;
+  const {product, open, onClose} = props;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const { checkout } = useContext(CheckoutContext);
+  const {checkout} = useContext(CheckoutContext);
 
   const [selectedVariant, setSelectedVariant] = useState<string>(
     product.variants[0].option
@@ -43,7 +43,7 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [
     addItemToCheckoutMutation,
-    { loading: addingToCart },
+    {loading: addingToCart},
   ] = useAddItemToCheckoutMutation();
 
   function handleCloseClick() {

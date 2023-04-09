@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
-import { Logo } from "components/shared/svg/logo";
-import { Meta } from "components/Meta";
+import {Logo} from "components/shared/svg/logo";
+import {Meta} from "components/Meta";
 
 export default function Home() {
   return (

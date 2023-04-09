@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { MetaHTMLAttributes } from "react";
+import {MetaHTMLAttributes} from "react";
 
 const LIGHT_THEME_COLOR_PROPS = {
   name: "theme-color",
@@ -17,7 +17,7 @@ interface Props {
   title?: string;
 }
 
-export function Meta({ title }: Props) {
+export function Meta({title}: Props) {
   return (
     <Head>
       <title>{title || "Welcome to Valleybud.ca"}</title>

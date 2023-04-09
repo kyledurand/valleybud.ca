@@ -1,4 +1,4 @@
-import { MediaQuery } from "./media-query";
+import {MediaQuery} from "./media-query";
 
 interface MobileOnlyProps {
   children: React.ReactNode;
@@ -6,7 +6,7 @@ interface MobileOnlyProps {
 }
 
 export function DesktopOnly(props: MobileOnlyProps): JSX.Element {
-  const { children, className = "" } = props;
+  const {children, className = ""} = props;
   return (
     <MediaQuery breakpoint="md" direction="up" className={className}>
       {children}

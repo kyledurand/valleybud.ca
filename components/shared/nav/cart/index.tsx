@@ -1,22 +1,22 @@
-import { useContext } from "react";
+import {useContext} from "react";
 import styled from "styled-components";
-import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import {ApolloClient, NormalizedCacheObject} from "@apollo/client";
 
-import { CheckoutItemFragment } from "api/fragments/checkout-item.graphql";
-import { useRemoveItemFromCheckoutMutation } from "api/mutations/remove-item-from-checkout.graphql";
-import { useUpdateCheckoutItemQuantityMutation } from "api/mutations/update-checkout-item-quantity.graphql";
+import {CheckoutItemFragment} from "api/fragments/checkout-item.graphql";
+import {useRemoveItemFromCheckoutMutation} from "api/mutations/remove-item-from-checkout.graphql";
+import {useUpdateCheckoutItemQuantityMutation} from "api/mutations/update-checkout-item-quantity.graphql";
 
-import { DesktopOnly } from "components/shared/responsive/desktop-only";
-import { MobileOnly } from "components/shared/responsive/mobile-only";
-import { CheckoutContext } from "components/shared/checkout-context";
+import {DesktopOnly} from "components/shared/responsive/desktop-only";
+import {MobileOnly} from "components/shared/responsive/mobile-only";
+import {CheckoutContext} from "components/shared/checkout-context";
 
-import { formatPrice } from "utils/number-format";
+import {formatPrice} from "utils/number-format";
 
-import { DesktopCartItem } from "./desktop-cart-item";
-import { MobileCartItem } from "./mobile-cart-item";
-import { LoadingSpinner } from "components/shared/loading-spinner";
-import { retailerId } from "api/apollo";
-import { CloseButton } from "components/shared/svg/close-button";
+import {DesktopCartItem} from "./desktop-cart-item";
+import {MobileCartItem} from "./mobile-cart-item";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {retailerId} from "api/apollo";
+import {CloseButton} from "components/shared/svg/close-button";
 
 interface CartProps {
   onClose: () => void;
@@ -24,8 +24,8 @@ interface CartProps {
 }
 
 export function Cart(props: CartProps): JSX.Element {
-  const { onClose } = props;
-  const { checkout, loading: isCheckoutLoading } = useContext(CheckoutContext);
+  const {onClose} = props;
+  const {checkout, loading: isCheckoutLoading} = useContext(CheckoutContext);
 
   const checkoutId = checkout?.id || "";
   const checkoutItems = checkout?.items;
@@ -33,7 +33,7 @@ export function Cart(props: CartProps): JSX.Element {
   // MUTATIONS
   const [
     removeItemFromCheckout,
-    { loading: isRemoveItemLoading },
+    {loading: isRemoveItemLoading},
   ] = useRemoveItemFromCheckoutMutation();
   async function handleRemoveItemFromCheckout(item: CheckoutItemFragment) {
     await removeItemFromCheckout({
@@ -47,7 +47,7 @@ export function Cart(props: CartProps): JSX.Element {
 
   const [
     updateCheckoutItemQuantity,
-    { loading: isUpdateQuantityLoading },
+    {loading: isUpdateQuantityLoading},
   ] = useUpdateCheckoutItemQuantityMutation();
   async function handleCheckoutQuantityUpdate(
     item: CheckoutItemFragment,

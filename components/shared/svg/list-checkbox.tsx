@@ -3,7 +3,7 @@ interface ListCheckboxProps {
 }
 
 export function ListCheckbox(props: ListCheckboxProps): JSX.Element {
-  const { isSelected } = props;
+  const {isSelected} = props;
   return isSelected ? (
     <svg
       width="22"

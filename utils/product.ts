@@ -1,5 +1,5 @@
-import { ProductFragment } from "api/fragments/menu-product.graphql";
-import { formatPrice } from "./number-format";
+import {ProductFragment} from "api/fragments/menu-product.graphql";
+import {formatPrice} from "./number-format";
 
 interface DisplayPrices {
   med: string;
