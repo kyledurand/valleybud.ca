@@ -10,7 +10,7 @@ import { DesktopOnly } from "components/shared/responsive/desktop-only";
 import { MobileOnly } from "components/shared/responsive/mobile-only";
 import { CheckoutContext } from "components/shared/checkout-context";
 import { useCheckout } from "hooks/use-checkout";
-import { mediaQueriesDown, mediaQueriesUp } from "styles/media-queries";
+import { mediaQueriesDown } from "styles/media-queries";
 import { CategoriesParam, EffectsParam } from "utils/query-param";
 
 import { SecondaryFilters } from "./components/filters/secondary-filters";
@@ -27,6 +27,7 @@ import {
 } from "api/fragments/menu-product.graphql";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { Stack } from "components/Stack";
+import { Select } from "components/Select";
 
 export const CATEGORIES: Category[] = Object.entries(Category)
   .map(([_, category]) => category)
@@ -44,14 +45,15 @@ const SORT_OPTIONS = {
 
 function Menu() {
   const { breakpoints } = useTheme();
-  const defaultView = useMediaQuery(breakpoints.up("sm")) ? "grid" : "list";
+  const smUp = useMediaQuery(breakpoints.up("sm"));
+  const defaultView = smUp ? "grid" : "list";
   const [view, setView] = useState<"list" | "grid">(defaultView);
   const [sort, setSort] = useState({
     sortKey: MenuSortKey.Popular,
     sortDirection: SortDirection.Asc,
   });
   const [offset, setOffset] = useState(0);
-  const [query] = useQueryParam("search", StringParam);
+  const [query, setQuery] = useQueryParam("search", StringParam);
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
   const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
   const checkoutContext = useCheckout();
@@ -77,6 +79,7 @@ function Menu() {
     } else {
       selectedCategories.add(category);
     }
+    setQuery(undefined);
     setSelectedCategories(selectedCategories);
     setOffset(0);
   }
@@ -87,6 +90,7 @@ function Menu() {
     } else {
       selectedEffects.add(effect);
     }
+    setQuery(undefined);
     setSelectedEffects(selectedEffects);
     setOffset(0);
   }
@@ -120,28 +124,33 @@ function Menu() {
   const brandsMarkup = !brandsLoading && (
     <Select
       name="brands"
+      fullWidth={!smUp}
       onChange={(event) => {
         setBrandId(event.target.value);
         setBrandName(event.target.options[event.target.selectedIndex].text);
       }}
-    >
-      <option value="">Choose a brand</option>
-      {brandData?.menu?.brands.map((brand) => (
-        <option key={brand.id} value={brand.id}>
-          {brand.name}
-        </option>
-      ))}
-    </Select>
+      options={[
+        { value: "", label: "Choose a brand" },
+        ...(brandData?.menu?.brands ?? []).map((brand) => ({
+          label: brand.name,
+          value: brand.id,
+        })),
+      ]}
+    />
   );
 
   const sortMarkup = (
-    <Select name="Sort by" onChange={(event) => handleSort(event.target.value)}>
-      {Object.entries(SORT_OPTIONS).map(([key, value]) => (
-        <option key={key} value={key}>
-          {value}
-        </option>
-      ))}
-    </Select>
+    <Select
+      name="Sort by"
+      fullWidth={!smUp}
+      onChange={(event) => handleSort(event.target.value)}
+      options={[
+        ...Object.entries(SORT_OPTIONS).map(([key, value]) => ({
+          label: value,
+          value: key,
+        })),
+      ]}
+    />
   );
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -163,15 +172,18 @@ function Menu() {
               />
             </Sidebar>
           </DesktopOnly>
-          <MobileOnly>
-            <MobileFilters
-              selectedCategories={selectedCategories}
-              selectSingleCategory={selectSingleCategory}
-            />
-          </MobileOnly>
-          <Products>
-            <Stack inline justify="end" gap="2">
-              {brandsMarkup}
+          <Stack gap="2" grow>
+            <MobileOnly>
+              <MobileFilters
+                selectedCategories={selectedCategories}
+                selectSingleCategory={selectSingleCategory}
+              />
+            </MobileOnly>
+
+            <Stack inline gap="2">
+              <Stack inline justify="end" grow>
+                {brandsMarkup}
+              </Stack>
               {sortMarkup}
             </Stack>
             {categoriesToShow.map((category) => (
@@ -187,7 +199,7 @@ function Menu() {
                 sort={sort}
               />
             ))}
-          </Products>
+          </Stack>
         </Content>
 
         <Pagination>
@@ -231,10 +243,6 @@ const Container = styled.div`
   }
 `;
 
-const Products = styled.div`
-  flex: 1;
-`;
-
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
@@ -255,17 +263,6 @@ const Sidebar = styled.aside`
   width: 250px;
   margin-right: 36px;
   flex-shrink: 0;
-`;
-
-const Select = styled.select`
-  border: 1px solid rgba(0, 0, 0, 0.23);
-  padding: var(--space-1);
-  font-size: 13px;
-  width: 100%;
-
-  @media ${mediaQueriesUp.xs} {
-    width: auto;
-  }
 `;
 
 export default Menu;

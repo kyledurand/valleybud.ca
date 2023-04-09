@@ -1,9 +1,6 @@
-import styled from "styled-components";
-
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-
 import { Category } from "api/queries/menu.graphql";
+
+import { Select } from "components/Select";
 import { enumToTitleCase } from "utils/product";
 
 interface MobileFiltersProps {
@@ -15,42 +12,28 @@ const ALL_PRODUCTS = "All products";
 
 export function MobileFilters(props: MobileFiltersProps): JSX.Element {
   const { selectedCategories, selectSingleCategory } = props;
-  const selectedCategory = [...selectedCategories][0] || ALL_PRODUCTS; // if changed from desktop to mobile, just show the first selected option in the set in this select
+  const selectedCategory = [...selectedCategories][0] || ALL_PRODUCTS;
 
   return (
-    <MobileCategorySelect
+    <Select
+      fullWidth
       value={selectedCategory}
-      onChange={(e) => {
+      onChange={(event) => {
         const value =
-          e.target.value === ALL_PRODUCTS
+          event.target.value === ALL_PRODUCTS
             ? undefined
-            : (e.target.value as Category);
+            : (event.target.value as Category);
         selectSingleCategory(value);
       }}
-      variant="outlined"
-    >
-      <MenuItem key="all-products" value={ALL_PRODUCTS}>
-        All products
-      </MenuItem>
-      {Object.entries(Category).map(([key, category]) => (
-        <MenuItem key={key} value={category}>
-          {enumToTitleCase(category)}
-        </MenuItem>
-      ))}
-    </MobileCategorySelect>
+      options={[
+        { value: ALL_PRODUCTS, label: "Shop by category" },
+        ...Object.entries(Category)
+          .filter(([_, category]) => category !== Category.NotApplicable)
+          .map(([_, category]) => ({
+            label: enumToTitleCase(category),
+            value: category,
+          })),
+      ]}
+    />
   );
 }
-
-const MobileCategorySelect = styled(Select)`
-  width: 100%;
-  height: 58px;
-  border-radius: 0px !important;
-  color: var(--text);
-  margin-bottom: var(--space-2);
-  font-family: BrandonWeb;
-
-  & .MuiSelect-select {
-    font-size: 13px;
-    padding: 14px 15px;
-  }
-`;

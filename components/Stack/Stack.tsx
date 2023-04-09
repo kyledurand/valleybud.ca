@@ -55,7 +55,7 @@ export function Stack({
         justifyContent: justify,
         alignItems: align,
         height: fullHeight ? "100%" : undefined,
-        flex: grow ? 1 : undefined,
+        flexGrow: grow ? 1 : undefined,
         flexWrap: wrap ? "wrap" : undefined,
         width: fullWidth ? "100%" : undefined,
       }}

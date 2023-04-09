@@ -91,13 +91,14 @@ const Grid = styled.div`
   }
 `;
 
-const List = styled.div`
+const List = styled.div<{ view: "grid" | "list" }>`
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 
   @media ${mediaQueriesUp.sm} {
-    gap: var(--space-2);
+    gap: ${({ view }) =>
+      view === "grid" ? "var(--space-2)" : "var(--space-5)"};
   }
 `;
 

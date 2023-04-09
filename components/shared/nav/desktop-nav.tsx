@@ -14,16 +14,14 @@ import { NavProps } from "./index";
 import { Cart } from "./cart/index";
 import { VisuallyHidden } from "components/utilities";
 
-import { useQueryParam, StringParam } from "use-query-params";
 import { Button, ButtonGroup, SvgIcon } from "@material-ui/core";
 import { ViewList, ViewModule } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
 import { enumToTitleCase } from "utils/product";
 import { Stack } from "components/Stack";
 import Link from "next/link";
 
 export function DesktopNav(props: NavProps): JSX.Element {
-  const [query] = useQueryParam("search", StringParam);
-  const [search, setSearch] = useState(query);
   const { page, selectSingleCategory = () => undefined } = props;
 
   const [isCategoryMenuVisible, setIsCategoryMenuVisible] = useState(false);
@@ -113,6 +111,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
               <label>
                 <VisuallyHidden>search: </VisuallyHidden>
                 <form
+                  style={{ position: "relative" }}
                   onSubmit={(event) => {
                     event.preventDefault();
                     const formData = new FormData(event.currentTarget);
@@ -120,12 +119,17 @@ export function DesktopNav(props: NavProps): JSX.Element {
                     router.push(`/shop?search=${query}`);
                   }}
                 >
-                  <input
-                    name="search"
-                    onChange={(event) => setSearch(event.target.value)}
-                    value={search || undefined}
-                    placeholder="search"
+                  <SearchIcon
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: 4,
+                      width: 20,
+                      height: 20,
+                      transform: "translateY(-50%)",
+                    }}
                   />
+                  <StyledInput name="search" placeholder="search" />
                 </form>
               </label>
             </Stack>
@@ -261,6 +265,19 @@ const NavIcons = styled.div`
   align-items: center;
   margin-right: 10px;
   height: 100%;
+`;
+
+const StyledInput = styled.input`
+  border: none;
+  border-radius: var(--radius-1);
+  background-color: lightgray;
+  padding: var(--space-1) var(--space-2);
+  padding-left: 30px;
+  color: black;
+
+  &::placeholder {
+    color: black;
+  }
 `;
 
 const NavIconContainer = styled.div`
