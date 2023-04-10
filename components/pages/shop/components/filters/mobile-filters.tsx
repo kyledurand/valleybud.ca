@@ -1,6 +1,7 @@
 import {Category} from "api/queries/menu.graphql";
 
 import {Select} from "components/Select";
+import {CATEGORIES} from "pages/shop";
 import {enumToTitleCase} from "utils/product";
 
 interface MobileFiltersProps {
@@ -27,12 +28,10 @@ export function MobileFilters(props: MobileFiltersProps): JSX.Element {
       }}
       options={[
         {value: ALL_PRODUCTS, label: "Shop by category"},
-        ...Object.entries(Category)
-          .filter(([_, category]) => category !== Category.NotApplicable)
-          .map(([_, category]) => ({
-            label: enumToTitleCase(category),
-            value: category,
-          })),
+        ...CATEGORIES.map((category) => ({
+          label: enumToTitleCase(category),
+          value: category,
+        })),
       ]}
     />
   );

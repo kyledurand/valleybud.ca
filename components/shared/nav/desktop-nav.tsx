@@ -19,6 +19,8 @@ import {enumToTitleCase} from "utils/product";
 import {Stack} from "components/Stack";
 import Link from "next/link";
 import {Input} from "components/Input";
+import {Button} from "components/Button";
+import {CATEGORIES} from "pages/shop";
 
 export function DesktopNav(props: NavProps): JSX.Element {
   const {page, selectSingleCategory = () => undefined} = props;
@@ -81,24 +83,34 @@ export function DesktopNav(props: NavProps): JSX.Element {
             {isCategoryMenuVisible && (
               <StyledMenu>
                 <SubmenuSection>
-                  {Object.entries(Category)
-                    .filter(([_, value]) => value !== Category.NotApplicable)
-                    .map(([key, category]) => (
-                      <SubmenuItem
-                        key={key}
-                        onClick={() => handleCategoryClick(category)}
+                  {CATEGORIES.map((category) => (
+                    <SubmenuItem key={category}>
+                      <Button
+                        padding
+                        fullWidth
+                        stopPropagation
+                        onClick={() => {
+                          setIsCartVisible(false);
+                          handleCategoryClick(category);
+                        }}
                       >
                         {enumToTitleCase(category)}
-                      </SubmenuItem>
-                    ))}
-                  <NavButton
-                    onClick={() => {
-                      setIsCategoryMenuVisible(false);
-                      router.push("/shop");
-                    }}
-                  >
-                    shop all
-                  </NavButton>
+                      </Button>
+                    </SubmenuItem>
+                  ))}
+                  <SubmenuItem>
+                    <Button
+                      padding
+                      fullWidth
+                      stopPropagation
+                      onClick={() => {
+                        handleCategoryClick(undefined);
+                        setIsCategoryMenuVisible(false);
+                      }}
+                    >
+                      Shop all
+                    </Button>
+                  </SubmenuItem>
                 </SubmenuSection>
               </StyledMenu>
             )}
@@ -168,10 +180,8 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
-  padding: 0px 29px;
-  height: 122px;
+  padding: var(--space-5) var(--space-7);
 
   color: var(--text);
   background-color: var(--background);
@@ -188,7 +198,7 @@ const linkProperties = css`
   display: flex;
   align-items: center;
   padding-block: var(--space-2);
-  color: var(--link);
+  color: var(--text);
 
   & > svg {
     margin-left: var(--space-2);
@@ -210,11 +220,11 @@ const StyledMenu = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
+  right: 0;
   background-color: var(--background);
 
   display: flex;
   justify-content: space-between;
-  padding: var(--space-4);
   box-shadow: var(--shadow-1);
   border-radius: var(--radius-1);
 `;
@@ -223,29 +233,15 @@ const SubmenuSection = styled.ul`
   outline: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
   flex-wrap: wrap;
   margin-block: 0;
   padding-inline: 0;
+  text-align: start;
+  width: 100%;
 `;
 
 const SubmenuItem = styled.li`
   list-style: none;
-  text-align: start;
-  font-size: 13px;
-  color: rgba(31, 43, 73, 0.7);
-  text-decoration: none;
-
-  cursor: ${(props) => (props.onClick ? "pointer" : "auto")};
-  &:hover {
-    text-decoration: ${(props) => (props.onClick ? "underline" : "none")};
-  }
-
-  & > a {
-    font-size: 13px;
-    color: rgba(31, 43, 73, 0.7);
-    text-decoration: none;
-  }
 `;
 
 const NavIcons = styled.div`

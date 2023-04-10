@@ -20,6 +20,8 @@ interface Props {
   fullHeight?: boolean;
   fullWidth?: boolean;
   padding?: Space | boolean;
+  paddingBlock?: Space;
+  paddingInline?: Space;
   children: React.ReactNode;
 }
 
@@ -30,6 +32,8 @@ export function Stack({
   inline,
   justify,
   padding,
+  paddingBlock,
+  paddingInline,
   align,
   fullHeight,
   fullWidth,
@@ -42,7 +46,7 @@ export function Stack({
         flexDirection: inline ? "row" : "column",
         gap:
           gap === true
-            ? "var(--space-4)"
+            ? "var(--space-2)"
             : gap
             ? `var(--space-${gap})`
             : undefined,
@@ -52,6 +56,10 @@ export function Stack({
             : padding
             ? `var(--space-${padding})`
             : undefined,
+        paddingBlock: paddingBlock ? `var(--space-${paddingBlock})` : undefined,
+        paddingInline: paddingInline
+          ? `var(--space-${paddingInline})`
+          : undefined,
         justifyContent: justify,
         alignItems: align,
         height: fullHeight ? "100%" : undefined,

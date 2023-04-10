@@ -2,44 +2,17 @@ import styled from "styled-components";
 
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
 
-import {Category, Effects} from "api/queries/menu.graphql";
-import {Text} from "components/Text";
-import {enumToTitleCase} from "utils/product";
+import {Effects} from "api/queries/menu.graphql";
 
 interface SecondaryFiltersProps {
-  selectedCategories: Set<Category>;
-  onCategorySelect: (category: Category) => void;
   onEffectSelect: (effect: Effects) => void;
 }
 
-const filteredCategories = Object.entries(Category)
-  .map(([_, category]) => category)
-  .filter((category) => category !== Category.NotApplicable);
-
 export function SecondaryFilters({
-  onCategorySelect,
   onEffectSelect,
 }: SecondaryFiltersProps): JSX.Element {
   return (
     <Container>
-      <Text size="2">Categories</Text>
-      <FormGroup>
-        {filteredCategories.map((category) => (
-          <FormControlLabel
-            key={category}
-            label={enumToTitleCase(category)}
-            onChange={() => onCategorySelect(category)}
-            control={
-              <Checkbox
-                style={{padding: "var(--space-1)", color: "var(--text)"}}
-                id={category}
-                size="small"
-              />
-            }
-          />
-        ))}
-      </FormGroup>
-
       <FormGroup style={{marginTop: "var(--space-4)"}}>
         <legend>Effects:</legend>
         {Object.entries(Effects).map(([key, effect]) => (
