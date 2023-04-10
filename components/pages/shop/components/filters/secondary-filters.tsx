@@ -31,7 +31,7 @@ export function SecondaryFilters({
             onChange={() => onCategorySelect(category)}
             control={
               <Checkbox
-                style={{padding: "var(--space-1)"}}
+                style={{padding: "var(--space-1)", color: "var(--text)"}}
                 id={category}
                 size="small"
               />
@@ -48,7 +48,7 @@ export function SecondaryFilters({
             onChange={() => onEffectSelect(effect)}
             control={
               <Checkbox
-                style={{padding: "var(--space-1)"}}
+                style={{padding: "var(--space-1)", color: "var(--text)"}}
                 id={key}
                 size="small"
               />

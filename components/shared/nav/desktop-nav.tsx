@@ -20,6 +20,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import {enumToTitleCase} from "utils/product";
 import {Stack} from "components/Stack";
 import Link from "next/link";
+import {Input} from "components/Input";
 
 export function DesktopNav(props: NavProps): JSX.Element {
   const {page, selectSingleCategory = () => undefined} = props;
@@ -127,9 +128,10 @@ export function DesktopNav(props: NavProps): JSX.Element {
                       width: 20,
                       height: 20,
                       transform: "translateY(-50%)",
+                      color: "var(--text)",
                     }}
                   />
-                  <StyledInput name="search" placeholder="search" />
+                  <Input name="search" placeholder="search" />
                 </form>
               </label>
             </Stack>
@@ -265,19 +267,6 @@ const NavIcons = styled.div`
   align-items: center;
   margin-right: 10px;
   height: 100%;
-`;
-
-const StyledInput = styled.input`
-  border: none;
-  border-radius: var(--radius-1);
-  background-color: lightgray;
-  padding: var(--space-1) var(--space-2);
-  padding-left: 30px;
-  color: black;
-
-  &::placeholder {
-    color: black;
-  }
 `;
 
 const NavIconContainer = styled.div`
