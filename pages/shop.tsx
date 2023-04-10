@@ -1,6 +1,6 @@
 import {useLayoutEffect, useState} from "react";
 import {GetStaticProps} from "next";
-import Image from "next/image";
+import Image from "next/future/image";
 import {createClient} from "next-sanity";
 import styled from "styled-components";
 import {StringParam, useQueryParam} from "use-query-params";
@@ -34,6 +34,7 @@ import {SecondaryFilters} from "components/pages/shop/components/filters/seconda
 import {ProductSection} from "components/pages/shop/components/product-section";
 import {Banner, Category as DisplayCategory} from "types";
 import {PortableText} from "@portabletext/react";
+import {Button as PlainButton} from "components/Button";
 import {Grid} from "components/Grid";
 import {Text} from "components/Text";
 
@@ -60,6 +61,7 @@ function Menu({
 }) {
   const {breakpoints} = useTheme();
   const smUp = useMediaQuery(breakpoints.up("sm"));
+  const mdUp = useMediaQuery(breakpoints.up("md"));
   const defaultView = smUp ? "grid" : "list";
   const [view, setView] = useState<"list" | "grid">(defaultView);
   const [sort, setSort] = useState({
@@ -206,7 +208,8 @@ function Menu({
           priority && sortedPriority ? priority - sortedPriority : -1
         )
         .map((category) => (
-          <a
+          <PlainButton
+            variant="plain"
             key={category.title}
             onClick={() =>
               selectSingleCategory(
@@ -216,13 +219,13 @@ function Menu({
           >
             <Image
               src={category.imageUrl || ""}
-              alt={category.imageAlt}
-              width={256}
-              height={136}
+              alt={category.imageAlt || ""}
+              width={180}
+              height={95}
               style={{width: "100%", height: "auto"}}
             />
             <Text align="center">{category.title}</Text>
-          </a>
+          </PlainButton>
         ))}
     </Grid>
   ) : null;
@@ -239,7 +242,7 @@ function Menu({
         {bannerMarkup || categoriesMarkup ? (
           <Stack
             gap="4"
-            paddingInline={smUp ? "7" : "5"}
+            paddingInline={mdUp ? "7" : "5"}
             paddingBlock="2"
             fullWidth
           >
