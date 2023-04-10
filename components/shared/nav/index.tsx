@@ -7,7 +7,6 @@ import {MobileNav} from "./mobile-nav";
 
 export interface NavProps {
   page?: "shop";
-  setView?(view: "grid" | "list"): void;
   selectSingleCategory?(category?: Category): void;
   selectSingleBrand?(brand?: {name?: string; id?: string}): void;
 }

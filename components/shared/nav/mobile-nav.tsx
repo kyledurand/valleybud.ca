@@ -113,11 +113,11 @@ export function MobileNav(props: NavProps): JSX.Element {
   );
 }
 
-const Container = styled.div<{darkBackground?: boolean}>`
+const Container = styled.div`
   z-index: 3;
   height: ${NAV_HEIGHT};
   width: 100%;
-  padding: 0 25px;
+  padding-inline: var(--space-5);
 
   display: flex;
   align-items: center;
@@ -152,14 +152,14 @@ const LoginAndCartSection = styled.div`
   align-items: center;
 
   font-size: 13px;
-  padding: 0 25px;
+  padding-inline: var(--space-5);
 `;
 
 const StyledMenuItem = styled(MenuItem)`
   height: 88px;
   border-bottom: 1px solid #d9d6d2;
   font-size: 18px;
-  padding: 0 25px;
+  padding-inline: var(--space-5);
   display: flex;
   justify-content: space-between;
   align-items: center;

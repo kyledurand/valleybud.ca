@@ -14,8 +14,6 @@ import {NavProps} from "./index";
 import {Cart} from "./cart/index";
 import {VisuallyHidden} from "components/utilities";
 
-import {Button, ButtonGroup, SvgIcon} from "@material-ui/core";
-import {ViewList, ViewModule} from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import {enumToTitleCase} from "utils/product";
 import {Stack} from "components/Stack";
@@ -155,18 +153,6 @@ export function DesktopNav(props: NavProps): JSX.Element {
           <Cart onClose={closeCart} apolloClient={apolloClient} />
         </Drawer>
       </Nav>
-      {page === "shop" && (
-        <ViewToggle>
-          <ButtonGroup>
-            <Button variant="contained" onClick={() => props.setView?.("list")}>
-              <SvgIcon component={ViewList} inheritViewBox />
-            </Button>
-            <Button variant="contained" onClick={() => props.setView?.("grid")}>
-              <SvgIcon component={ViewModule} inheritViewBox />
-            </Button>
-          </ButtonGroup>
-        </ViewToggle>
-      )}
     </Wrapper>
   );
 }
@@ -302,9 +288,4 @@ const CartCount = styled.div`
   top: -11px;
   right: -22px;
   color: #ffffff;
-`;
-
-const ViewToggle = styled.div`
-  align-self: end;
-  padding: 0 var(--space-7);
 `;

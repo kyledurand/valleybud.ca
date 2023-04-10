@@ -19,6 +19,7 @@ import {ProductSection} from "./components/product-section";
 import {useBrandsQueryQuery} from "api/queries/brands.graphql";
 import {Meta} from "components/Meta";
 import {Button, ButtonGroup, SvgIcon, useMediaQuery} from "@material-ui/core";
+import {ViewList, ViewModule} from "@mui/icons-material";
 import {useTheme} from "@material-ui/core/styles";
 import {
   Effects,
@@ -158,7 +159,6 @@ function Menu() {
       <Container>
         <Nav
           page="shop"
-          setView={setView}
           selectSingleCategory={selectSingleCategory}
           selectSingleBrand={selectSingleBrand}
         />
@@ -180,11 +180,21 @@ function Menu() {
               />
             </MobileOnly>
 
-            <Stack inline gap="2">
+            <Stack inline gap="2" justify="end">
               <Stack inline justify="end" grow>
                 {brandsMarkup}
               </Stack>
+
               {sortMarkup}
+
+              <ButtonGroup color="inherit">
+                <Button variant="outlined" onClick={() => setView?.("list")}>
+                  <SvgIcon component={ViewList} inheritViewBox />
+                </Button>
+                <Button variant="outlined" onClick={() => setView?.("grid")}>
+                  <SvgIcon component={ViewModule} inheritViewBox />
+                </Button>
+              </ButtonGroup>
             </Stack>
             {categoriesToShow.map((category) => (
               <ProductSection
@@ -249,13 +259,13 @@ const Pagination = styled.div`
 `;
 
 const Content = styled.div`
-  padding: var(--space-7);
   display: flex;
+  padding: var(--space-2) var(--space-7);
   background: var(--background);
 
   @media ${mediaQueriesDown.largeTablet} {
     flex-direction: column;
-    padding: 18px 25px;
+    padding: var(--space-2) var(--space-5);
   }
 `;
 

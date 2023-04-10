@@ -171,7 +171,7 @@ const EmptyCart = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  margin: 0 25px;
+  margin: var(--space-2) var(--space-5);
 `;
 
 const DesktopCartItemContainer = styled(DesktopOnly)`
