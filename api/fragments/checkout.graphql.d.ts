@@ -692,6 +692,7 @@ export type HoursSettings = {
     delivery?: Maybe<Hours>;
     pickup?: Maybe<Hours>;
     regular?: Maybe<Hours>;
+    /** @deprecated Use specialHours */
     special?: Maybe<Array<Maybe<SpecialHours>>>;
     specialHours?: Maybe<Array<Maybe<SpecialHoursV2>>>;
 };

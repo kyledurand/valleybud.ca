@@ -141,7 +141,7 @@ export function DesktopNav(props: NavProps): JSX.Element {
                       color: "var(--text)",
                     }}
                   />
-                  <Input name="search" placeholder="search" />
+                  <Input name="search" type="search" placeholder="search" />
                 </form>
               </label>
             </Stack>

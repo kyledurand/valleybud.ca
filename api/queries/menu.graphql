@@ -1,9 +1,9 @@
 # import product from '../fragments/menu-product.graphql'
 
 query Menu(
+  $retailerId: ID!
   $category: Category
   $search: String
-  $retailerId: ID!
   $brandId: String
   $effects: [Effects!]
   $offset: Int!

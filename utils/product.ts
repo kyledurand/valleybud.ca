@@ -1,16 +1,17 @@
 import {ProductFragment} from "api/fragments/menu-product.graphql";
-import {formatPrice} from "./number-format";
 
 interface DisplayPrices {
-  med: string;
-  rec: string;
+  med: number;
+  rec: number;
+  specialMed?: number;
+  specialRec?: number;
 }
 
 export function deriveDisplayPrices(product: ProductFragment): DisplayPrices {
   if (product.variants?.length === 0) {
     return {
-      med: "n/a",
-      rec: "n/a",
+      med: 0,
+      rec: 0,
     };
   }
 
@@ -20,10 +21,11 @@ export function deriveDisplayPrices(product: ProductFragment): DisplayPrices {
       : product.variants?.find((variant) => variant.option === "1g") ||
         product.variants[0];
 
-  // TODO: handle specials
   return {
-    med: variant?.priceMed ? formatPrice(variant.priceMed) : "n/a",
-    rec: variant?.priceRec ? formatPrice(variant.priceRec) : "n/a",
+    med: variant?.priceMed ? variant.priceMed : 0,
+    rec: variant?.priceRec ? variant.priceRec : 0,
+    specialMed: variant?.specialPriceMed ? variant.specialPriceMed : 0,
+    specialRec: variant?.specialPriceRec ? variant.specialPriceRec : 0,
   };
 }
 

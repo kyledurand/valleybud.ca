@@ -4,7 +4,12 @@ import {ProductCard} from "components/shared/product/product-card";
 import {mediaQueriesUp} from "styles/media-queries";
 import {retailerId} from "api/apollo";
 import {LoadingSpinner} from "components/shared/loading-spinner";
-import {Effects, MenuSortKey} from "api/fragments/menu-product.graphql";
+import {
+  Effects,
+  MenuSortKey,
+  PotencyRange,
+  PotencyUnit,
+} from "api/fragments/menu-product.graphql";
 import {enumToTitleCase} from "utils/product";
 
 interface ProductSectionProps {
@@ -22,6 +27,13 @@ interface ProductSectionProps {
     sortKey?: MenuSortKey;
     sortDirection: SortDirection;
   };
+  range?: {
+    minThc?: number;
+    maxThc?: number;
+    minCbd?: number;
+    maxCbd?: number;
+    unit?: PotencyUnit;
+  };
 }
 
 export function ProductSection({
@@ -32,9 +44,33 @@ export function ProductSection({
   selectedEffects,
   offset,
   paginationLimit,
+  range,
   sort: {sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc},
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
+  // const unit = range?.unit
+  //   ? category === Category.Flower
+  //     ? PotencyUnit.Milligrams
+  //     : PotencyUnit.Percentage
+  //   : undefined;
+
+  const unit: PotencyRange["unit"] = range?.unit
+    ? range.unit
+    : PotencyUnit.Percentage;
+
+  // PotencyUnit.Milligrams
+  // Edibles, concentrates, accessories
+
+  // PotencyUnit.MilligramsPerGram
+  // None
+
+  // PotencyUnit.MilligramsPerMl
+  // Concentrates, different result than milligrams wtf
+
+  // PotencyUnit.Percentage
+  // Flower, prerolls, concentrates, accessories
+
+  console.log({unit});
 
   const {data, loading} = useMenuQuery({
     variables: {
@@ -47,6 +83,11 @@ export function ProductSection({
       limit: paginationLimit,
       sortDirection: sortDirection,
       sortKey: sortKey,
+      // minimumThc: range?.minThc ?? 0,
+      // maximumThc: range?.maxThc ?? 100,
+      // minimumCbd: range?.minCbd ?? 0,
+      // maximumCbd: range?.maxCbd ?? 100,
+      // unit,
     },
   });
 

@@ -11,6 +11,8 @@ import {retailerId} from "api/apollo";
 import {CheckoutContext} from "../checkout-context";
 import Image from "next/image";
 import {useMediaQuery, useTheme} from "@material-ui/core";
+import {formatPrice} from "utils/number-format";
+import {Badge} from "components/Badge";
 
 interface ProductCardProps {
   product: ProductFragment;
@@ -27,6 +29,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
     addItemToCheckoutMutation,
     {loading: addingToCart},
   ] = useAddItemToCheckoutMutation();
+  console.log({product});
 
   async function handleAddToCartClick(event: React.MouseEvent) {
     event.stopPropagation();
@@ -50,6 +53,23 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
         •
       </>
     );
+
+  const recPrice = deriveDisplayPrices(product).rec;
+  const specialRecPrice = deriveDisplayPrices(product).specialRec;
+  const percentageOff = Math.round(
+    ((recPrice - (specialRecPrice || 0)) / recPrice) * 100
+  );
+
+  const priceMarkup = specialRecPrice ? (
+    <span>
+      <Text as="span">{formatPrice(specialRecPrice)}</Text> -{" "}
+      <Badge>
+        <Text as="span">{percentageOff}% off</Text>
+      </Badge>
+    </span>
+  ) : (
+    <Text>{formatPrice(recPrice)}</Text>
+  );
 
   return (
     <>
@@ -93,7 +113,7 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
             align="end"
             grow
           >
-            <Text>{deriveDisplayPrices(product).rec}</Text>
+            {priceMarkup}
             <AddToCart onClick={(event) => handleAddToCartClick(event)}>
               {addingToCart ? "Adding" : "+ Add to cart"}
             </AddToCart>

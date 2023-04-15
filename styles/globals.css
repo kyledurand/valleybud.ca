@@ -17,6 +17,7 @@
   --brand-accent-blue: #376586;
   --brand-accent-gold: #706e30;
   --brand-accent-orange: #b86047;
+  --bg-color-positive: #58b76d;
   /* TODO: PX TO REM POST CSS */
   /* Space */
   --space-1: 4px;
@@ -38,7 +39,7 @@
   --placeholder-1: aliceblue;
   --placeholder-2: blanchedalmond;
   /* Borders */
-  --outline-1: 1px solid #000;
+  --outline-1: 1px solid var(--text);
   --radius-1: 4px;
   /* Shadows */
   --shadow-1: 0 1px 6px 2px rgba(0, 0, 0, 0.1);

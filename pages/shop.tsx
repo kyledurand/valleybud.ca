@@ -243,7 +243,7 @@ function Menu({
           <Stack
             gap="4"
             paddingInline={mdUp ? "7" : "5"}
-            paddingBlock="2"
+            paddingBlock="1"
             fullWidth
           >
             {bannerMarkup}
@@ -256,7 +256,7 @@ function Menu({
               <SecondaryFilters onEffectSelect={onEffectSelect} />
             </Sidebar>
           </DesktopOnly>
-          <Stack gap="2" grow>
+          <Stack gap="1" grow>
             <MobileOnly>
               <MobileFilters
                 selectedCategories={selectedCategories}
@@ -296,10 +296,10 @@ function Menu({
         </Content>
 
         <Pagination>
-          <ButtonGroup>
+          <ButtonGroup color="inherit">
             <Button
               aria-label="Previous products"
-              variant="contained"
+              variant="outlined"
               onClick={() => {
                 setOffset((offset) => offset - PAGINATION_LIMIT);
                 window.scrollTo(0, 0);
@@ -309,7 +309,7 @@ function Menu({
             </Button>
             <Button
               aria-label="More products"
-              variant="contained"
+              variant="outlined"
               onClick={() => {
                 setOffset((offset) => offset + PAGINATION_LIMIT);
                 window.scrollTo(0, 0);

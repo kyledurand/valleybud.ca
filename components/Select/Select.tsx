@@ -22,6 +22,7 @@ export function Select({options, ...rest}: SelectProps) {
 }
 
 const StyledSelect = styled.select<{fullWidth?: boolean}>`
+  background-color: inherit;
   border: var(--outline-1);
   padding: var(--space-2);
   border-radius: var(--radius-1);
