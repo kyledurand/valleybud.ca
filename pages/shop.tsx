@@ -253,7 +253,10 @@ function Menu({
         <Content>
           <DesktopOnly>
             <Sidebar>
-              <SecondaryFilters onEffectSelect={onEffectSelect} />
+              <SecondaryFilters
+                selectedCategory={[...selectedCategories][0]}
+                onEffectSelect={onEffectSelect}
+              />
             </Sidebar>
           </DesktopOnly>
           <Stack gap="1" grow>

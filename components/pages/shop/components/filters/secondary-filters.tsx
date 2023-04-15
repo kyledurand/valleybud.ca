@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
+import {Checkbox, FormControlLabel} from "@material-ui/core";
 import {Category, Effects, useMenuQuery} from "api/queries/menu.graphql";
 import {Text} from "components/Text";
 import {Stack} from "components/Stack";
@@ -14,23 +14,25 @@ import {
 import {enumToTitleCase} from "utils/product";
 
 interface SecondaryFiltersProps {
+  selectedCategory: Category;
   onEffectSelect: (effect: Effects) => void;
 }
 
 export function SecondaryFilters({
+  selectedCategory,
   onEffectSelect,
-}: SecondaryFiltersProps): JSX.Element {
-  const {data} = useMenuQuery({
+}: SecondaryFiltersProps) {
+  const {data, loading} = useMenuQuery({
     variables: {
       retailerId: retailerId,
-      category: Category.Flower,
+      category: selectedCategory,
       effects: [],
       brandId: undefined,
       offset: 0,
       limit: 250,
       sortDirection: SortDirection.Asc,
       sortKey: MenuSortKey.Popular,
-      search: undefined,
+      search: "",
       // minimumThc: 0,
       // maximumThc: 100,
       // minimumCbd: 0,
@@ -38,6 +40,8 @@ export function SecondaryFilters({
       // unit: PotencyUnit.Percentage,
     },
   });
+
+  if (loading) return null;
 
   const products = data?.menu?.products;
   const types = new Set(
@@ -50,88 +54,96 @@ export function SecondaryFilters({
     products?.map((product) => product.subcategory)
   );
 
-  console.log({products});
-
   return (
     <Container>
-      <FormGroup>
-        <Stack gap>
-          <Text as="legend" variant="subheading">
-            Subcategories
-          </Text>
-          <Stack>
+      {[...subCategories].length > 1 && (
+        <>
+          <Stack gap>
+            <Text as="legend" variant="subheading">
+              Subcategories
+            </Text>
+            <Stack>
+              {Array.from(subCategories).map((subCategory) => (
+                <FormControlLabel
+                  key={subCategory}
+                  style={{marginInlineStart: 0}}
+                  onClick={() => console.log("change", subCategory)}
+                  label={
+                    subCategory === "DEFAULT"
+                      ? enumToTitleCase(selectedCategory)
+                      : enumToTitleCase(subCategory!)
+                  }
+                  control={
+                    <Checkbox
+                      hidden
+                      style={{
+                        padding: "var(--space-1)",
+                        color: "var(--text)",
+                      }}
+                      id={subCategory!}
+                      size="small"
+                    />
+                  }
+                />
+              ))}
+            </Stack>
+          </Stack>
+          <hr style={{marginBlock: "var(--space-4)"}} />
+        </>
+      )}
+
+      {[...types].length > 1 && (
+        <>
+          <Stack gap>
+            <Text as="legend" variant="subheading">
+              Types
+            </Text>
+            <Stack>
+              {Array.from(types).map((type) => (
+                <FormControlLabel
+                  key={type}
+                  style={{marginInlineStart: 0}}
+                  onClick={() => console.log("change", type)}
+                  label={enumToTitleCase(type)}
+                  control={
+                    <Checkbox
+                      hidden
+                      style={{padding: "var(--space-1)", color: "var(--text)"}}
+                      id={type!}
+                      size="small"
+                    />
+                  }
+                />
+              ))}
+            </Stack>
+          </Stack>
+          <hr style={{marginBlock: "var(--space-4)"}} />
+        </>
+      )}
+
+      <Stack gap>
+        <Text as="legend" variant="subheading">
+          Effects
+        </Text>
+        <Stack>
+          {Object.entries(Effects).map(([key, effect]) => (
             <FormControlLabel
-              style={{marginInlineStart: 0}}
-              // onChange={(event) =>
-              //   console.log("change", event.currentTarget.id)
-              // }
-              label="Flower"
+              key={key}
+              style={{marginInlineStart: -6}}
+              label={key}
+              onChange={() => onEffectSelect(effect)}
               control={
                 <Checkbox
-                  hidden
+                  id={key}
                   style={{padding: "var(--space-1)", color: "var(--text)"}}
-                  id="flower"
                   size="small"
+                  value={effect}
                 />
               }
             />
-            <FormControlLabel
-              style={{marginInlineStart: 0}}
-              // onChange={(event) => console.log("change", event.target.value)}
-              label="Concentrates"
-              control={
-                <Checkbox
-                  hidden
-                  style={{padding: "var(--space-1)", color: "var(--text)"}}
-                  id="concentrates"
-                  value="concentrates"
-                  size="small"
-                />
-              }
-            />
-          </Stack>
+          ))}
         </Stack>
-      </FormGroup>
-      <hr style={{marginBlock: "var(--space-4)"}} />
-      sub categoriesToShow
-      {Array.from(subCategories).map((subCategory) => (
-        <div key={subCategory}>
-          {subCategory === "DEFAULT"
-            ? "Flower"
-            : enumToTitleCase(subCategory ?? "")}
-        </div>
-      ))}
-      <hr style={{marginBlock: "var(--space-4)"}} />
-      types
-      {Array.from(types).map((type) => (
-        <div key={type}>{enumToTitleCase(type ?? "")}</div>
-      ))}
-      <hr style={{marginBlock: "var(--space-4)"}} />
-      <FormGroup>
-        <Stack gap>
-          <Text as="legend" variant="subheading">
-            Effects
-          </Text>
-          <Stack>
-            {Object.entries(Effects).map(([key, effect]) => (
-              <FormControlLabel
-                key={key}
-                style={{marginInlineStart: -6}}
-                label={key}
-                onChange={() => onEffectSelect(effect)}
-                control={
-                  <Checkbox
-                    id={key}
-                    style={{padding: "var(--space-1)", color: "var(--text)"}}
-                    size="small"
-                    value={effect}
-                  />
-                }
-              />
-            ))}
-          </Stack>
-        </Stack>
-      </FormGroup>
+      </Stack>
     </Container>
   );
 }

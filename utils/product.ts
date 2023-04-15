@@ -29,8 +29,8 @@ export function deriveDisplayPrices(product: ProductFragment): DisplayPrices {
   };
 }
 
-export function enumToTitleCase(enumValue: string) {
-  return capitalizeFirstLetter(enumValue.replace(/_/g, " "));
+export function enumToTitleCase(enumValue?: string | null) {
+  return capitalizeFirstLetter(enumValue?.replace(/_/g, " "));
 }
 
 export function capitalizeFirstLetter(string?: String) {
