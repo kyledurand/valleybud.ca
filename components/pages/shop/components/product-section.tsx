@@ -96,8 +96,13 @@ export function ProductSection({
       {loading && <LoadingSpinner />}
       <SectionHeader>{enumToTitleCase(category)}</SectionHeader>
       <Layout>
-        {(data?.menu?.products || []).map((product) => (
-          <ProductCard layout={view} key={product.id} product={product} />
+        {[...data?.menu?.products].map((product) => (
+          <>
+            <ProductCard layout={view} key={product.id} product={product} />
+            {view === "list" && (
+              <hr style={{marginBlock: "var(--space-05)", width: "100%"}} />
+            )}
+          </>
         ))}
       </Layout>
     </Section>
