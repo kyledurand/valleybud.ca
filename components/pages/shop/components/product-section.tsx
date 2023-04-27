@@ -83,11 +83,11 @@ export function ProductSection({
       limit: paginationLimit,
       sortDirection: sortDirection,
       sortKey: sortKey,
-      // minimumThc: range?.minThc ?? 0,
-      // maximumThc: range?.maxThc ?? 100,
-      // minimumCbd: range?.minCbd ?? 0,
-      // maximumCbd: range?.maxCbd ?? 100,
-      // unit,
+      minimumThc: range?.minThc ?? 0,
+      maximumThc: range?.maxThc ?? 100,
+      minimumCbd: range?.minCbd ?? 0,
+      maximumCbd: range?.maxCbd ?? 100,
+      unit: unit ?? PotencyUnit.Percentage,
     },
   });
 

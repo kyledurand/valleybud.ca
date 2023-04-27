@@ -7,7 +7,7 @@ import {Stack} from "components/Stack";
 import {retailerId} from "api/apollo";
 import {
   MenuSortKey,
-  // PotencyUnit,
+  PotencyUnit,
   SortDirection,
   StrainType,
 } from "api/fragments/menu-product.graphql";
@@ -27,17 +27,16 @@ export function SecondaryFilters({
       retailerId: retailerId,
       category: selectedCategory,
       effects: [],
-      brandId: undefined,
       offset: 0,
       limit: 250,
       sortDirection: SortDirection.Asc,
       sortKey: MenuSortKey.Popular,
       search: "",
-      // minimumThc: 0,
-      // maximumThc: 100,
-      // minimumCbd: 0,
-      // maximumCbd: 100,
-      // unit: PotencyUnit.Percentage,
+      minimumThc: 0,
+      maximumThc: 100,
+      minimumCbd: 0,
+      maximumCbd: 100,
+      unit: PotencyUnit.Percentage,
     },
   });
 

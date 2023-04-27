@@ -230,6 +230,8 @@ function Menu({
     </Grid>
   ) : null;
 
+  const selectedCategory = [...selectedCategories][0];
+
   return (
     <CheckoutContext.Provider value={checkoutContext}>
       <Meta title="Shop Valleybud.ca" />
@@ -251,14 +253,16 @@ function Menu({
           </Stack>
         ) : null}
         <Content>
-          <DesktopOnly>
-            <Sidebar>
-              <SecondaryFilters
-                selectedCategory={[...selectedCategories][0]}
-                onEffectSelect={onEffectSelect}
-              />
-            </Sidebar>
-          </DesktopOnly>
+          {selectedCategory && (
+            <DesktopOnly>
+              <Sidebar>
+                <SecondaryFilters
+                  selectedCategory={selectedCategory}
+                  onEffectSelect={onEffectSelect}
+                />
+              </Sidebar>
+            </DesktopOnly>
+          )}
           <Stack gap="1" grow>
             <MobileOnly>
               <MobileFilters
