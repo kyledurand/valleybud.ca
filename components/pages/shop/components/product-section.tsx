@@ -100,7 +100,12 @@ export function ProductSection({
           <>
             <ProductCard layout={view} key={product.id} product={product} />
             {view === "list" && (
-              <hr style={{marginBlock: "var(--space-05)", width: "100%"}} />
+              <hr
+                style={{
+                  marginBlock: "var(--space-05)",
+                  width: "calc(100% - var(--space-7))",
+                }}
+              />
             )}
           </>
         ))}
