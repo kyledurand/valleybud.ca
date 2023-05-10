@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
 import styled from "styled-components";
 import {Text} from "../../Text";
-import {ProductFragment} from "api/queries/menu.graphql";
+import {ProductFragmentFragment} from "api/queries/menu.graphql";
 import {enumToTitleCase, deriveDisplayPrices} from "utils/product";
 
 import {ProductModal} from "./product-modal";
@@ -15,7 +15,7 @@ import {formatPrice} from "utils/number-format";
 import {Badge} from "components/Badge";
 
 interface ProductCardProps {
-  product: ProductFragment;
+  product: ProductFragmentFragment;
   layout: "grid" | "list";
 }
 

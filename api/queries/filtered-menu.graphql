@@ -1,6 +1,6 @@
 # import productFragment from '../fragments/menu-product.graphql'
 
-query Menu(
+query FilteredMenu(
   $retailerId: ID!
   $category: Category
   $search: String
@@ -10,6 +10,11 @@ query Menu(
   $limit: Int!
   $sortDirection: SortDirection!
   $sortKey: MenuSortKey!
+  $minimumThc: Float
+  $maximumThc: Float
+  $minimumCbd: Float
+  $maximumCbd: Float
+  $unit: PotencyUnit
 ) {
   menu(
     filter: {
@@ -17,6 +22,8 @@ query Menu(
       search: $search
       effects: $effects
       brandId: $brandId
+      potencyThc: {min: $minimumThc, max: $maximumThc, unit: $unit}
+      potencyCbd: {min: $minimumCbd, max: $maximumCbd, unit: $unit}
     }
     pagination: {limit: $limit, offset: $offset}
     retailerId: $retailerId

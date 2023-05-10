@@ -8,11 +8,11 @@ import {retailerId} from "api/apollo";
 import {
   MenuSortKey,
   PotencyRange,
-  PotencyUnit,
   SortDirection,
   StrainType,
 } from "api/fragments/menu-product.graphql";
 import {enumToTitleCase} from "utils/product";
+import {useFilteredMenuQuery} from "api/queries/filtered-menu.graphql";
 
 interface SecondaryFiltersProps {
   selectedCategory: Category;
@@ -27,28 +27,47 @@ export function SecondaryFilters({
   thcRange,
   onEffectSelect,
 }: SecondaryFiltersProps) {
-  const {data, loading} = useMenuQuery({
+  const isFilterableQuery = selectedCategory === Category.Flower;
+  const {
+    data: filteredData,
+    loading: filteredDataLoading,
+  } = useFilteredMenuQuery({
     variables: {
-      retailerId: retailerId,
+      retailerId,
       category: selectedCategory,
+      search: undefined,
       effects: [],
       offset: 0,
       limit: 250,
       sortDirection: SortDirection.Asc,
       sortKey: MenuSortKey.Popular,
-      search: "",
-      minimumCbd: cbdRange?.min ?? 0,
-      maximumCbd: cbdRange?.max ?? 100,
-      minimumThc: thcRange?.min ?? 0,
-      maximumThc: thcRange?.max ?? 100,
-      unit: cbdRange?.unit ?? thcRange?.unit ?? PotencyUnit.Percentage,
+      minimumCbd: cbdRange?.min,
+      maximumCbd: thcRange?.max,
+      minimumThc: thcRange?.min,
+      maximumThc: thcRange?.max,
+      unit: cbdRange?.unit ?? thcRange?.unit,
     },
   });
-  console.log(cbdRange?.unit);
 
-  if (loading) return null;
+  const {data, loading} = useMenuQuery({
+    variables: {
+      retailerId,
+      category: selectedCategory,
+      search: undefined,
+      effects: [],
+      offset: 0,
+      limit: 250,
+      sortDirection: SortDirection.Asc,
+      sortKey: MenuSortKey.Popular,
+    },
+  });
 
-  const products = data?.menu?.products;
+  const finalData = isFilterableQuery ? filteredData : data;
+  const finalLoading = isFilterableQuery ? filteredDataLoading : loading;
+
+  if (finalLoading) return null;
+
+  const products = finalData?.menu?.products;
   const types = new Set(
     products
       ?.map((product) => product.strainType)

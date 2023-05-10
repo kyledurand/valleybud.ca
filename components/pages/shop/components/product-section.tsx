@@ -8,9 +8,9 @@ import {
   Effects,
   MenuSortKey,
   PotencyRange,
-  PotencyUnit,
 } from "api/fragments/menu-product.graphql";
 import {enumToTitleCase} from "utils/product";
+import {useFilteredMenuQuery} from "api/queries/filtered-menu.graphql";
 
 interface ProductSectionProps {
   searchQuery: string;
@@ -61,6 +61,28 @@ export function ProductSection({
 
   // PotencyUnit.Percentage
   // Flower, prerolls, concentrates, accessories
+  const isFilterableQuery = category === Category.Flower;
+  const {
+    data: filteredData,
+    loading: filteredDataLoading,
+  } = useFilteredMenuQuery({
+    variables: {
+      retailerId,
+      category: category,
+      search: searchQuery,
+      brandId: selectedBrand?.id,
+      effects: selectedEffects,
+      offset: offset,
+      limit: paginationLimit,
+      sortDirection: sortDirection,
+      sortKey: sortKey,
+      minimumCbd: cbdRange?.min,
+      maximumCbd: thcRange?.max,
+      minimumThc: thcRange?.min,
+      maximumThc: thcRange?.max,
+      unit: cbdRange?.unit ?? thcRange?.unit,
+    },
+  });
 
   const {data, loading} = useMenuQuery({
     variables: {
@@ -73,20 +95,18 @@ export function ProductSection({
       limit: paginationLimit,
       sortDirection: sortDirection,
       sortKey: sortKey,
-      minimumCbd: cbdRange?.min ?? 0,
-      maximumCbd: thcRange?.max ?? 100,
-      minimumThc: thcRange?.min ?? 0,
-      maximumThc: thcRange?.max ?? 100,
-      unit: cbdRange?.unit ?? thcRange?.unit ?? PotencyUnit.Percentage,
     },
   });
 
-  return data?.menu?.products.length ? (
+  const finalData = isFilterableQuery ? filteredData : data;
+  const finalLoading = isFilterableQuery ? filteredDataLoading : loading;
+
+  return finalData?.menu?.products.length ? (
     <Section>
-      {loading && <LoadingSpinner />}
+      {finalLoading && <LoadingSpinner />}
       <SectionHeader>{enumToTitleCase(category)}</SectionHeader>
       <Layout>
-        {[...data?.menu?.products].map((product) => (
+        {[...finalData?.menu?.products].map((product) => (
           <>
             <ProductCard layout={view} key={product.id} product={product} />
             {view === "list" && (
@@ -101,7 +121,7 @@ export function ProductSection({
         ))}
       </Layout>
     </Section>
-  ) : loading ? (
+  ) : finalLoading ? (
     <p>Loading...</p>
   ) : null;
 }

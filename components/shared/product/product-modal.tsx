@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 
 import {useAddItemToCheckoutMutation} from "api/mutations/add-item-to-checkout.graphql";
-import {ProductFragment} from "api/fragments/menu-product.graphql";
+import {ProductFragmentFragment} from "api/fragments/menu-product.graphql";
 import {DesktopOnly} from "components/shared/responsive/desktop-only";
 import {MobileOnly} from "components/shared/responsive/mobile-only";
 import {CloseButton} from "components/shared/svg/close-button";
@@ -23,7 +23,7 @@ import {formatPrice} from "utils/number-format";
 import {retailerId} from "api/apollo";
 
 interface ProductModalProps {
-  product: ProductFragment;
+  product: ProductFragmentFragment;
   open: boolean;
   onClose: () => void;
 }

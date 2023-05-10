@@ -24,6 +24,7 @@ import {useTheme} from "@material-ui/core/styles";
 import {
   Effects,
   MenuSortKey,
+  PotencyUnit,
   SortDirection,
 } from "api/fragments/menu-product.graphql";
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
@@ -97,7 +98,11 @@ function Menu({
 
   // const unit = PotencyUnit.MilligramsPerGram;
 
-  const tempRange = {min: undefined, max: undefined, unit: undefined};
+  const tempRange = {
+    min: undefined,
+    max: undefined,
+    unit: PotencyUnit.Percentage,
+  };
 
   function onEffectSelect(effect: Effects) {
     if (selectedEffects.has(effect)) {
