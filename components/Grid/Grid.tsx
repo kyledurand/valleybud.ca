@@ -5,7 +5,7 @@ export function Grid({children}: {children: React.ReactNode}) {
 }
 
 const StyledGrid = styled.div`
-  display: grid;
+  display: flex;
   gap: var(--space-1);
-  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  padding: var(--space-3) 0;
 `;

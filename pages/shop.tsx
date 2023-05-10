@@ -35,7 +35,6 @@ import {ProductSection} from "components/pages/shop/components/product-section";
 import {Banner, Category as DisplayCategory} from "types";
 import {PortableText} from "@portabletext/react";
 import {Button as PlainButton} from "components/Button";
-import {Grid} from "components/Grid";
 import {Text} from "components/Text";
 
 export const CATEGORIES: Category[] = Object.entries(Category)
@@ -88,6 +87,17 @@ function Menu({
     "category",
     CategoriesParam
   );
+
+  const category = [...selectedCategories][0];
+
+  // const unit =
+  //   category === Category.Edibles || category === Category.Cbd
+  //     ? PotencyUnit.Milligrams
+  //     : PotencyUnit.Percentage;
+
+  // const unit = PotencyUnit.MilligramsPerGram;
+
+  const tempRange = {min: undefined, max: undefined, unit: undefined};
 
   function onEffectSelect(effect: Effects) {
     if (selectedEffects.has(effect)) {
@@ -162,7 +172,7 @@ function Menu({
   );
 
   const clearFiltersMarkup =
-    brandName || selectedEffects.size ? (
+    brandName || selectedEffects.size || selectedCategories.size ? (
       <Button
         color="inherit"
         style={{
@@ -174,11 +184,13 @@ function Menu({
         onClick={() => {
           setBrandId(undefined);
           setBrandName(undefined);
+          setSelectedCategories(new Set());
+          selectSingleCategory(undefined);
+          setSelectedEffects(new Set());
           setSort({
             sortKey: MenuSortKey.Popular,
             sortDirection: SortDirection.Asc,
           });
-          setSelectedEffects(new Set());
         }}
       >
         Reset
@@ -186,23 +198,25 @@ function Menu({
     ) : null;
 
   const bannerMarkup = banner.length ? (
-    <Stack gap>
+    <Stack gap data-wrapper="banner map">
       {banner.map((banner) => (
-        <Banner
+        <div
           key={banner.content}
           style={{
             backgroundColor: banner.background,
             color: banner.color,
+            padding: "var(--space-2)",
+            borderRadius: "var(--radius-1)",
           }}
         >
           <PortableText value={banner.content} />
-        </Banner>
+        </div>
       ))}
     </Stack>
   ) : null;
 
   const categoriesMarkup = categories.length ? (
-    <Grid>
+    <Stack inline gap wrap={false}>
       {categories
         .sort(({priority}, {priority: sortedPriority}) =>
           priority && sortedPriority ? priority - sortedPriority : -1
@@ -213,24 +227,27 @@ function Menu({
             key={category.title}
             onClick={() =>
               selectSingleCategory(
-                (category.link?.split("=")[1] || undefined) as Category
+                (category.link?.split("=")[1] ?? undefined) as Category
               )
             }
           >
             <Image
-              src={category.imageUrl || ""}
-              alt={category.imageAlt || ""}
+              src={category.imageUrl ?? ""}
+              alt={category.imageAlt ?? ""}
               width={180}
               height={95}
-              style={{width: "100%", height: "auto"}}
+              style={{
+                width: "100%",
+                height: "auto",
+                maxWidth: "100%",
+                borderRadius: "4px",
+              }}
             />
             <Text align="center">{category.title}</Text>
           </PlainButton>
         ))}
-    </Grid>
+    </Stack>
   ) : null;
-
-  const selectedCategory = [...selectedCategories][0];
 
   return (
     <CheckoutContext.Provider value={checkoutContext}>
@@ -244,8 +261,8 @@ function Menu({
         {bannerMarkup || categoriesMarkup ? (
           <Stack
             gap="4"
-            paddingInline={mdUp ? "7" : "5"}
             paddingBlock="1"
+            paddingInline={mdUp ? "7" : "5"}
             fullWidth
           >
             {bannerMarkup}
@@ -253,16 +270,18 @@ function Menu({
           </Stack>
         ) : null}
         <Content>
-          {selectedCategory && (
+          {selectedCategories.size ? (
             <DesktopOnly>
               <Sidebar>
                 <SecondaryFilters
-                  selectedCategory={selectedCategory}
+                  cbdRange={tempRange}
+                  thcRange={tempRange}
+                  selectedCategory={category}
                   onEffectSelect={onEffectSelect}
                 />
               </Sidebar>
             </DesktopOnly>
-          )}
+          ) : null}
           <Stack gap="1" grow>
             <MobileOnly>
               <MobileFilters
@@ -297,6 +316,8 @@ function Menu({
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}
                 sort={sort}
+                cbdRange={tempRange}
+                thcRange={tempRange}
               />
             ))}
           </Stack>
@@ -343,11 +364,6 @@ const Container = styled.div`
   }
 `;
 
-const Banner = styled.div`
-  padding: var(--space-2);
-  border-radius: var(--radius-1);
-`;
-
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
@@ -374,7 +390,7 @@ const client = createClient({
   projectId: "oldv6j45",
   dataset: "production",
   apiVersion: new Date().toISOString().split("T")[0],
-  useCdn: false,
+  useCdn: true,
 });
 
 export const getStaticProps: GetStaticProps = async function () {

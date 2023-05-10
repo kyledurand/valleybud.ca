@@ -64,6 +64,7 @@ const StyledButton = styled.button<{variant: ButtonProps["variant"]}>`
   font-size: var(--font-size-1);
   text-align: start;
   text-decoration: underline;
+  padding: 0;
 
   ${({variant}) => {
     switch (variant) {

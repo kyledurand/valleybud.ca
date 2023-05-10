@@ -38,7 +38,8 @@ export function Stack({
   fullHeight,
   fullWidth,
   gap,
-}: Props) {
+  ...rest
+}: Props & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       style={{
@@ -67,6 +68,7 @@ export function Stack({
         flexWrap: wrap ? "wrap" : undefined,
         width: fullWidth ? "100%" : undefined,
       }}
+      {...rest}
     >
       {children}
     </div>

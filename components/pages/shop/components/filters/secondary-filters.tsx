@@ -7,6 +7,7 @@ import {Stack} from "components/Stack";
 import {retailerId} from "api/apollo";
 import {
   MenuSortKey,
+  PotencyRange,
   PotencyUnit,
   SortDirection,
   StrainType,
@@ -15,11 +16,15 @@ import {enumToTitleCase} from "utils/product";
 
 interface SecondaryFiltersProps {
   selectedCategory: Category;
+  cbdRange?: PotencyRange;
+  thcRange?: PotencyRange;
   onEffectSelect: (effect: Effects) => void;
 }
 
 export function SecondaryFilters({
   selectedCategory,
+  cbdRange,
+  thcRange,
   onEffectSelect,
 }: SecondaryFiltersProps) {
   const {data, loading} = useMenuQuery({
@@ -32,13 +37,14 @@ export function SecondaryFilters({
       sortDirection: SortDirection.Asc,
       sortKey: MenuSortKey.Popular,
       search: "",
-      minimumThc: 0,
-      maximumThc: 100,
-      minimumCbd: 0,
-      maximumCbd: 100,
-      unit: PotencyUnit.Percentage,
+      minimumCbd: cbdRange?.min ?? 0,
+      maximumCbd: cbdRange?.max ?? 100,
+      minimumThc: thcRange?.min ?? 0,
+      maximumThc: thcRange?.max ?? 100,
+      unit: cbdRange?.unit ?? thcRange?.unit ?? PotencyUnit.Percentage,
     },
   });
+  console.log(cbdRange?.unit);
 
   if (loading) return null;
 

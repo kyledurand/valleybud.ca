@@ -29,7 +29,7 @@ const client = createClient({
   projectId: "oldv6j45",
   dataset: "production",
   apiVersion: new Date().toISOString().split("T")[0],
-  useCdn: false,
+  useCdn: true,
 });
 
 export const getStaticProps: GetStaticProps = async function () {

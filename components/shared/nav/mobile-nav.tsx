@@ -12,14 +12,13 @@ import {CartIcon} from "components/shared/svg/cart-icon";
 import {CheckoutContext} from "components/shared/checkout-context";
 import {LoadingSpinner} from "components/shared/loading-spinner";
 
-import {NavProps} from "./index";
 import {Cart} from "./cart/index";
+import {SHARED_LINKS} from "../footer";
+import {Stack} from "components/Stack";
 
 const NAV_HEIGHT = "76px";
 
-export function MobileNav(props: NavProps): JSX.Element {
-  const {page} = props;
-
+export function MobileNav(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const baseNavBarRef = useRef<HTMLDivElement>(null);
@@ -41,15 +40,6 @@ export function MobileNav(props: NavProps): JSX.Element {
     router.push("/");
   }
 
-  function handleShopClick() {
-    if (page === "shop") {
-      setIsMenuOpen(false);
-    } else {
-      router.push("/shop");
-      setIsMenuOpen(false);
-    }
-  }
-
   function openCart() {
     setIsCartOpen(true);
   }
@@ -65,7 +55,21 @@ export function MobileNav(props: NavProps): JSX.Element {
         {isMenuOpen ? (
           <CloseButton isDark onClick={closeMenu} />
         ) : (
-          <MobileMenuIcon isDark onClick={openMenu} />
+          <Stack inline gap align="center">
+            <LoginAndCartSection>
+              <CartIconContainer>
+                <CartCount>
+                  {loading ? (
+                    <LoadingSpinner size={8} color="var(--text)" />
+                  ) : (
+                    checkoutItemsCount
+                  )}
+                </CartCount>
+                <CartIcon onClick={openCart} />
+              </CartIconContainer>
+            </LoginAndCartSection>
+            <MobileMenuIcon isDark onClick={openMenu} />
+          </Stack>
         )}
       </Container>
       {/* SHOP MENU */}
@@ -77,27 +81,11 @@ export function MobileNav(props: NavProps): JSX.Element {
         transitionDuration={0}
         style={{marginTop: NAV_HEIGHT}}
       >
-        <LoginAndCartSection>
-          <CartIconContainer>
-            <CartCount>
-              {loading ? (
-                <LoadingSpinner size={8} color="var(--text)" />
-              ) : (
-                checkoutItemsCount
-              )}
-            </CartCount>
-            <CartIcon onClick={openCart} />
-          </CartIconContainer>
-        </LoginAndCartSection>
-        <StyledMenuItem onClick={handleShopClick}>Shop</StyledMenuItem>
-        <StyledMenuItem
-          onClick={() => {
-            router.push("/location");
-            setIsMenuOpen(false);
-          }}
-        >
-          Location
-        </StyledMenuItem>
+        {SHARED_LINKS.map((link) => (
+          <StyledMenuItem key={link.name}>
+            <a href={link.href}>{link.name}</a>
+          </StyledMenuItem>
+        ))}
       </StyledMenu>
       {/* CART  */}
       <StyledMenu

@@ -35,6 +35,6 @@ const Content = styled.div<{mediaQuery: string}>`
   display: none;
 
   ${({mediaQuery}) => mediaQuery} {
-    display: contents;
+    display: block;
   }
 `;

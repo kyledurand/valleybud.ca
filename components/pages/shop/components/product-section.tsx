@@ -27,13 +27,8 @@ interface ProductSectionProps {
     sortKey?: MenuSortKey;
     sortDirection: SortDirection;
   };
-  range?: {
-    minThc?: number;
-    maxThc?: number;
-    minCbd?: number;
-    maxCbd?: number;
-    unit?: PotencyUnit;
-  };
+  cbdRange?: PotencyRange;
+  thcRange?: PotencyRange;
 }
 
 export function ProductSection({
@@ -44,7 +39,8 @@ export function ProductSection({
   selectedEffects,
   offset,
   paginationLimit,
-  range,
+  cbdRange,
+  thcRange,
   sort: {sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc},
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
@@ -53,10 +49,6 @@ export function ProductSection({
   //     ? PotencyUnit.Milligrams
   //     : PotencyUnit.Percentage
   //   : undefined;
-
-  const unit: PotencyRange["unit"] = range?.unit
-    ? range.unit
-    : PotencyUnit.Percentage;
 
   // PotencyUnit.Milligrams
   // Edibles, concentrates, accessories
@@ -70,8 +62,6 @@ export function ProductSection({
   // PotencyUnit.Percentage
   // Flower, prerolls, concentrates, accessories
 
-  console.log({unit});
-
   const {data, loading} = useMenuQuery({
     variables: {
       retailerId,
@@ -83,11 +73,11 @@ export function ProductSection({
       limit: paginationLimit,
       sortDirection: sortDirection,
       sortKey: sortKey,
-      minimumThc: range?.minThc ?? 0,
-      maximumThc: range?.maxThc ?? 100,
-      minimumCbd: range?.minCbd ?? 0,
-      maximumCbd: range?.maxCbd ?? 100,
-      unit: unit ?? PotencyUnit.Percentage,
+      minimumCbd: cbdRange?.min ?? 0,
+      maximumCbd: thcRange?.max ?? 100,
+      minimumThc: thcRange?.min ?? 0,
+      maximumThc: thcRange?.max ?? 100,
+      unit: cbdRange?.unit ?? thcRange?.unit ?? PotencyUnit.Percentage,
     },
   });
 

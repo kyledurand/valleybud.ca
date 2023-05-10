@@ -18,7 +18,7 @@ export function Nav(props: NavProps): JSX.Element {
         <DesktopNav {...props} />
       </DesktopOnly>
       <MobileOnly>
-        <MobileNav {...props} />
+        <MobileNav />
       </MobileOnly>
     </>
   );

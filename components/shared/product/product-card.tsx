@@ -29,7 +29,6 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
     addItemToCheckoutMutation,
     {loading: addingToCart},
   ] = useAddItemToCheckoutMutation();
-  console.log({product});
 
   async function handleAddToCartClick(event: React.MouseEvent) {
     event.stopPropagation();
