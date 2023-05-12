@@ -1,25 +1,25 @@
-fragment terpeneFragment on Terpene {
-  aliasList
-  aromas
-  description
-  effects
-  id
-  name
-  potentialHealthBenefits
-  unitSymbol
-}
+# fragment terpeneFragment on Terpene {
+#   aliasList
+#   aromas
+#   description
+#   effects
+#   id
+#   name
+#   potentialHealthBenefits
+#   unitSymbol
+# }
 
-fragment activeTerpeneFragment on ActiveTerpene {
-  id
-  terpene {
-    ...terpeneFragment
-  }
-  name
-  terpeneId
-  unit
-  unitSymbol
-  value
-}
+# fragment activeTerpeneFragment on ActiveTerpene {
+#   id
+#   terpene {
+#     ...terpeneFragment
+#   }
+#   name
+#   terpeneId
+#   unit
+#   unitSymbol
+#   value
+# }
 
 fragment activeCannabinoidFragment on ActiveCannabinoid {
   cannabinoidId
@@ -85,9 +85,9 @@ fragment productFragment on Product {
     specialPriceRec
     quantity
   }
-  terpenes {
-    ...activeTerpeneFragment
-  }
+  # terpenes {
+  #   ...activeTerpeneFragment
+  # }
   cannabinoids {
     ...activeCannabinoidFragment
   }

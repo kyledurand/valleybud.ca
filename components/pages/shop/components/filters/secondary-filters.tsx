@@ -184,7 +184,7 @@ SecondaryFiltersProps) {
 
       {showPotency && (
         <>
-          <Stack gap>
+          <Stack gap justify="center">
             <Text variant="subheading">Potency</Text>
 
             <Text size="1" weight="1">
@@ -194,6 +194,7 @@ SecondaryFiltersProps) {
               {thcRange[0]} - {thcRange[1]}{" "}
               {unit === PotencyUnit.Percentage ? "%" : "mg"}
             </Text>
+
             <StyledSlider
               getAriaLabel={() => "CBD range"}
               value={thcRange}
@@ -214,6 +215,7 @@ SecondaryFiltersProps) {
               {cbdRange[0]} - {cbdRange[1]}{" "}
               {unit === PotencyUnit.Percentage ? "%" : "mg"}
             </Text>
+
             <StyledSlider
               getAriaLabel={() => "CBD range"}
               value={cbdRange}
@@ -267,4 +269,6 @@ const Divider = ({subtle}: {subtle?: boolean}) => (
 
 const StyledSlider = styled(Slider)`
   color: var(--text);
+  width: 75%;
+  margin: 0 auto;
 `;
