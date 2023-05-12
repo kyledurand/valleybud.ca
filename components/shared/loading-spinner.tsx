@@ -32,11 +32,11 @@ const Outer = styled.div<{
   isInline: boolean;
   centered: boolean;
 }>`
+  position: "relative";
   display: ${(props) => (props.isInline ? "inline-block" : "block")};
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
   animation: ${rotate} 1.5s linear infinite;
-  position: ${(props) => (props.centered ? "absolute" : "initial")};
   top: ${(props) => (props.centered ? "50%" : "initial")};
   left: ${(props) => (props.centered ? "50%" : "initial")};
   z-index: 1;

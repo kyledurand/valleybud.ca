@@ -226,7 +226,6 @@ const QuantitySelect = styled(StyledSelect)`
 const DialogContent = styled.div`
   position: relative;
   display: flex;
-  max-height: 700px;
 
   @media ${mediaQueriesDown.phone} {
     flex-direction: column;

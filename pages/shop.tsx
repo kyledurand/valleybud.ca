@@ -52,6 +52,17 @@ const SORT_OPTIONS = {
   [`${MenuSortKey.Potency}-${SortDirection.Asc}`]: "Potency: Low to High",
 };
 
+interface Range {
+  min?: number;
+  max?: number;
+}
+
+export interface Potency {
+  thcRange?: Range;
+  cbdRange?: Range;
+  unit?: PotencyUnit;
+}
+
 function Menu({
   categories,
   banner,
@@ -76,9 +87,6 @@ function Menu({
   const {data: brandData, loading: brandsLoading} = useBrandsQueryQuery({
     variables: {retailerId},
   });
-
-  useLayoutEffect(() => setView(defaultView), [defaultView]);
-
   const [selectedEffects, setSelectedEffects] = useQueryParam(
     "effect",
     EffectsParam
@@ -91,18 +99,16 @@ function Menu({
 
   const category = [...selectedCategories][0];
 
-  // const unit =
-  //   category === Category.Edibles || category === Category.Cbd
-  //     ? PotencyUnit.Milligrams
-  //     : PotencyUnit.Percentage;
+  const [potency, setPotency] = useState<Potency>({
+    thcRange: undefined,
+    cbdRange: undefined,
+    unit:
+      category === Category.Edibles || category === Category.Topicals
+        ? PotencyUnit.Milligrams
+        : PotencyUnit.Percentage,
+  });
 
-  // const unit = PotencyUnit.MilligramsPerGram;
-
-  const tempRange = {
-    min: undefined,
-    max: undefined,
-    unit: PotencyUnit.Percentage,
-  };
+  useLayoutEffect(() => setView(defaultView), [defaultView]);
 
   function onEffectSelect(effect: Effects) {
     if (selectedEffects.has(effect)) {
@@ -266,7 +272,7 @@ function Menu({
         {bannerMarkup || categoriesMarkup ? (
           <Stack
             gap="4"
-            paddingBlock="1"
+            paddingBlock="4"
             paddingInline={mdUp ? "7" : "5"}
             fullWidth
           >
@@ -279,10 +285,9 @@ function Menu({
             <DesktopOnly>
               <Sidebar>
                 <SecondaryFilters
-                  cbdRange={tempRange}
-                  thcRange={tempRange}
                   selectedCategory={category}
                   onEffectSelect={onEffectSelect}
+                  onPotencyChange={setPotency}
                 />
               </Sidebar>
             </DesktopOnly>
@@ -321,8 +326,8 @@ function Menu({
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}
                 sort={sort}
-                cbdRange={tempRange}
-                thcRange={tempRange}
+                cbdRange={potency}
+                thcRange={potency}
               />
             ))}
           </Stack>
@@ -387,7 +392,8 @@ const Content = styled.div`
 
 const Sidebar = styled.aside`
   width: 250px;
-  margin-right: 36px;
+  margin-right: var(--space-7);
+  padding-top: 58px;
   flex-shrink: 0;
 `;
 

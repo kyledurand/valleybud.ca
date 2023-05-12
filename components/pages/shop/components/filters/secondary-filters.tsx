@@ -1,37 +1,66 @@
-import styled from "styled-components";
-
-import {Checkbox, FormControlLabel} from "@material-ui/core";
+import {Checkbox, FormControlLabel, Slider} from "@material-ui/core";
 import {Category, Effects, useMenuQuery} from "api/queries/menu.graphql";
 import {Text} from "components/Text";
 import {Stack} from "components/Stack";
 import {retailerId} from "api/apollo";
 import {
   MenuSortKey,
-  PotencyRange,
+  PotencyUnit,
   SortDirection,
   StrainType,
 } from "api/fragments/menu-product.graphql";
 import {enumToTitleCase} from "utils/product";
-import {useFilteredMenuQuery} from "api/queries/filtered-menu.graphql";
+import {Potency} from "pages/shop";
+import {LoadingSpinner} from "components/shared/loading-spinner";
+import {useEffect, useState} from "react";
+import styled from "styled-components";
 
 interface SecondaryFiltersProps {
   selectedCategory: Category;
-  cbdRange?: PotencyRange;
-  thcRange?: PotencyRange;
   onEffectSelect: (effect: Effects) => void;
+  onPotencyChange: (potency: Potency) => void;
 }
 
 export function SecondaryFilters({
   selectedCategory,
-  cbdRange,
-  thcRange,
   onEffectSelect,
-}: SecondaryFiltersProps) {
+}: // onPotencyChange,
+SecondaryFiltersProps) {
+  const showPotency =
+    selectedCategory === Category.Flower ||
+    selectedCategory === Category.PreRolls ||
+    selectedCategory === Category.Vaporizers ||
+    selectedCategory === Category.Concentrates ||
+    selectedCategory === Category.Edibles ||
+    selectedCategory === Category.Topicals;
+
+  const isPercentage =
+    selectedCategory === Category.Flower ||
+    selectedCategory === Category.PreRolls ||
+    selectedCategory === Category.Vaporizers ||
+    selectedCategory === Category.Concentrates;
+
+  const [thcRange, setThcRange] = useState<number[]>([
+    0,
+    isPercentage ? 50 : 1000,
+  ]);
+  const [cbdRange, setCbdRange] = useState<number[]>([
+    0,
+    isPercentage ? 50 : 1000,
+  ]);
+  const [unit, setUnit] = useState(
+    isPercentage ? PotencyUnit.Percentage : PotencyUnit.Milligrams
+  );
   const isFilterableQuery = selectedCategory === Category.Flower;
-  const {
-    data: filteredData,
-    loading: filteredDataLoading,
-  } = useFilteredMenuQuery({
+  console.log(thcRange);
+
+  useEffect(() => {
+    setThcRange([0, isPercentage ? 50 : 1000]);
+    setCbdRange([0, isPercentage ? 50 : 1000]);
+    setUnit(isPercentage ? PotencyUnit.Percentage : PotencyUnit.Milligrams);
+  }, [selectedCategory]);
+
+  const {data: filteredData, loading: filteredDataLoading} = useMenuQuery({
     variables: {
       retailerId,
       category: selectedCategory,
@@ -41,11 +70,6 @@ export function SecondaryFilters({
       limit: 250,
       sortDirection: SortDirection.Asc,
       sortKey: MenuSortKey.Popular,
-      minimumCbd: cbdRange?.min,
-      maximumCbd: thcRange?.max,
-      minimumThc: thcRange?.min,
-      maximumThc: thcRange?.max,
-      unit: cbdRange?.unit ?? thcRange?.unit,
     },
   });
 
@@ -65,7 +89,12 @@ export function SecondaryFilters({
   const finalData = isFilterableQuery ? filteredData : data;
   const finalLoading = isFilterableQuery ? filteredDataLoading : loading;
 
-  if (finalLoading) return null;
+  if (finalLoading)
+    return (
+      <Stack align="center" padding="5">
+        <LoadingSpinner centered />
+      </Stack>
+    );
 
   const products = finalData?.menu?.products;
   const types = new Set(
@@ -78,8 +107,16 @@ export function SecondaryFilters({
     products?.map((product) => product.subcategory)
   );
 
+  const handleThcChange = (_: unknown, newValue: number | number[]) => {
+    setThcRange(() => newValue as number[]);
+  };
+
+  const handleCbdChange = (_: unknown, newValue: number | number[]) => {
+    setCbdRange(() => newValue as number[]);
+  };
+
   return (
-    <Container>
+    <>
       {[...subCategories].length > 1 && (
         <>
           <Stack gap>
@@ -112,7 +149,7 @@ export function SecondaryFilters({
               ))}
             </Stack>
           </Stack>
-          <hr style={{marginBlock: "var(--space-4)"}} />
+          <Divider />
         </>
       )}
 
@@ -141,7 +178,54 @@ export function SecondaryFilters({
               ))}
             </Stack>
           </Stack>
-          <hr style={{marginBlock: "var(--space-4)"}} />
+          <Divider />
+        </>
+      )}
+
+      {showPotency && (
+        <>
+          <Stack gap>
+            <Text variant="subheading">Potency</Text>
+
+            <Text size="1" weight="1">
+              <Text as="span" weight="3">
+                THC:{" "}
+              </Text>
+              {thcRange[0]} - {thcRange[1]}{" "}
+              {unit === PotencyUnit.Percentage ? "%" : "mg"}
+            </Text>
+            <StyledSlider
+              getAriaLabel={() => "CBD range"}
+              value={thcRange}
+              onChange={handleThcChange}
+              valueLabelDisplay="auto"
+              getAriaValueText={(value: number) =>
+                `${value}${unit} === ${PotencyUnit.Percentage ? "%" : "mg"}`
+              }
+              min={0}
+              max={isPercentage ? 50 : 1000}
+              color={undefined}
+            />
+
+            <Text size="1" weight="1">
+              <Text as="span" weight="3">
+                CBD:{" "}
+              </Text>
+              {cbdRange[0]} - {cbdRange[1]}{" "}
+              {unit === PotencyUnit.Percentage ? "%" : "mg"}
+            </Text>
+            <StyledSlider
+              getAriaLabel={() => "CBD range"}
+              value={cbdRange}
+              onChange={handleCbdChange}
+              valueLabelDisplay="auto"
+              getAriaValueText={(value: number) =>
+                `${value}${unit} === ${PotencyUnit.Percentage ? "%" : "mg"}`
+              }
+              min={0}
+              max={isPercentage ? 50 : 1000}
+            />
+          </Stack>
         </>
       )}
 
@@ -168,14 +252,19 @@ export function SecondaryFilters({
           ))}
         </Stack>
       </Stack>
-    </Container>
+    </>
   );
 }
 
-const Container = styled.div`
-  border-bottom: 1px solid #ddd9d2;
+const Divider = ({subtle}: {subtle?: boolean}) => (
+  <hr
+    style={{
+      marginBlock: subtle ? "var(--space-2)" : "var(--space-4)",
+      borderColor: subtle ? "transparent" : "initial",
+    }}
+  />
+);
 
-  &:last-of-type {
-    border: none;
-  }
+const StyledSlider = styled(Slider)`
+  color: var(--text);
 `;
