@@ -52,10 +52,7 @@ const SORT_OPTIONS = {
   [`${MenuSortKey.Potency}-${SortDirection.Asc}`]: "Potency: Low to High",
 };
 
-interface Range {
-  min?: number;
-  max?: number;
-}
+type Range = number[];
 
 export interface Potency {
   thcRange?: Range;
@@ -326,8 +323,9 @@ function Menu({
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}
                 sort={sort}
-                cbdRange={potency}
-                thcRange={potency}
+                cbdRange={potency.cbdRange}
+                thcRange={potency.thcRange}
+                unit={potency.unit}
               />
             ))}
           </Stack>

@@ -24,8 +24,8 @@ interface SecondaryFiltersProps {
 export function SecondaryFilters({
   selectedCategory,
   onEffectSelect,
-}: // onPotencyChange,
-SecondaryFiltersProps) {
+  onPotencyChange,
+}: SecondaryFiltersProps) {
   const showPotency =
     selectedCategory === Category.Flower ||
     selectedCategory === Category.PreRolls ||
@@ -109,10 +109,20 @@ SecondaryFiltersProps) {
 
   const handleThcChange = (_: unknown, newValue: number | number[]) => {
     setThcRange(() => newValue as number[]);
+    onPotencyChange({
+      thcRange: newValue as number[],
+      cbdRange,
+      unit,
+    });
   };
 
   const handleCbdChange = (_: unknown, newValue: number | number[]) => {
     setCbdRange(() => newValue as number[]);
+    onPotencyChange({
+      thcRange,
+      cbdRange: newValue as number[],
+      unit,
+    });
   };
 
   return (

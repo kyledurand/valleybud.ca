@@ -7,7 +7,7 @@ import {LoadingSpinner} from "components/shared/loading-spinner";
 import {
   Effects,
   MenuSortKey,
-  PotencyRange,
+  PotencyUnit,
 } from "api/fragments/menu-product.graphql";
 import {enumToTitleCase} from "utils/product";
 import {useFilteredMenuQuery} from "api/queries/filtered-menu.graphql";
@@ -27,8 +27,9 @@ interface ProductSectionProps {
     sortKey?: MenuSortKey;
     sortDirection: SortDirection;
   };
-  cbdRange?: PotencyRange;
-  thcRange?: PotencyRange;
+  cbdRange?: number[];
+  thcRange?: number[];
+  unit?: PotencyUnit;
 }
 
 export function ProductSection({
@@ -41,26 +42,11 @@ export function ProductSection({
   paginationLimit,
   cbdRange,
   thcRange,
+  unit,
   sort: {sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc},
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
-  // const unit = range?.unit
-  //   ? category === Category.Flower
-  //     ? PotencyUnit.Milligrams
-  //     : PotencyUnit.Percentage
-  //   : undefined;
 
-  // PotencyUnit.Milligrams
-  // Edibles, concentrates, accessories
-
-  // PotencyUnit.MilligramsPerGram
-  // None
-
-  // PotencyUnit.MilligramsPerMl
-  // Concentrates, different result than milligrams wtf
-
-  // PotencyUnit.Percentage
-  // Flower, prerolls, concentrates, accessories
   const isFilterableQuery = category === Category.Flower;
   const {
     data: filteredData,
@@ -76,11 +62,11 @@ export function ProductSection({
       limit: paginationLimit,
       sortDirection: sortDirection,
       sortKey: sortKey,
-      minimumCbd: cbdRange?.min,
-      maximumCbd: thcRange?.max,
-      minimumThc: thcRange?.min,
-      maximumThc: thcRange?.max,
-      unit: cbdRange?.unit ?? thcRange?.unit,
+      minimumCbd: cbdRange?.[0],
+      maximumCbd: thcRange?.[1],
+      minimumThc: thcRange?.[0],
+      maximumThc: thcRange?.[1],
+      unit,
     },
   });
 
@@ -100,6 +86,7 @@ export function ProductSection({
 
   const finalData = isFilterableQuery ? filteredData : data;
   const finalLoading = isFilterableQuery ? filteredDataLoading : loading;
+  console.log(cbdRange, thcRange);
 
   return finalData?.menu?.products.length ? (
     <Section>
