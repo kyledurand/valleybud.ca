@@ -48,6 +48,8 @@ export function SecondaryFilters({
     0,
     isPercentage ? 50 : 1000,
   ]);
+  const [selectedEffects, setSelectedEffects] = useState<Effects[]>([]);
+
   const [unit, setUnit] = useState(
     isPercentage ? PotencyUnit.Percentage : PotencyUnit.Milligrams
   );
@@ -251,13 +253,23 @@ export function SecondaryFilters({
               key={key}
               style={{marginInlineStart: -6}}
               label={key}
-              onChange={() => onEffectSelect(effect)}
+              onChange={() => {
+                if (selectedEffects.includes(effect)) {
+                  setSelectedEffects((prev) =>
+                    prev.filter((e) => e !== effect)
+                  );
+                } else {
+                  setSelectedEffects((prev) => [...prev, effect]);
+                }
+                onEffectSelect(effect);
+              }}
               control={
                 <Checkbox
                   id={key}
                   style={{padding: "var(--space-1)", color: "var(--text)"}}
                   size="small"
                   value={effect}
+                  checked={selectedEffects.includes(effect)}
                 />
               }
             />
