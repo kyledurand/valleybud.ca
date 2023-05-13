@@ -8,7 +8,7 @@ interface Props {
   size?: Size;
   weight?: Weight;
   tone?: Tone;
-  visuallyHidden?: boolean;
+  inclusivelyHidden?: boolean;
   align?: "start" | "center" | "end";
   variant?: "subheading";
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export function Text({
   align,
   tone,
   variant,
-  visuallyHidden,
+  inclusivelyHidden,
   children,
   weight,
   size,
@@ -37,9 +37,10 @@ export function Text({
           textTransform: variant === "subheading" ? "uppercase" : undefined,
         } as React.CSSProperties
       }
-      className={[styles.Text, visuallyHidden && styles.visuallyHidden].join(
-        " "
-      )}
+      className={[
+        styles.Text,
+        inclusivelyHidden && styles.inclusivelyHidden,
+      ].join(" ")}
     >
       {children}
     </Component>

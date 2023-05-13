@@ -2,11 +2,10 @@ import {useState, useContext} from "react";
 import styled from "styled-components";
 
 import {useTheme} from "@material-ui/core/styles";
-import {useMediaQuery} from "@material-ui/core";
+import {Snackbar, useMediaQuery} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
 
 import {useAddItemToCheckoutMutation} from "api/mutations/add-item-to-checkout.graphql";
 import {ProductFragmentFragment} from "api/fragments/menu-product.graphql";
@@ -21,6 +20,8 @@ import {deriveDisplayPrices} from "utils/product";
 import {formatPrice} from "utils/number-format";
 
 import {retailerId} from "api/apollo";
+import {Button} from "components/Button";
+import {Stack} from "components/Stack";
 
 interface ProductModalProps {
   product: ProductFragmentFragment;
@@ -32,6 +33,7 @@ const QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export function ProductModal(props: ProductModalProps): JSX.Element {
   const {product, open, onClose} = props;
+  const [error, setError] = useState<string | null>(null);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -51,16 +53,20 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
   }
 
   async function handleAddToCartClick() {
-    await addItemToCheckoutMutation({
-      variables: {
-        retailerId,
-        checkoutId: checkout?.id || "",
-        productId: product.id,
-        quantity: selectedQuantity,
-        option: selectedVariant,
-      },
-    });
-    onClose();
+    try {
+      await addItemToCheckoutMutation({
+        variables: {
+          retailerId,
+          checkoutId: checkout?.id || "",
+          productId: product.id,
+          quantity: selectedQuantity,
+          option: selectedVariant,
+        },
+      });
+      onClose();
+    } catch (e: any) {
+      setError(e.message);
+    }
   }
 
   return (
@@ -70,6 +76,12 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
       maxWidth={isMobile ? undefined : "lg"}
       fullScreen={isMobile}
     >
+      <StyledSnackbar
+        open={!!error}
+        message={error}
+        autoHideDuration={6000}
+        onClose={() => setError(null)}
+      />
       <DialogContent>
         <ImageContainer>
           <Image src={product.image} alt={product.name} />
@@ -139,16 +151,20 @@ export function ProductModal(props: ProductModalProps): JSX.Element {
                 </MenuItem>
               ))}
             </QuantitySelect>
-            <StyledButton
-              startIcon={<CartIcon />}
+            <Button
+              padding="4"
+              variant="primary"
               onClick={handleAddToCartClick}
             >
-              {addingToCart ? (
-                <StyledLoadingSpinner size={16} color="#ffffff" />
-              ) : (
-                "Add to cart"
-              )}
-            </StyledButton>
+              <Stack inline align="center" gap>
+                <CartIcon />
+                {addingToCart ? (
+                  <StyledLoadingSpinner size={16} color="#ffffff" />
+                ) : (
+                  "Add to cart"
+                )}
+              </Stack>
+            </Button>
           </FormContainer>
         </ContentContainer>
       </DialogContent>
@@ -161,27 +177,6 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-left: 34px;
 `;
 
-const StyledButton = styled(Button)`
-  border-radius: 0px !important;
-  text-transform: none !important;
-  background-color: #5ea4ba !important;
-  width: 165px;
-  height: 58px;
-
-  & .MuiButton-label {
-    color: #ffffff !important;
-  }
-
-  @media ${mediaQueriesDown.phone} {
-    width: 100%;
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    background-color: #246e84 !important;
-  }
-`;
-
 const FormContainer = styled.div`
   height: 58px;
   display: flex;
@@ -192,6 +187,13 @@ const FormContainer = styled.div`
     height: 116px;
     display: block;
     margin-bottom: 0;
+  }
+`;
+
+const StyledSnackbar = styled(Snackbar)`
+  & .MuiSnackbarContent-root {
+    background-color: var(--background-error);
+    color: #ffffff;
   }
 `;
 

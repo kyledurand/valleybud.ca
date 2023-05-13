@@ -73,12 +73,12 @@ const StyledButton = styled.button<{variant: ButtonProps["variant"]}>`
       case "primary":
         return `
           color: var(--text);
-          background-color: var(--primary);
+          background-color: var(--brand);
           `;
       case "secondary":
         return `
           color: var(--text);
-          background-color: var(--secondary);
+          background-color: var(--brand-accent-blue);
           `;
     }
   }}

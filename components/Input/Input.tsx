@@ -13,7 +13,7 @@ export interface InputProps
 export function Input({label, labelHidden, ...rest}: InputProps) {
   return (
     <label>
-      <Text visuallyHidden={labelHidden} size="1">
+      <Text inclusivelyHidden={labelHidden} size="1">
         {label}
       </Text>
       <StyledInput {...rest} />

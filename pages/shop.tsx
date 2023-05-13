@@ -124,6 +124,11 @@ function Menu({
       selectedCategories.add(category);
     }
     setSelectedCategories(selectedCategories);
+    setPotency({
+      thcRange: undefined,
+      cbdRange: undefined,
+      unit: PotencyUnit.Percentage,
+    });
   }
 
   function selectSingleBrand(brand: Partial<Brand>) {

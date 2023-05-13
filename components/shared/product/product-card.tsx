@@ -13,6 +13,7 @@ import Image from "next/image";
 import {useMediaQuery, useTheme} from "@material-ui/core";
 import {formatPrice} from "utils/number-format";
 import {Badge} from "components/Badge";
+import {Button} from "components/Button";
 
 interface ProductCardProps {
   product: ProductFragmentFragment;
@@ -113,9 +114,9 @@ export function ProductCard(props: ProductCardProps): JSX.Element {
             grow
           >
             {priceMarkup}
-            <AddToCart onClick={(event) => handleAddToCartClick(event)}>
+            <Button onClick={(event) => handleAddToCartClick(event)}>
               {addingToCart ? "Adding" : "+ Add to cart"}
-            </AddToCart>
+            </Button>
           </Stack>
         </Stack>
       </Container>
@@ -149,12 +150,4 @@ const ProductImage = styled(Image)`
   height: auto;
   object-fit: contain;
   margin-bottom: var(--space-2);
-`;
-
-const AddToCart = styled.button`
-  background: none;
-  color: gray;
-  border: none;
-  padding: 0;
-  word-break: keep-all;
 `;
