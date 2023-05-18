@@ -1,4 +1,10 @@
-import {Checkbox, FormControlLabel, Slider} from "@material-ui/core";
+import {
+  Checkbox,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Slider,
+} from "@material-ui/core";
 import {Category, Effects, useMenuQuery} from "api/queries/menu.graphql";
 import {Text} from "components/Text";
 import {Stack} from "components/Stack";
@@ -154,7 +160,7 @@ export function SecondaryFilters({
             <Text as="legend" variant="subheading">
               Subcategories
             </Text>
-            <Stack>
+            <RadioGroup name="Sub categories">
               {Array.from(subCategories).map((subCategory) => (
                 <FormControlLabel
                   key={subCategory}
@@ -164,8 +170,9 @@ export function SecondaryFilters({
                       ? enumToTitleCase(selectedCategory)
                       : enumToTitleCase(subCategory!)
                   }
+                  value={subCategory}
                   control={
-                    <Checkbox
+                    <Radio
                       style={{
                         padding: "var(--space-1)",
                         color: "var(--text)",
@@ -177,7 +184,7 @@ export function SecondaryFilters({
                   }
                 />
               ))}
-            </Stack>
+            </RadioGroup>
           </Stack>
           <Divider />
         </>
@@ -212,14 +219,15 @@ export function SecondaryFilters({
             <Text as="legend" variant="subheading">
               Types
             </Text>
-            <Stack>
+            <RadioGroup>
               {Array.from(types).map((type) => (
                 <FormControlLabel
                   key={type}
                   style={{marginInlineStart: 0}}
                   label={enumToTitleCase(type)}
+                  value={type}
                   control={
-                    <Checkbox
+                    <Radio
                       id={type!}
                       size="small"
                       onClick={() => onTypeChange?.(type!)}
@@ -228,7 +236,7 @@ export function SecondaryFilters({
                   }
                 />
               ))}
-            </Stack>
+            </RadioGroup>
           </Stack>
           <Divider />
         </>
