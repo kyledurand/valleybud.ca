@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   paddingBlock?: Space | boolean;
   paddingInline?: Space | boolean;
   stopPropagation?: boolean;
+  selected?: boolean;
   children: React.ReactNode;
 }
 
@@ -19,11 +20,13 @@ export function Button({
   paddingBlock,
   paddingInline,
   children,
+  selected,
   onClick,
   ...rest
 }: ButtonProps) {
   return (
     <StyledButton
+      selected={selected}
       style={{
         width: fullWidth ? "100%" : undefined,
         padding:
@@ -57,7 +60,10 @@ export function Button({
   );
 }
 
-const StyledButton = styled.button<{variant: ButtonProps["variant"]}>`
+const StyledButton = styled.button<{
+  variant: ButtonProps["variant"];
+  selected: ButtonProps["selected"];
+}>`
   border: none;
   background: none;
   color: var(--text);
@@ -65,6 +71,13 @@ const StyledButton = styled.button<{variant: ButtonProps["variant"]}>`
   text-align: start;
   text-decoration: underline;
   padding: 0;
+  box-shadow: none;
+  transition: box-shadow 100ms ease-in-out, background 100ms ease-in-out;
+
+  ${({selected}) =>
+    selected &&
+    `box-shadow: inset 0 0.125rem 0px var(--shadow-inset);
+  background: var(--background-dark);`}
 
   ${({variant}) => {
     switch (variant) {
@@ -74,11 +87,13 @@ const StyledButton = styled.button<{variant: ButtonProps["variant"]}>`
         return `
           color: var(--text);
           background-color: var(--brand);
+          border-radius: var(--radius-1);
           `;
       case "secondary":
         return `
           color: var(--text);
-          background-color: var(--brand-accent-blue);
+          border-radius: var(--radius-1);
+          border: 1px solid var(--text);
           `;
     }
   }}

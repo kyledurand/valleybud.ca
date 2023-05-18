@@ -8,9 +8,12 @@ import {
   Effects,
   MenuSortKey,
   PotencyUnit,
+  StrainType,
+  Subcategory,
 } from "api/fragments/menu-product.graphql";
 import {enumToTitleCase} from "utils/product";
 import {useFilteredMenuQuery} from "api/queries/filtered-menu.graphql";
+import {Fragment} from "react";
 
 interface ProductSectionProps {
   searchQuery: string;
@@ -30,6 +33,9 @@ interface ProductSectionProps {
   cbdRange?: number[];
   thcRange?: number[];
   unit?: PotencyUnit;
+  selectedWeights?: string[];
+  selectedType?: string;
+  selectedSubCategory?: string;
 }
 
 export function ProductSection({
@@ -43,14 +49,26 @@ export function ProductSection({
   cbdRange,
   thcRange,
   unit,
+  selectedWeights,
+  selectedType,
+  selectedSubCategory,
   sort: {sortKey = MenuSortKey.Popular, sortDirection = SortDirection.Asc},
 }: ProductSectionProps) {
   const Layout = view === "grid" ? Grid : List;
+  console.log(selectedWeights);
 
-  const isFilterableQuery = category === Category.Flower;
+  const isFilterableQuery =
+    category === Category.Flower ||
+    category === Category.PreRolls ||
+    category === Category.Vaporizers ||
+    category === Category.Edibles ||
+    category === Category.Concentrates ||
+    category === Category.Topicals;
+
   const {
     data: filteredData,
     loading: filteredDataLoading,
+    error: filteredDataError,
   } = useFilteredMenuQuery({
     variables: {
       retailerId,
@@ -67,10 +85,13 @@ export function ProductSection({
       minimumThc: thcRange?.[0],
       maximumThc: thcRange?.[1],
       unit,
+      weights: selectedWeights,
+      strainType: selectedType as StrainType,
+      subcategory: selectedSubCategory as Subcategory,
     },
   });
 
-  const {data, loading} = useMenuQuery({
+  const {data, loading, error} = useMenuQuery({
     variables: {
       retailerId,
       category: category,
@@ -86,7 +107,15 @@ export function ProductSection({
 
   const finalData = isFilterableQuery ? filteredData : data;
   const finalLoading = isFilterableQuery ? filteredDataLoading : loading;
-  console.log(cbdRange, thcRange);
+  const finalError = isFilterableQuery ? filteredDataError : error;
+
+  if (finalData?.menu?.products.length === 0) {
+    return <p>no products found</p>;
+  }
+
+  if (finalError) {
+    return <p>Error! {finalError.message}. Please refresh the page</p>;
+  }
 
   return finalData?.menu?.products.length ? (
     <Section>
@@ -95,7 +124,7 @@ export function ProductSection({
       <Layout>
         {finalData.menu.products.length ? (
           [...finalData?.menu?.products].map((product) => (
-            <>
+            <Fragment key={product.id}>
               <ProductCard layout={view} key={product.id} product={product} />
               {view === "list" && (
                 <hr
@@ -105,7 +134,7 @@ export function ProductSection({
                   }}
                 />
               )}
-            </>
+            </Fragment>
           ))
         ) : (
           <p>No products found</p>

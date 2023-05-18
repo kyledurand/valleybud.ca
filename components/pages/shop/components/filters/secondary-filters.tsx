@@ -14,17 +14,26 @@ import {Potency} from "pages/shop";
 import {LoadingSpinner} from "components/shared/loading-spinner";
 import {useEffect, useState} from "react";
 import styled from "styled-components";
+import {Button} from "components/Button";
 
 interface SecondaryFiltersProps {
+  selectedWeights?: string[];
   selectedCategory: Category;
   onEffectSelect: (effect: Effects) => void;
   onPotencyChange: (potency: Potency) => void;
+  onWeightChange?: (weight: string) => void;
+  onTypeChange?: (type?: StrainType) => void;
+  onSubCategoryChange: (subCategory?: string) => void;
 }
 
 export function SecondaryFilters({
+  selectedWeights,
   selectedCategory,
   onEffectSelect,
   onPotencyChange,
+  onWeightChange,
+  onTypeChange,
+  onSubCategoryChange,
 }: SecondaryFiltersProps) {
   const showPotency =
     selectedCategory === Category.Flower ||
@@ -40,6 +49,10 @@ export function SecondaryFilters({
     selectedCategory === Category.Vaporizers ||
     selectedCategory === Category.Concentrates;
 
+  const isFilterableByWeight =
+    selectedCategory === Category.Flower ||
+    selectedCategory === Category.Vaporizers;
+
   const [thcRange, setThcRange] = useState<number[]>([
     0,
     isPercentage ? 50 : 1000,
@@ -54,7 +67,6 @@ export function SecondaryFilters({
     isPercentage ? PotencyUnit.Percentage : PotencyUnit.Milligrams
   );
   const isFilterableQuery = selectedCategory === Category.Flower;
-  console.log(thcRange);
 
   useEffect(() => {
     setThcRange([0, isPercentage ? 50 : 1000]);
@@ -90,6 +102,7 @@ export function SecondaryFilters({
 
   const finalData = isFilterableQuery ? filteredData : data;
   const finalLoading = isFilterableQuery ? filteredDataLoading : loading;
+  const products = finalData?.menu?.products;
 
   if (finalLoading)
     return (
@@ -98,7 +111,6 @@ export function SecondaryFilters({
       </Stack>
     );
 
-  const products = finalData?.menu?.products;
   const types = new Set(
     products
       ?.map((product) => product.strainType)
@@ -107,6 +119,13 @@ export function SecondaryFilters({
 
   const subCategories = new Set(
     products?.map((product) => product.subcategory)
+  );
+
+  const weights = new Set(
+    products?.map((product) => {
+      const weight = product.variants[0].option;
+      return weight.includes("x") ? weight.split("x")[1] : weight;
+    })
   );
 
   const handleThcChange = (_: unknown, newValue: number | number[]) => {
@@ -140,7 +159,6 @@ export function SecondaryFilters({
                 <FormControlLabel
                   key={subCategory}
                   style={{marginInlineStart: 0}}
-                  onClick={() => console.log("change", subCategory)}
                   label={
                     subCategory === "DEFAULT"
                       ? enumToTitleCase(selectedCategory)
@@ -148,11 +166,11 @@ export function SecondaryFilters({
                   }
                   control={
                     <Checkbox
-                      hidden
                       style={{
                         padding: "var(--space-1)",
                         color: "var(--text)",
                       }}
+                      onClick={() => onSubCategoryChange(subCategory!)}
                       id={subCategory!}
                       size="small"
                     />
@@ -165,6 +183,29 @@ export function SecondaryFilters({
         </>
       )}
 
+      {isFilterableByWeight && [...weights].length > 1 && (
+        <>
+          <Stack gap>
+            <Text as="legend" variant="subheading">
+              Weights
+            </Text>
+            <Stack inline gap>
+              {Array.from(weights).map((weight) => (
+                <Button
+                  key={weight}
+                  padding
+                  variant="secondary"
+                  selected={selectedWeights?.includes(weight)}
+                  onClick={() => onWeightChange?.(weight)}
+                >
+                  {weight}
+                </Button>
+              ))}
+            </Stack>
+          </Stack>
+          <Divider />
+        </>
+      )}
       {[...types].length > 1 && (
         <>
           <Stack gap>
@@ -176,14 +217,13 @@ export function SecondaryFilters({
                 <FormControlLabel
                   key={type}
                   style={{marginInlineStart: 0}}
-                  onClick={() => console.log("change", type)}
                   label={enumToTitleCase(type)}
                   control={
                     <Checkbox
-                      hidden
-                      style={{padding: "var(--space-1)", color: "var(--text)"}}
                       id={type!}
                       size="small"
+                      onClick={() => onTypeChange?.(type!)}
+                      style={{padding: "var(--space-1)", color: "var(--text)"}}
                     />
                   }
                 />
@@ -193,7 +233,6 @@ export function SecondaryFilters({
           <Divider />
         </>
       )}
-
       {showPotency && (
         <>
           <Stack gap justify="center">
@@ -240,42 +279,44 @@ export function SecondaryFilters({
               max={isPercentage ? 50 : 1000}
             />
           </Stack>
+          <Divider />
         </>
       )}
-
-      <Stack gap>
-        <Text as="legend" variant="subheading">
-          Effects
-        </Text>
-        <Stack>
-          {Object.entries(Effects).map(([key, effect]) => (
-            <FormControlLabel
-              key={key}
-              style={{marginInlineStart: -6}}
-              label={key}
-              onChange={() => {
-                if (selectedEffects.includes(effect)) {
-                  setSelectedEffects((prev) =>
-                    prev.filter((e) => e !== effect)
-                  );
-                } else {
-                  setSelectedEffects((prev) => [...prev, effect]);
+      {selectedCategory !== Category.Accessories && (
+        <Stack gap>
+          <Text as="legend" variant="subheading">
+            Effects
+          </Text>
+          <Stack>
+            {Object.entries(Effects).map(([key, effect]) => (
+              <FormControlLabel
+                key={key}
+                style={{marginInlineStart: -6}}
+                label={key}
+                onChange={() => {
+                  if (selectedEffects.includes(effect)) {
+                    setSelectedEffects((prev) =>
+                      prev.filter((e) => e !== effect)
+                    );
+                  } else {
+                    setSelectedEffects((prev) => [...prev, effect]);
+                  }
+                  onEffectSelect(effect);
+                }}
+                control={
+                  <Checkbox
+                    id={key}
+                    style={{padding: "var(--space-1)", color: "var(--text)"}}
+                    size="small"
+                    value={effect}
+                    checked={selectedEffects.includes(effect)}
+                  />
                 }
-                onEffectSelect(effect);
-              }}
-              control={
-                <Checkbox
-                  id={key}
-                  style={{padding: "var(--space-1)", color: "var(--text)"}}
-                  size="small"
-                  value={effect}
-                  checked={selectedEffects.includes(effect)}
-                />
-              }
-            />
-          ))}
+              />
+            ))}
+          </Stack>
         </Stack>
-      </Stack>
+      )}
     </>
   );
 }

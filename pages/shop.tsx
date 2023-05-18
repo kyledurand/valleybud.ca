@@ -26,6 +26,8 @@ import {
   MenuSortKey,
   PotencyUnit,
   SortDirection,
+  StrainType,
+  Subcategory,
 } from "api/fragments/menu-product.graphql";
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
 import {Stack} from "components/Stack";
@@ -80,7 +82,11 @@ function Menu({
   const [query, setQuery] = useQueryParam("search", StringParam);
   const [brandID, setBrandId] = useQueryParam("brandID", StringParam);
   const [brandName, setBrandName] = useQueryParam("brandName", StringParam);
+  const [weights, setWeights] = useState<Set<string>>(new Set());
+  const [type, setType] = useState<StrainType | undefined>();
+  const [subCategory, setSubCategory] = useState<Subcategory | undefined>();
   const checkoutContext = useCheckout();
+
   const {data: brandData, loading: brandsLoading} = useBrandsQueryQuery({
     variables: {retailerId},
   });
@@ -129,6 +135,7 @@ function Menu({
       cbdRange: undefined,
       unit: PotencyUnit.Percentage,
     });
+    setSelectedEffects(new Set());
   }
 
   function selectSingleBrand(brand: Partial<Brand>) {
@@ -283,10 +290,23 @@ function Menu({
           </Stack>
         ) : null}
         <Content>
-          {selectedCategories.size ? (
+          {selectedCategories.size &&
+          !selectedCategories.has(Category.Apparel) ? (
             <DesktopOnly>
               <Sidebar>
                 <SecondaryFilters
+                  selectedWeights={weights.size ? [...weights] : undefined}
+                  onSubCategoryChange={(category) =>
+                    setSubCategory(category as Subcategory)
+                  }
+                  onTypeChange={(type) => setType(type)}
+                  onWeightChange={(weight) =>
+                    setWeights((set) => {
+                      return set.has(weight)
+                        ? new Set([...set].filter((w) => w !== weight))
+                        : new Set([...set, weight]);
+                    })
+                  }
                   selectedCategory={category}
                   onEffectSelect={onEffectSelect}
                   onPotencyChange={setPotency}
@@ -324,6 +344,9 @@ function Menu({
                 category={category}
                 searchQuery={query || ""}
                 selectedBrand={{id: brandID, name: brandName}}
+                selectedType={type}
+                selectedWeights={weights.size ? [...weights] : undefined}
+                selectedSubCategory={subCategory}
                 selectedEffects={[...selectedEffects]}
                 offset={offset}
                 paginationLimit={PAGINATION_LIMIT}
