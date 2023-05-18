@@ -178,16 +178,8 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
 `;
 
 const FormContainer = styled.div`
-  height: 58px;
   display: flex;
-  justify-content: stretch;
-  margin-bottom: 61px;
-
-  @media ${mediaQueriesDown.phone} {
-    height: 116px;
-    display: block;
-    margin-bottom: 0;
-  }
+  align-items: center;
 `;
 
 const StyledSnackbar = styled(Snackbar)`
@@ -237,10 +229,8 @@ const DialogContent = styled.div`
 
 const ImageContainer = styled.div`
   width: 450px;
-  padding: 29px;
+  padding: var(--space-7);
   flex-shrink: 0;
-  background-color: rgba(248, 245, 240, 0.4);
-  border-right: 1px solid rgba(160, 154, 142, 0.4);
 
   @media ${mediaQueriesDown.phone} {
     padding: 0;
@@ -275,7 +265,7 @@ const ContentContainer = styled.div`
 
 const CloseButtonContainer = styled.div`
   position: absolute;
-  top: 16px;
+  top: 20px;
   right: 20px;
 `;
 

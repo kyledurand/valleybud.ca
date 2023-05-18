@@ -44,6 +44,7 @@
   --radius-1: 4px;
   /* Shadows */
   --shadow-1: 0 1px 6px 2px rgba(0, 0, 0, 0.1);
+  --shadow-inset: rgb(75 75 75 / 56%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -52,8 +53,9 @@
     --text-inverse: #1a1a1a;
     --link: #a0eaff;
     --background: #1a1a1a;
-    --background-dark: #2a2a2a;
+    --background-dark: #5c5c5c;
     --background-error: #611616;
+    --shadow-inset: rgb(0 0 0);
 
     --placeholder-1: #3a4854;
     --placeholder-2: #3b2e1c;

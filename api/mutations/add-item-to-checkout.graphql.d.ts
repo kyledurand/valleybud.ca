@@ -690,8 +690,11 @@ export type FulfillmentOptions = {
 };
 export type HoursSettings = {
     __typename?: 'HoursSettings';
+    curbsidePickup?: Maybe<Hours>;
     delivery?: Maybe<Hours>;
+    driveThruPickup?: Maybe<Hours>;
     pickup?: Maybe<Hours>;
+    /** @deprecated Use pickup */
     regular?: Maybe<Hours>;
     /** @deprecated Use specialHours */
     special?: Maybe<Array<Maybe<SpecialHours>>>;
@@ -921,7 +924,10 @@ export type Product = {
     /** ID of active product batch to identify terpene and cannabinoid concentrations */
     productBatchId?: Maybe<Scalars['ID']>;
     productAvailabilityByRetailer?: Maybe<Array<Maybe<ProductAvailabilityByRetailer>>>;
-    /** The product's image source hosted by our CDN */
+    /**
+     * The product's image source hosted by our CDN
+     * @deprecated Use images
+     */
     image: Scalars['String'];
     images: Array<ProductImage>;
     menuTypes: Array<MenuType>;

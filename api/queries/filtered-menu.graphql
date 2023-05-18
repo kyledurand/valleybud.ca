@@ -15,6 +15,9 @@ query FilteredMenu(
   $minimumCbd: Float
   $maximumCbd: Float
   $unit: PotencyUnit
+  $weights: [String!]
+  $strainType: StrainType
+  $subcategory: Subcategory
 ) {
   menu(
     filter: {
@@ -24,6 +27,9 @@ query FilteredMenu(
       brandId: $brandId
       potencyThc: {min: $minimumThc, max: $maximumThc, unit: $unit}
       potencyCbd: {min: $minimumCbd, max: $maximumCbd, unit: $unit}
+      weights: $weights
+      strainType: $strainType
+      subcategory: $subcategory
     }
     pagination: {limit: $limit, offset: $offset}
     retailerId: $retailerId
