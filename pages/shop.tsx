@@ -136,6 +136,9 @@ function Menu({
       unit: PotencyUnit.Percentage,
     });
     setSelectedEffects(new Set());
+    setWeights(new Set());
+    setType(undefined);
+    setSubCategory(undefined);
   }
 
   function selectSingleBrand(brand: Partial<Brand>) {
