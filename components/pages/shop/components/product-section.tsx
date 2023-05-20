@@ -64,8 +64,7 @@ export function ProductSection({
     category === Category.Edibles ||
     category === Category.Concentrates ||
     category === Category.Topicals ||
-    category === Category.Accessories ||
-    category === Category.Cbd;
+    category === Category.Accessories;
 
   const {
     data: filteredData,
