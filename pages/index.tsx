@@ -23,7 +23,7 @@ export default function Shop() {
         id="dutchie--embed__script"
         src="https://dutchie.com/api/v2/embedded-menu/62faac762c50bd00aa734b8c.js"
       />
-      <GoogleAnalytics gaId="G-GNN3NEKVKF" />
+      <GoogleAnalytics gaId="G-GNN3NEKVKF" dataLayerName="shop" />
     </>
   );
 }

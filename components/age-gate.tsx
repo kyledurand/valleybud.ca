@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {Logo} from "./shared/svg/logo";
+import {GoogleAnalytics} from "@next/third-parties/google";
 
 interface AgeGateProps {
   sessionVerified: string;
@@ -21,6 +22,7 @@ export function AgeGate({onVerify, sessionVerified}: AgeGateProps) {
         <Button onClick={() => onVerify("false")}>0-18</Button>
         <Button onClick={() => onVerify("true")}>19+</Button>
       </ButtonGroup>
+      <GoogleAnalytics gaId="G-GNN3NEKVKF" dataLayerName="Age gate" />
     </Container>
   );
 }
