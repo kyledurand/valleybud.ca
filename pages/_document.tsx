@@ -5,6 +5,8 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
+import {GoogleAnalytics} from '@next/third-parties/google'
+
 import {ServerStyleSheet} from "styled-components";
 
 export default class MyDocument extends Document {
@@ -43,18 +45,11 @@ export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang="en">
-        <Head>
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNN3NEKVKF" />
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments)}
-            gtag('js', new Date());
-            gtag('config', 'G-GNN3NEKVKF');
-          </script>
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
+          <GoogleAnalytics gaId="G-GNN3NEKVKF" />
         </body>
       </Html>
     );
