@@ -1,5 +1,6 @@
 import Head from "next/head";
 import {MetaHTMLAttributes} from "react";
+import {GoogleAnalytics} from '@next/third-parties/google'
 
 const LIGHT_THEME_COLOR_PROPS = {
   name: "theme-color",
@@ -49,6 +50,8 @@ export function Meta({title}: Props) {
       <meta name="theme-color" content="#b86047" />
       <meta {...LIGHT_THEME_COLOR_PROPS} />
       <meta {...DARK_THEME_COLOR_PROPS} />
+      <meta name="test" />
+      <GoogleAnalytics gaId="G-GNN3NEKVKF" />
     </Head>
   );
 }
