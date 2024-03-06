@@ -50,6 +50,7 @@ export function Meta({title}: Props) {
       <meta name="theme-color" content="#b86047" />
       <meta {...LIGHT_THEME_COLOR_PROPS} />
       <meta {...DARK_THEME_COLOR_PROPS} />
+      <meta name="test" />
       <GoogleAnalytics gaId="G-GNN3NEKVKF" />
     </Head>
   );
