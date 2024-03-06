@@ -5,7 +5,6 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import {GoogleAnalytics} from '@next/third-parties/google'
 
 import {ServerStyleSheet} from "styled-components";
 
@@ -49,9 +48,8 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <GoogleAnalytics gaId="G-GNN3NEKVKF" />
         </body>
-      </Html>
+      </Html >
     );
   }
 }
