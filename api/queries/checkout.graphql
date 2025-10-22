@@ -1,7 +1,0 @@
-# import Checkout from '../fragments/checkout.graphql'
-
-query Checkout($id: ID!, $retailerId: ID!) {
-  checkout(id: $id, retailerId: $retailerId) {
-    ...Checkout
-  }
-}
