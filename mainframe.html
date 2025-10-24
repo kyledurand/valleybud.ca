@@ -1,0 +1,62 @@
+<iframe
+  scrolling="no"
+  width="100%"
+  frameborder="0"
+  style="opacity: 1; visibility: visible"
+  id="iframe"
+  src="https://valleybudwebmenu.azurewebsites.net/homepage/1"
+></iframe>
+<script type="application/javascript">
+  let iframeUrl = "https://valleybudwebmenu.azurewebsites.net/homepage/1";
+  window.addEventListener("message", (event) => {
+    if (event.origin.startsWith("https://valleybudwebmenu.azurewebsites.net")) {
+      if (!isNaN(event.data)) {
+        document.getElementById("iframe").style.height = event.data + "px";
+      } else if (event.data.includes("identifier")) {
+        window.location = event.data;
+      } else {
+        let dataArray = event.data.split("_");
+        let scrollToHeight = dataArray[1];
+        let cartId = dataArray[2];
+        let branchId = dataArray[3];
+        window.scrollTo(0, scrollToHeight);
+        if (
+          (!localStorage.getItem("cartId") ||
+            localStorage.getItem("cartId") !== cartId) &&
+          cartId !== 0
+        ) {
+          localStorage.setItem("cartId", cartId);
+        }
+        if (
+          !localStorage.getItem("selectedBranch") ||
+          localStorage.getItem("selectedBranch") !== branchId
+        ) {
+          localStorage.setItem("selectedBranch", branchId);
+        }
+      }
+    } else {
+      return;
+    }
+  });
+  let windowURL = window.location.href;
+  if (windowURL.includes("identifier")) {
+    let identifier = "";
+    if (windowURL.includes("identifier=product")) {
+      identifier = "product";
+    } else if (windowURL.includes("identifier=category")) {
+      identifier = "productGroup";
+    } else if (windowURL.includes("identifier=cart")) {
+      identifier = "cart";
+    } else if (windowURL.includes("identifier=signUp")) {
+      identifier = "account/register";
+    }
+    let id = windowURL.split("&id=")[1];
+    let targetIframeUrl = `${iframeUrl}/${identifier}/${id}`;
+    let thisIframe = document.getElementById("iframe");
+    console.log(iframeUrl);
+    thisIframe.src = targetIframeUrl;
+  } else {
+    let thisIframe = document.getElementById("iframe");
+    thisIframe.src = iframeUrl;
+  }
+</script>

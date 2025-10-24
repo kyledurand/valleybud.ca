@@ -1,7 +1,0 @@
-# import SpecialsItem from '../fragments/specials-item.graphql'
-
-query GetSpecialsList($retailerId: ID!) {
-  specials(retailerId: $retailerId) {
-    ...SpecialsItem
-  }
-}

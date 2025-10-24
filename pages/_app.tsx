@@ -1,13 +1,11 @@
 import {AppProps} from "next/app";
-import {ApolloProvider} from "@apollo/client";
 import {normalize} from "styled-normalize";
 import "../styles/globals.css";
 import {
   createGlobalStyle,
   ThemeProvider as StyledComponentsProvider,
 } from "styled-components";
-import {useApollo} from "api/apollo";
-import {QueryParamProvider} from "components/shared/query-param-provider";
+
 import {
   ThemeProvider as MuiProvider,
   StylesProvider,
@@ -24,28 +22,23 @@ export {
 export {ThemeProvider as StyledComponentsProvider} from "styled-components";
 
 export default function App({Component, pageProps}: AppProps): JSX.Element {
-  const apolloClient = useApollo();
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
   return (
-    <QueryParamProvider>
-      <ApolloProvider client={apolloClient}>
-        <StyledComponentsProvider theme={styledComponentsTheme}>
-          <MuiProvider theme={muiTheme}>
-            <StylesProvider injectFirst>
-              <GlobalStyle />
-              {sessionVerified === "true" ? (
-                <Component {...pageProps} />
-              ) : (
-                <AgeGate
-                  onVerify={setSessionVerified}
-                  sessionVerified={sessionVerified}
-                />
-              )}
-            </StylesProvider>
-          </MuiProvider>
-        </StyledComponentsProvider>
-      </ApolloProvider>
-    </QueryParamProvider>
+    <StyledComponentsProvider theme={styledComponentsTheme}>
+      <MuiProvider theme={muiTheme}>
+        <StylesProvider injectFirst>
+          <GlobalStyle />
+          {sessionVerified === "true" ? (
+            <Component {...pageProps} />
+          ) : (
+            <AgeGate
+              onVerify={setSessionVerified}
+              sessionVerified={sessionVerified}
+            />
+          )}
+        </StylesProvider>
+      </MuiProvider>
+    </StyledComponentsProvider>
   );
 }
 export const styledComponentsTheme = {
