@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Logo} from "./shared/svg/logo";
+import {Logo} from "components/shared/svg/logo";
 import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google";
 
 interface AgeGateProps {
