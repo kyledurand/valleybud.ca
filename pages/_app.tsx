@@ -6,7 +6,6 @@ import {
   ThemeProvider as StyledComponentsProvider,
 } from "styled-components";
 
-import {QueryParamProvider} from "components/shared/query-param-provider";
 import {
   ThemeProvider as MuiProvider,
   StylesProvider,
@@ -25,23 +24,21 @@ export {ThemeProvider as StyledComponentsProvider} from "styled-components";
 export default function App({Component, pageProps}: AppProps): JSX.Element {
   const [sessionVerified, setSessionVerified] = useSessionStorage("verified");
   return (
-    <QueryParamProvider>
-      <StyledComponentsProvider theme={styledComponentsTheme}>
-        <MuiProvider theme={muiTheme}>
-          <StylesProvider injectFirst>
-            <GlobalStyle />
-            {sessionVerified === "true" ? (
-              <Component {...pageProps} />
-            ) : (
-              <AgeGate
-                onVerify={setSessionVerified}
-                sessionVerified={sessionVerified}
-              />
-            )}
-          </StylesProvider>
-        </MuiProvider>
-      </StyledComponentsProvider>
-    </QueryParamProvider>
+    <StyledComponentsProvider theme={styledComponentsTheme}>
+      <MuiProvider theme={muiTheme}>
+        <StylesProvider injectFirst>
+          <GlobalStyle />
+          {sessionVerified === "true" ? (
+            <Component {...pageProps} />
+          ) : (
+            <AgeGate
+              onVerify={setSessionVerified}
+              sessionVerified={sessionVerified}
+            />
+          )}
+        </StylesProvider>
+      </MuiProvider>
+    </StyledComponentsProvider>
   );
 }
 export const styledComponentsTheme = {
