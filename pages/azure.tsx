@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {useTheme} from "@material-ui/core/styles";
 import {Meta} from "components/Meta";
@@ -6,6 +6,13 @@ import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google";
 import {Logo} from "components/shared/svg/logo";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
+
+const GlobalStyle = createGlobalStyle`
+  #__next {
+    height: 100%;
+    overflow: hidden;
+  }
+`;
 
 export default function Shop() {
   const {breakpoints} = useTheme();
@@ -98,6 +105,7 @@ export default function Shop() {
 
   return (
     <>
+      <GlobalStyle />
       <Meta />
       <LogoContainer>
         <Logo width={breakpointMatches ? 300 : undefined} color="white" />
@@ -105,8 +113,8 @@ export default function Shop() {
 
       <iframe
         ref={iframeRef}
-        scrolling="no"
         width="100%"
+        height="100%"
         frameBorder="0"
         style={{opacity: 1, visibility: "visible"}}
         id="iframe"
