@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {mediaQueriesUp} from "styles/media-queries";
 
 interface LogoProps {
   height?: number;
@@ -8,7 +9,7 @@ interface LogoProps {
 }
 
 export function Logo(props: LogoProps): JSX.Element {
-  const {height = 70, width = 140, color = "var(--brand)", onClick} = props;
+  const {height = 70, color = "var(--brand)", onClick} = props;
 
   return (
     <StyledSvg
@@ -16,7 +17,7 @@ export function Logo(props: LogoProps): JSX.Element {
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
       color={color}
-      style={{maxWidth: width, maxHeight: height, width: "100%"}}
+      style={{maxHeight: height, width: "100%"}}
     >
       <defs>
         <clipPath id="a">
@@ -188,6 +189,12 @@ export function Logo(props: LogoProps): JSX.Element {
 
 const StyledSvg = styled.svg`
   cursor: ${({onClick}) => (onClick ? "pointer" : "auto")};
-  max-width: 100%;
+  max-width: 140px;
   color: ${({color}) => color};
+  align-self: center;
+  justify-self: center;
+
+  @media ${mediaQueriesUp.md} {
+    max-width: 170px;
+  }
 `;
